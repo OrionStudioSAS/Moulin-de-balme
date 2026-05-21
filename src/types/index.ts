@@ -7,17 +7,29 @@ export interface Category {
   created_at: string;
 }
 
+export interface ProductVariation {
+  label: string;
+  price_modifier: number;
+}
+
 export interface Product {
   id: string;
   name: string;
   slug: string;
   description: string | null;
+  subtitle: string | null;
   price: number;
   image_url: string | null;
   category_id: string | null;
-  available_days: string[]; // ['lundi','mardi',...]
+  available_days: string[];
   is_available: boolean;
   is_featured: boolean;
+  badge: "nouveau" | "bestseller" | "exclusif" | null;
+  variations: ProductVariation[];
+  ingredients: string | null;
+  conservation: string | null;
+  savoir_faire: string | null;
+  le_saviez_vous: string | null;
   sort_order: number;
   created_at: string;
   category?: Category;
@@ -61,11 +73,4 @@ export interface Order {
   status: "pending" | "confirmed" | "ready" | "completed" | "cancelled";
   notes: string | null;
   created_at: string;
-}
-
-export interface WeeklySchedule {
-  day: string;
-  label: string;
-  hours: string;
-  closed: boolean;
 }

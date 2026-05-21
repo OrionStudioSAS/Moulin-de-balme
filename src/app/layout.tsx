@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "Le Moulin de Balme® — Boulangerie Artisanale",
@@ -21,10 +19,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="fr">
-      <body className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-1 pt-16">{children}</main>
-        <Footer />
+      <body className="min-h-screen flex flex-col bg-cream text-brown">
+        {children}
       </body>
     </html>
   );

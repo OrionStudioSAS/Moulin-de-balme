@@ -1,22 +1,39 @@
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import type { Product } from "@/types";
 
 const SCHEDULE = [
-  { day: "Lundi", hours: "7h à 19h", note: "Fermeture le lundi?" },
-  { day: "Mardi", hours: "7h à 19h", note: null },
-  { day: "Mercredi", hours: "7h à 19h", note: null },
-  { day: "Jeudi", hours: "7h à 19h", note: null },
-  { day: "Vendredi", hours: "7h à 19h", note: null },
-  { day: "Samedi", hours: "7h à 19h", note: null },
-  { day: "Dimanche", hours: "Fermé", note: null },
+  { day: "Lundi", hours: "7h à 19h" },
+  { day: "Mardi", hours: "7h à 19h" },
+  { day: "Mercredi", hours: "7h à 19h" },
+  { day: "Jeudi", hours: "7h à 19h" },
+  { day: "Vendredi", hours: "7h à 19h" },
+  { day: "Samedi", hours: "7h à 19h" },
+  { day: "Dimanche", hours: "Fermé" },
 ];
 
-const WEEKLY_PRODUCTS = [
-  { day: "Lundi", label: "Miche polaire", tag: "COUP DE CŒUR", image: null },
-  { day: "Mercredi", label: "Pain brioché", tag: "EXCLUSIF DU FOUR", image: null },
-  { day: "Vendredi", label: "Kouig-amann", tag: "SORTIE DU FOUR", image: null },
-];
+const DAY_MAP: Record<string, string> = {
+  lundi: "Lundi", mardi: "Mardi", mercredi: "Mercredi",
+  jeudi: "Jeudi", vendredi: "Vendredi", samedi: "Samedi",
+};
 
-export default function LaSemaine() {
+export default async function LaSemaine() {
+  const supabase = await createClient();
+
+  // Produits spéciaux : disponibles seulement certains jours (pas tous)
+  const { data: specials } = await supabase
+    .from("products")
+    .select("*, category:categories(*)")
+    .eq("is_available", true)
+    .eq("is_featured", true)
+    .order("sort_order")
+    .limit(4);
+
+  // Filtrer ceux qui ne sont pas dispo tous les jours
+  const weekly = (specials ?? []).filter(
+    (p: Product) => p.available_days.length > 0 && p.available_days.length < 7
+  ).slice(0, 3);
+
   return (
     <section id="la-semaine" className="py-20 bg-brown text-cream">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
@@ -55,18 +72,36 @@ export default function LaSemaine() {
             </div>
           </div>
 
-          {/* Weekly specials */}
-          <div className="flex flex-col gap-4">
-            {WEEKLY_PRODUCTS.map((p) => (
-              <div key={p.day} className="flex gap-4">
-                <div className="w-24 h-24 flex-shrink-0 bg-cream/10" />
-                <div className="flex flex-col justify-center">
-                  <p className="text-xs text-gold tracking-widest uppercase mb-1">{p.day}</p>
-                  <p className="text-sm font-medium tracking-wider">{p.label}</p>
-                  <p className="text-xs text-cream/50 tracking-wider mt-1">{p.tag}</p>
-                </div>
-              </div>
-            ))}
+          {/* Weekly specials from DB */}
+          <div className="flex flex-col gap-6 justify-center">
+            {weekly.map((p: Product) => {
+              const days = p.available_days
+                .map((d: string) => DAY_MAP[d] ?? d)
+                .join(", ");
+              return (
+                <Link key={p.id} href={`/produits/${p.slug}`} className="flex gap-4 group">
+                  <div className="w-24 h-24 flex-shrink-0 bg-cream/10 group-hover:bg-cream/15 transition-colors" />
+                  <div className="flex flex-col justify-center">
+                    <p className="text-xs text-gold tracking-widest uppercase mb-1">{days}</p>
+                    <p className="text-sm font-medium tracking-wider group-hover:text-gold transition-colors">
+                      {p.name}
+                    </p>
+                    <p className="text-xs text-cream/50 tracking-wider mt-1 uppercase">
+                      {p.category?.name}
+                    </p>
+                    <p className="text-xs font-bold text-cream/80 mt-1">
+                      {p.price.toFixed(2)} €
+                    </p>
+                  </div>
+                </Link>
+              );
+            })}
+
+            {weekly.length === 0 && (
+              <p className="text-xs text-cream/40 tracking-wider">
+                Retrouvez nos spécialités selon les jours de la semaine.
+              </p>
+            )}
           </div>
         </div>
       </div>
