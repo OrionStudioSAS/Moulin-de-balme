@@ -12,12 +12,21 @@ const FARINE_COLORS = [
 export default async function NosFarines() {
   const supabase = await createClient();
 
-  const { data: farines } = await supabase
-    .from("products")
-    .select("*, category:categories!inner(*)")
-    .eq("is_available", true)
-    .eq("categories.slug", "farines")
-    .order("sort_order");
+  // Récupérer d'abord l'id de la catégorie farines
+  const { data: cat } = await supabase
+    .from("categories")
+    .select("id")
+    .eq("slug", "farines")
+    .single();
+
+  const { data: farines } = cat
+    ? await supabase
+        .from("products")
+        .select("*, category:categories(*)")
+        .eq("is_available", true)
+        .eq("category_id", cat.id)
+        .order("sort_order")
+    : { data: [] };
 
   return (
     <section id="nos-farines" className="py-20 bg-cream">
