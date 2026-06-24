@@ -17,8 +17,8 @@ function CartButton({ scrolled }: { scrolled: boolean }) {
   return (
     <button
       onClick={() => setOpen(true)}
-      className={`text-[11px] tracking-widest uppercase transition-colors ${
-        scrolled ? "text-brown/60 hover:text-brown" : "text-white/80 hover:text-white"
+      className={`text-[11px] tracking-widest uppercase transition-colors font-bold ${
+        scrolled ? "text-black hover:text-black/70" : "text-white/90 hover:text-white"
       }`}
     >
       Mon panier ({count})
@@ -38,30 +38,30 @@ export default function Navbar() {
   }, []);
 
   const textColor = scrolled
-    ? "text-brown/60 hover:text-brown"
-    : "text-white/80 hover:text-white";
+    ? "text-black hover:text-black/70"
+    : "text-white/90 hover:text-white";
 
   return (
     <>
-      {/* Announcement bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-brown/90 text-cream text-center py-2 px-4 flex items-center justify-center gap-4 text-[11px] tracking-wider">
-        <span className="bg-gold/30 text-gold px-2 py-0.5 text-[10px] tracking-widest uppercase font-bold">
+      {/* Announcement bar — statique, disparaît au scroll */}
+      <div className="relative z-10 bg-brown text-white text-center py-2 px-4 flex items-center justify-center gap-4 text-[11px] tracking-wider">
+        <span className="bg-white/20 text-white px-2 py-0.5 text-[10px] tracking-widest uppercase font-bold">
           Nouveau
         </span>
-        <span>Commandez avant 17h — Retrait dès le lendemain 7h</span>
+        <span className="text-white">Commandez avant 17h — Retrait dès le lendemain 7h</span>
         <Link
           href="/click-and-collect"
-          className="font-semibold underline underline-offset-2 hover:text-gold transition-colors whitespace-nowrap"
+          className="font-bold text-white underline underline-offset-2 hover:text-gold transition-colors whitespace-nowrap"
         >
           En savoir plus &rsaquo;
         </Link>
       </div>
 
-      {/* Main header */}
+      {/* Main header — fixe dès le début de la page */}
       <header
-        className={`fixed top-8 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           scrolled
-            ? "bg-cream/98 backdrop-blur-sm border-b border-brown/10 shadow-sm"
+            ? "bg-white shadow-sm border-b border-black/10"
             : "bg-transparent"
         }`}
       >
@@ -85,7 +85,7 @@ export default function Navbar() {
               <Link
                 key={l.label}
                 href={l.href}
-                className={`text-[11px] tracking-widest uppercase transition-colors whitespace-nowrap font-medium ${textColor}`}
+                className={`text-[11px] tracking-widest uppercase transition-colors whitespace-nowrap font-bold ${textColor}`}
               >
                 {l.label}
               </Link>
@@ -94,12 +94,12 @@ export default function Navbar() {
 
           {/* Right */}
           <div className="hidden lg:flex items-center gap-6 ml-auto shrink-0">
-            <span className={`text-[11px] tracking-wider border-r pr-5 transition-colors ${
-              scrolled ? "text-brown/40 border-brown/20" : "text-white/40 border-white/20"
+            <span className={`text-[11px] tracking-wider border-r pr-5 transition-colors font-bold ${
+              scrolled ? "text-black/50 border-black/20" : "text-white/50 border-white/20"
             }`}>
               FR | €
             </span>
-            <button className={`text-[11px] tracking-widest uppercase transition-colors font-medium ${textColor}`}>
+            <button className={`text-[11px] tracking-widest uppercase transition-colors font-bold ${textColor}`}>
               Recherche
             </button>
             <CartButton scrolled={scrolled} />
@@ -113,9 +113,9 @@ export default function Navbar() {
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
             >
-              <div className={`w-5 h-px mb-1.5 transition-colors ${scrolled ? "bg-brown" : "bg-white"}`} />
-              <div className={`w-5 h-px mb-1.5 transition-colors ${scrolled ? "bg-brown" : "bg-white"}`} />
-              <div className={`w-5 h-px transition-colors ${scrolled ? "bg-brown" : "bg-white"}`} />
+              <div className={`w-5 h-px mb-1.5 transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
+              <div className={`w-5 h-px mb-1.5 transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
+              <div className={`w-5 h-px transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
             </button>
           </div>
         </div>
