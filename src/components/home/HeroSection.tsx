@@ -6,7 +6,7 @@ export default function HeroSection() {
   return (
     /* mt-[-64px] : remonte derrière le header sticky (64px)
        h-[calc(100vh-36px)] : retire la barre d'annonce (36px) pour tenir dans le viewport */
-    <section className="relative h-[calc(100vh-36px)] overflow-hidden bg-brown mt-[-64px]">
+    <section className="relative h-[calc(100vh-37px)] overflow-hidden bg-brown mt-[-64px]">
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
@@ -22,7 +22,7 @@ export default function HeroSection() {
       </div>
 
       {/* Main content — bas gauche */}
-      <div className="relative z-10 h-full flex flex-col justify-end pb-[90px]">
+      <div className="relative z-10 h-full flex flex-col justify-end pb-[130px]">
         <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 flex items-end justify-between gap-8">
           {/* Left: title + description */}
           <div className="flex-1 min-w-0">
