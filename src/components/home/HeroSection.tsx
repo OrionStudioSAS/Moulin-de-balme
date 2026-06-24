@@ -32,7 +32,7 @@ export default function HeroSection() {
             <p className="text-sm text-white tracking-[0.15em] uppercase font-medium mb-3">
               Le pain de Brive, réinventé par un voyageur.
             </p>
-            <p className="text-sm text-white leading-relaxed max-w-sm opacity-80">
+            <p className="text-sm text-white leading-relaxed max-w-sm">
               Pains au levain, farines anciennes, croissants venus d&apos;ailleurs. La boulangerie
               de Stéphane et Tomoko Reinat, ouverte de 7h à 18h au 7 avenue Alsace-Lorraine.
             </p>
