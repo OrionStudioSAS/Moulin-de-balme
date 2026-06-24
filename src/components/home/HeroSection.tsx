@@ -4,7 +4,7 @@ import HeroCountdownBar from "./HeroCountdownBar";
 
 export default function HeroSection() {
   return (
-    <section className="relative h-screen overflow-hidden bg-brown">
+    <section className="relative h-screen overflow-hidden bg-brown mt-[-64px]">
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
@@ -15,8 +15,8 @@ export default function HeroSection() {
           priority
           sizes="100vw"
         />
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-brown/80 via-brown/30 to-brown/20" />
+        {/* Overlay noir 0.3 */}
+        <div className="absolute inset-0 bg-black/30" />
       </div>
 
       {/* Main content — bottom-left */}
