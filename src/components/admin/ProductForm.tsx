@@ -172,14 +172,24 @@ export default function ProductForm({
         <div>
           <label className={labelClass}>Nom *</label>
           <input required value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            onChange={(e) => {
+              const name = e.target.value;
+              const slug = name
+                .toLowerCase()
+                .normalize("NFD").replace(/[̀-ͯ]/g, "")
+                .replace(/[^a-z0-9\s-]/g, "")
+                .trim()
+                .replace(/\s+/g, "-");
+              setForm({ ...form, name, slug });
+            }}
             className={inputClass} />
         </div>
         <div>
-          <label className={labelClass}>Slug *</label>
-          <input required value={form.slug}
-            onChange={(e) => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/\s+/g, "-") })}
-            className={inputClass} />
+          <label className={labelClass}>Slug</label>
+          <input value={form.slug}
+            onChange={(e) => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "") })}
+            className={`${inputClass} text-warm-gray`}
+            placeholder="généré automatiquement" />
         </div>
       </div>
 
