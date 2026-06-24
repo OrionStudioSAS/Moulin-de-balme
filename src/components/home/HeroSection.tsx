@@ -1,47 +1,55 @@
 import Link from "next/link";
 import Image from "next/image";
+import HeroCountdownBar from "./HeroCountdownBar";
 
 export default function HeroSection() {
   return (
-    <section className="relative h-[85vh] min-h-[600px] bg-brown overflow-hidden">
-      {/* Background image placeholder */}
-      <div className="absolute inset-0 bg-brown/60 z-10" />
-      <div className="absolute inset-0 bg-[url('/images/hero-boulangerie.jpg')] bg-cover bg-center" />
+    <section className="relative h-screen overflow-hidden bg-brown">
+      {/* Background image */}
+      <div className="absolute inset-0">
+        <Image
+          src="/images/hero-banner.jpg"
+          alt="Stéphane Reinat — Le Moulin de Balme"
+          fill
+          className="object-cover object-center"
+          priority
+          sizes="100vw"
+        />
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-brown/80 via-brown/30 to-brown/20" />
+      </div>
 
-      {/* Content */}
-      <div className="relative z-20 h-full flex flex-col justify-end px-6 md:px-16 pb-16 max-w-7xl mx-auto">
-        <div className="max-w-xl">
-          <p className="label-tag text-cream/70 mb-3">
-            Boulangerie artisanale — Paris
-          </p>
-          <h1 className="text-4xl md:text-6xl font-bold text-cream tracking-widest uppercase leading-tight mb-4">
-            Le Moulin<br />de Balme®
-          </h1>
-          <p className="text-sm text-cream/80 leading-relaxed mb-2 max-w-sm">
-            Pain au levain, tartines macarons, biscuits et saveurs boulangères.
-            La boulangerie de Stephane et Yumiko.
-          </p>
-          <p className="text-xs text-cream/60 mb-8 tracking-wider">
-            Passez commande avant 17h pour un retrait le lendemain 7h en boutique.
-          </p>
+      {/* Main content — bottom-left */}
+      <div className="relative z-10 h-full flex flex-col justify-end pb-[120px] md:pb-[100px]">
+        <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 flex items-end justify-between gap-8">
+          {/* Left: title + description */}
+          <div className="max-w-2xl">
+            <h1 className="text-[clamp(3rem,8vw,7rem)] font-bold text-white tracking-wide uppercase leading-[0.9] mb-5">
+              Le Moulin de Balme®
+            </h1>
+            <p className="text-sm md:text-base text-white/90 tracking-[0.15em] uppercase font-medium mb-3">
+              Le pain de Brive, réinventé par un voyageur.
+            </p>
+            <p className="text-sm text-white/65 leading-relaxed max-w-sm">
+              Pains au levain, farines anciennes, croissants venus d&apos;ailleurs. La boulangerie
+              de Stéphane et Tomoko Reinat, ouverte de 7h à 18h au 7 avenue Alsace-Lorraine.
+            </p>
+          </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Link href="/click-and-collect" className="btn-primary">
-              Click &amp; Collect — Commander
-            </Link>
-            <Link href="/produits" className="btn-outline border-cream text-cream hover:bg-cream hover:text-brown">
-              Voir nos produits
+          {/* Right: all products link */}
+          <div className="shrink-0 pb-1">
+            <Link
+              href="/produits"
+              className="text-white/70 hover:text-white text-[11px] tracking-[0.2em] uppercase transition-colors border-b border-white/30 hover:border-white pb-0.5"
+            >
+              Tous les produits
             </Link>
           </div>
         </div>
-
-        {/* Timer / next order */}
-        <div className="absolute right-6 md:right-16 bottom-16 bg-brown/80 border border-cream/20 px-6 py-4 text-cream text-center">
-          <p className="text-xs tracking-widest uppercase text-cream/60 mb-1">Prochaine commande</p>
-          <p className="text-2xl font-bold tracking-widest" id="hero-timer">17:00:00</p>
-          <p className="text-xs text-cream/60 mt-1 tracking-wider">Délai de commande</p>
-        </div>
       </div>
+
+      {/* Bottom C&C bar */}
+      <HeroCountdownBar />
     </section>
   );
 }
