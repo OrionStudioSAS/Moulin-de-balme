@@ -8,7 +8,7 @@ export default function HeroSection() {
       {/* Background image */}
       <div className="absolute inset-0">
         <Image
-          src="/images/hero-banner.jpg"
+          src="/images/hero-banner.png"
           alt="Stéphane Reinat — Le Moulin de Balme"
           fill
           className="object-cover object-center"
