@@ -18,7 +18,7 @@ function CartButton({ scrolled }: { scrolled: boolean }) {
     <button
       onClick={() => setOpen(true)}
       className={`text-[11px] tracking-widest uppercase transition-colors font-bold ${
-        scrolled ? "text-black hover:text-black/70" : "text-white/90 hover:text-white"
+        scrolled ? "text-black hover:text-black/70" : "text-white hover:text-white/80"
       }`}
     >
       Mon panier ({count})
@@ -31,7 +31,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40);
+    // Se déclenche quand la barre d'annonce a disparu (~36px)
+    const handler = () => setScrolled(window.scrollY > 36);
     handler();
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
@@ -39,27 +40,27 @@ export default function Navbar() {
 
   const textColor = scrolled
     ? "text-black hover:text-black/70"
-    : "text-white/90 hover:text-white";
+    : "text-white hover:text-white/80";
 
   return (
     <>
-      {/* Announcement bar — statique, disparaît au scroll */}
-      <div className="relative z-10 bg-brown text-white text-center py-2 px-4 flex items-center justify-center gap-4 text-[11px] tracking-wider">
+      {/* Announcement bar — statique, scrolle avec la page */}
+      <div className="bg-brown text-white text-center py-2 px-4 flex items-center justify-center gap-4 text-[11px] tracking-wider">
         <span className="bg-white/20 text-white px-2 py-0.5 text-[10px] tracking-widest uppercase font-bold">
           Nouveau
         </span>
         <span className="text-white">Commandez avant 17h — Retrait dès le lendemain 7h</span>
         <Link
           href="/click-and-collect"
-          className="font-bold text-white underline underline-offset-2 hover:text-gold transition-colors whitespace-nowrap"
+          className="font-bold text-white underline underline-offset-2 hover:opacity-80 transition-opacity whitespace-nowrap"
         >
           En savoir plus &rsaquo;
         </Link>
       </div>
 
-      {/* Main header — fixe dès le début de la page */}
+      {/* Header — sticky : transparent en position naturelle, blanc quand collé en haut */}
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`sticky top-0 z-40 transition-all duration-300 ${
           scrolled
             ? "bg-white shadow-sm border-b border-black/10"
             : "bg-transparent"
@@ -68,7 +69,7 @@ export default function Navbar() {
         <div className="max-w-[1400px] mx-auto px-6 h-16 flex items-center gap-8">
           {/* Logo */}
           <Link href="/" className="shrink-0">
-            <div className={`w-16 h-16 relative transition-all duration-300 ${scrolled ? "" : "drop-shadow-sm"}`}>
+            <div className="w-16 h-16 relative">
               <Image
                 src="/images/logo.png"
                 alt="Moulin de Balme"
@@ -95,7 +96,7 @@ export default function Navbar() {
           {/* Right */}
           <div className="hidden lg:flex items-center gap-6 ml-auto shrink-0">
             <span className={`text-[11px] tracking-wider border-r pr-5 transition-colors font-bold ${
-              scrolled ? "text-black/50 border-black/20" : "text-white/50 border-white/20"
+              scrolled ? "text-black/40 border-black/20" : "text-white/40 border-white/30"
             }`}>
               FR | €
             </span>
@@ -122,12 +123,12 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="lg:hidden bg-cream border-t border-brown/10 px-6 py-6 flex flex-col gap-4">
+          <div className="lg:hidden bg-white border-t border-black/10 px-6 py-6 flex flex-col gap-4">
             {NAV_LEFT.map((l) => (
               <Link
                 key={l.label}
                 href={l.href}
-                className="text-xs tracking-widest uppercase text-brown py-1"
+                className="text-xs tracking-widest uppercase text-black font-bold py-1"
                 onClick={() => setMobileOpen(false)}
               >
                 {l.label}
@@ -135,7 +136,7 @@ export default function Navbar() {
             ))}
             <Link
               href="/click-and-collect"
-              className="bg-brown text-cream px-5 py-3 text-xs tracking-widest uppercase text-center mt-3"
+              className="bg-brown text-white px-5 py-3 text-xs tracking-widest uppercase text-center mt-3 font-bold"
               onClick={() => setMobileOpen(false)}
             >
               Click &amp; Collect — Commander
