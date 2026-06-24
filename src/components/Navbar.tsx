@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { useCart } from "@/lib/cart-context";
+import SearchOverlay from "@/components/SearchOverlay";
 
 const NAV_LEFT = [
   { label: "Nos produits", href: "/produits" },
@@ -29,6 +30,7 @@ function CartButton({ scrolled }: { scrolled: boolean }) {
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     // Se déclenche quand la barre d'annonce a disparu (~36px)
@@ -95,12 +97,10 @@ export default function Navbar() {
 
           {/* Right */}
           <div className="hidden lg:flex items-center gap-6 ml-auto shrink-0">
-            <span className={`text-[11px] tracking-wider border-r pr-5 transition-colors font-bold ${
-              scrolled ? "text-black/40 border-black/20" : "text-white/40 border-white/30"
-            }`}>
-              FR | €
-            </span>
-            <button className={`text-[11px] tracking-widest uppercase transition-colors font-bold ${textColor}`}>
+            <button
+              onClick={() => setSearchOpen(true)}
+              className={`text-[11px] tracking-widest uppercase transition-colors font-bold ${textColor}`}
+            >
               Recherche
             </button>
             <CartButton scrolled={scrolled} />
@@ -144,6 +144,7 @@ export default function Navbar() {
           </div>
         )}
       </header>
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </>
   );
 }
