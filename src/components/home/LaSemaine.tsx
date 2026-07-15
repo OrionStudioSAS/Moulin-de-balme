@@ -1,109 +1,85 @@
-import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import type { Product } from "@/types";
 
-const SCHEDULE = [
-  { day: "Lundi", hours: "7h à 19h" },
-  { day: "Mardi", hours: "7h à 19h" },
-  { day: "Mercredi", hours: "7h à 19h" },
-  { day: "Jeudi", hours: "7h à 19h" },
-  { day: "Vendredi", hours: "7h à 19h" },
-  { day: "Samedi", hours: "7h à 19h" },
-  { day: "Dimanche", hours: "Fermé" },
+const DAYS = [
+  { key: "lundi",    label: "Lundi",    hours: "de 7h30 à 18h" },
+  { key: "mardi",    label: "Mardi",    hours: "de 7h30 à 18h" },
+  { key: "mercredi", label: "Mercredi", hours: "de 7h30 à 18h" },
+  { key: "jeudi",    label: "Jeudi",    hours: "de 7h30 à 18h" },
+  { key: "vendredi", label: "Vendredi", hours: "de 7h30 à 18h" },
+  { key: "samedi",   label: "Samedi",   hours: "de 7h30 à 18h" },
 ];
-
-const DAY_MAP: Record<string, string> = {
-  lundi: "Lundi", mardi: "Mardi", mercredi: "Mercredi",
-  jeudi: "Jeudi", vendredi: "Vendredi", samedi: "Samedi",
-};
 
 export default async function LaSemaine() {
   const supabase = await createClient();
 
-  // Produits spéciaux : disponibles seulement certains jours (pas tous)
-  const { data: specials } = await supabase
+  const { data: products } = await supabase
     .from("products")
-    .select("*, category:categories(*)")
-    .eq("is_available", true)
-    .eq("is_featured", true)
-    .order("sort_order")
-    .limit(4);
+    .select("id, available_days")
+    .eq("is_available", true);
 
-  // Filtrer ceux qui ne sont pas dispo tous les jours
-  const weekly = (specials ?? []).filter(
-    (p: Product) => p.available_days.length > 0 && p.available_days.length < 7
-  ).slice(0, 3);
+  // Compter les produits disponibles par jour
+  const countByDay: Record<string, number> = {};
+  (products ?? []).forEach((p: Pick<Product, "id" | "available_days">) => {
+    (p.available_days ?? []).forEach((d: string) => {
+      countByDay[d] = (countByDay[d] ?? 0) + 1;
+    });
+  });
 
   return (
-    <section id="la-semaine" className="py-20 bg-brown text-cream">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          {/* Schedule */}
-          <div>
-            <p className="label-tag text-cream/60 mb-4">La semaine</p>
-            <h2 className="section-title text-cream mb-8">
-              au Moulin de Balme
-            </h2>
+    <section id="la-semaine" className="bg-[#4B3A33]">
+      <div className="grid grid-cols-1 md:grid-cols-2">
 
-            <div className="space-y-0">
-              {SCHEDULE.map((s) => (
-                <div
-                  key={s.day}
-                  className="flex justify-between items-center py-4 border-b border-cream/10"
-                >
-                  <span className="text-sm tracking-widest uppercase text-cream/80">
-                    {s.day}
-                  </span>
+        {/* Gauche — titre + liste des jours */}
+        <div className="px-8 md:px-14 py-16 flex flex-col justify-between">
+          <div>
+            <h2 className="text-[clamp(3rem,6vw,6rem)] font-bold text-white uppercase tracking-tight leading-none mb-2">
+              Cette<br />semaine
+            </h2>
+            <p className="text-[clamp(1.2rem,2.5vw,2.2rem)] font-light text-white tracking-wider mb-8">
+              au Moulin de Balme
+            </p>
+            <p className="text-[11px] text-white leading-relaxed max-w-sm mb-10">
+              Au Fournil de Balme, chaque jour a sa propre carte. Les pains au levain, façonnés
+              à la main, sont là toute la semaine — mais certains spéciaux ne sortent qu&apos;un jour
+              précis. Voici ce qui sort du four cette semaine.
+            </p>
+          </div>
+
+          {/* Liste des jours */}
+          <div className="divide-y divide-white/10">
+            {DAYS.map((day) => {
+              const count = countByDay[day.key] ?? 0;
+              return (
+                <div key={day.key} className="flex items-center justify-between py-4 bg-[#FFF7EF]/5 hover:bg-[#FFF7EF]/10 transition-colors px-2">
                   <div className="flex items-center gap-4">
-                    <span className="text-xs text-cream/50 tracking-wider">
-                      {s.hours}
+                    <span className="text-white text-sm font-medium tracking-wider w-24">
+                      {day.label}
                     </span>
-                    {s.hours !== "Fermé" && (
-                      <Link
-                        href="/click-and-collect"
-                        className="text-xs tracking-widest uppercase border border-cream/30 px-3 py-1 hover:border-gold hover:text-gold transition-colors"
-                      >
-                        Réserver
-                      </Link>
+                    {count > 0 && (
+                      <span className="bg-[#FEF2E4] text-brown text-[9px] font-bold tracking-widest uppercase px-2 py-1">
+                        {count} produit{count > 1 ? "s" : ""}
+                      </span>
                     )}
                   </div>
+                  <span className="text-white text-xs tracking-wider">{day.hours}</span>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Weekly specials from DB */}
-          <div className="flex flex-col gap-6 justify-center">
-            {weekly.map((p: Product) => {
-              const days = p.available_days
-                .map((d: string) => DAY_MAP[d] ?? d)
-                .join(", ");
-              return (
-                <Link key={p.id} href={`/produits/${p.slug}`} className="flex gap-4 group">
-                  <div className="w-24 h-24 flex-shrink-0 bg-cream/10 group-hover:bg-cream/15 transition-colors" />
-                  <div className="flex flex-col justify-center">
-                    <p className="text-xs text-gold tracking-widest uppercase mb-1">{days}</p>
-                    <p className="text-sm font-medium tracking-wider group-hover:text-gold transition-colors">
-                      {p.name}
-                    </p>
-                    <p className="text-xs text-cream/50 tracking-wider mt-1 uppercase">
-                      {p.category?.name}
-                    </p>
-                    <p className="text-xs font-bold text-cream/80 mt-1">
-                      {p.price.toFixed(2)} €
-                    </p>
-                  </div>
-                </Link>
               );
             })}
-
-            {weekly.length === 0 && (
-              <p className="text-xs text-cream/40 tracking-wider">
-                Retrouvez nos spécialités selon les jours de la semaine.
-              </p>
-            )}
           </div>
         </div>
+
+        {/* Droite — image pleine hauteur */}
+        <div className="relative min-h-[400px] md:min-h-0 bg-brown/30">
+          <Image
+            src="/images/semaine-photo.jpg"
+            alt="Au fournil du Moulin de Balme"
+            fill
+            className="object-cover"
+          />
+        </div>
+
       </div>
     </section>
   );

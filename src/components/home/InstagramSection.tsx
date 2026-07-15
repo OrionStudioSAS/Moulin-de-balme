@@ -1,54 +1,69 @@
-export default function InstagramSection() {
-  const placeholders = Array.from({ length: 6 });
+"use client";
 
+const PRESS = [
+  {
+    outlet: "La Montagne",
+    quote:
+      "« De Tokyo à Brive… l'étonnant parcours de Stéphane Reinat, nouvel artisan derrière le Fournil de Balme »",
+  },
+  {
+    outlet: "Brive Magazine",
+    quote:
+      "« Stéphane Reinat et son épouse Tomoko ont repris la boulangerie. Des pains cuits au levain qui font déjà parler d'eux »",
+  },
+  {
+    outlet: "La Dépêche",
+    quote:
+      "« Après le Japon et la Chine, ce boulanger s'installe dans le Lot et participe à la meilleure boulangerie de France »",
+  },
+];
+
+const IG_PLACEHOLDERS = Array.from({ length: 6 });
+
+export default function InstagramSection() {
   return (
-    <section className="py-16 bg-cream">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
-          <div>
-            <p className="label-tag mb-1">Suivez-nous</p>
-            <h3 className="text-xl font-bold tracking-widest uppercase">
-              Instagram @moulindebalme
-            </h3>
-          </div>
+    <section className="bg-cream">
+      {/* Instagram grid */}
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-10">
+        <div className="flex items-end justify-between mb-6">
+          <h2 className="text-[clamp(1.8rem,3vw,2.8rem)] font-bold uppercase tracking-tight text-brown leading-none">
+            Instagram
+          </h2>
           <a
             href="https://instagram.com/moulindebalme"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-outline"
+            className="text-[11px] font-bold tracking-widest uppercase text-brown border-b border-brown pb-0.5 hover:opacity-60 transition-opacity"
           >
-            Voir le profil
+            @moulindebalme
           </a>
         </div>
-
         <div className="grid grid-cols-3 md:grid-cols-6 gap-2">
-          {placeholders.map((_, i) => (
-            <div
+          {IG_PLACEHOLDERS.map((_, i) => (
+            <a
               key={i}
-              className="aspect-square bg-brown/5 hover:bg-brown/10 transition-colors cursor-pointer"
+              href="https://instagram.com/moulindebalme"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="aspect-square bg-brown/10 hover:bg-brown/20 transition-colors block"
             />
           ))}
         </div>
+      </div>
 
-        {/* Newsletter */}
-        <div id="newsletter" className="mt-16 bg-brown text-cream p-8 md:p-12 text-center max-w-xl mx-auto">
-          <p className="label-tag text-cream/60 mb-3">Newsletter</p>
-          <h3 className="text-xl font-bold tracking-widest uppercase mb-2">
-            Restez informé
-          </h3>
-          <p className="text-xs text-cream/60 mb-6 tracking-wider">
-            Nouveautés, sorties du four, événements spéciaux.
-          </p>
-          <form className="flex gap-0">
-            <input
-              type="email"
-              placeholder="Votre email"
-              className="flex-1 bg-cream/10 border border-cream/20 px-4 py-3 text-xs text-cream placeholder-cream/40 focus:outline-none focus:border-gold"
-            />
-            <button type="submit" className="btn-primary bg-gold text-brown hover:bg-gold/90 px-6 py-3 text-xs">
-              S'inscrire
-            </button>
-          </form>
+      {/* Press quotes */}
+      <div className="border-t border-brown/10 py-12 px-6">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          {PRESS.map((p) => (
+            <div key={p.outlet}>
+              <p className="text-xs font-bold tracking-widest uppercase text-brown mb-3">
+                {p.outlet}
+              </p>
+              <p className="text-xs text-brown/50 leading-relaxed italic">
+                {p.quote}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

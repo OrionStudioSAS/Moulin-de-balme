@@ -157,13 +157,23 @@ export default function Footer() {
 
       {/* Shipping ticker */}
       <div className="bg-brown/5 border-b border-brown/10 py-3 overflow-hidden">
-        <div className="flex gap-8 whitespace-nowrap">
-          {SHIPPING_ITEMS.map((item, i) => (
-            <span key={i} className="text-[11px] tracking-widests uppercase text-brown/50 shrink-0">
-              &amp;{item}
+        <div
+          className="flex gap-12 whitespace-nowrap"
+          style={{ animation: "ticker 20s linear infinite" }}
+        >
+          {[...SHIPPING_ITEMS, ...SHIPPING_ITEMS].map((item, i) => (
+            <span key={i} className="text-[11px] tracking-widest uppercase text-brown shrink-0 flex items-center gap-12">
+              <span className="text-brown/30 mr-[-32px]">◆</span>
+              {item}
             </span>
           ))}
         </div>
+        <style>{`
+          @keyframes ticker {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+          }
+        `}</style>
       </div>
 
       {/* Main footer links */}

@@ -1,55 +1,61 @@
 import Link from "next/link";
+import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import type { Category } from "@/types";
 
 export default async function NosProduits() {
   const supabase = await createClient();
-
   const { data: categories } = await supabase
     .from("categories")
     .select("*")
-    .order("sort_order");
+    .order("sort_order")
+    .limit(6);
 
   return (
-    <section className="py-20 bg-cream-dark">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          {/* Left: title */}
+    <section className="bg-cream">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
+
+          {/* Colonne gauche — titre sticky */}
           <div className="md:sticky md:top-24">
-            <p className="label-tag mb-4">Nos produits</p>
-            <h2 className="section-title mb-4">
-              Façonnés à la main,<br />cuits au four
+            <h2 className="text-[clamp(3.5rem,6vw,6.5rem)] font-bold uppercase tracking-tight leading-none text-brown mb-6">
+              Nos<br />produits
             </h2>
-            <p className="text-sm text-warm-gray leading-relaxed mt-3 max-w-sm">
-              Polaris-Mouret le cuite &amp; l'artisan dans son moulin boulanger.
+            <p className="text-sm text-brown leading-relaxed max-w-xs mb-8">
+              Des pains au levain, viennoiseries, pâtisseries boulangères, biscuits et une sélection d&apos;épicerie fine.
             </p>
-            <Link href="/produits" className="btn-outline inline-block mt-6">
+            <Link
+              href="/produits"
+              className="inline-flex items-center border border-brown text-brown text-[10px] font-bold tracking-widest uppercase px-6 py-3 hover:bg-brown hover:text-cream transition-colors"
+            >
               Voir tous les produits
             </Link>
           </div>
 
-          {/* Right: categories grid */}
-          <div className="grid grid-cols-2 gap-4">
-            {(categories ?? []).map((cat: Category, i: number) => {
-              const colors = [
-                "bg-brown/10",
-                "bg-gold/15",
-                "bg-brown/5",
-                "bg-cream",
-                "bg-gold/25",
-              ];
-              return (
-                <Link
-                  key={cat.slug}
-                  href={`/produits?categorie=${cat.slug}`}
-                  className={`group aspect-square ${colors[i % colors.length]} flex items-end p-5 hover:opacity-90 transition-opacity`}
-                >
-                  <span className="text-sm font-medium tracking-wider text-brown group-hover:underline">
-                    {cat.name}
-                  </span>
-                </Link>
-              );
-            })}
+          {/* Colonne droite — grille 2×3 */}
+          <div className="grid grid-cols-2 gap-3">
+            {(categories ?? []).slice(0, 6).map((cat: Category) => (
+              <Link
+                key={cat.slug}
+                href={`/produits?categorie=${cat.slug}`}
+                className="group relative overflow-hidden aspect-[3/4] bg-brown/20"
+              >
+                {cat.image_url ? (
+                  <Image
+                    src={cat.image_url}
+                    alt={cat.name}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-brown/30 to-brown/60" />
+                )}
+                <div className="absolute inset-0 bg-black/25 group-hover:bg-black/35 transition-colors" />
+                <span className="absolute bottom-5 left-5 text-white text-xl font-light tracking-wider capitalize">
+                  {cat.name}
+                </span>
+              </Link>
+            ))}
           </div>
         </div>
       </div>
