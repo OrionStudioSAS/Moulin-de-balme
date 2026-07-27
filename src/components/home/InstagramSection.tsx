@@ -26,7 +26,7 @@ export default function InstagramSection() {
       {/* Instagram grid */}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-16 pb-10">
         <div className="flex items-end justify-between mb-6">
-          <h2 className="text-[clamp(1.8rem,3vw,2.8rem)] font-bold uppercase tracking-tight text-brown leading-none">
+          <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight text-brown leading-none">
             Instagram
           </h2>
           <a

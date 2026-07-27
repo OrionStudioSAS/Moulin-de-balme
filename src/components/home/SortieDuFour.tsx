@@ -21,7 +21,7 @@ export default async function SortieDuFour() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {/* Header */}
         <div className="flex items-start justify-between gap-8 mb-10">
-          <h2 className="text-[clamp(3rem,6vw,6rem)] font-bold uppercase tracking-tight leading-none text-brown shrink-0">
+          <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-brown shrink-0">
             Sortie<br />du four
           </h2>
           <div className="flex flex-col items-end justify-between gap-4 pt-1 flex-1 min-w-0">

@@ -18,7 +18,7 @@ export default async function NosProduits() {
 
           {/* Colonne gauche — titre sticky */}
           <div className="md:sticky md:top-24">
-            <h2 className="text-[clamp(3.5rem,6vw,6.5rem)] font-bold uppercase tracking-tight leading-none text-brown mb-6">
+            <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-brown mb-6">
               Nos<br />produits
             </h2>
             <p className="text-sm text-brown leading-relaxed max-w-xs mb-8">

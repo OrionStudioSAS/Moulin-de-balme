@@ -29,7 +29,7 @@ export default async function NosFarines() {
 
           {/* Colonne gauche étroite */}
           <div className="md:sticky md:top-24">
-            <h2 className="text-[clamp(3rem,5vw,5rem)] font-bold uppercase tracking-tight leading-none text-brown mb-8">
+            <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-brown mb-8">
               Nos<br />farines
             </h2>
             <Link

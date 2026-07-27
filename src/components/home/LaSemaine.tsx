@@ -34,7 +34,7 @@ export default async function LaSemaine() {
         {/* Gauche — titre + liste des jours */}
         <div className="px-8 md:px-14 py-16 flex flex-col justify-between">
           <div>
-            <h2 className="text-[clamp(3rem,6vw,6rem)] font-bold text-white uppercase tracking-tight leading-none mb-2">
+            <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold text-white uppercase tracking-tight leading-none mb-2">
               Cette<br />semaine
             </h2>
             <p className="text-[clamp(1.2rem,2.5vw,2.2rem)] font-light text-white tracking-wider mb-8">
