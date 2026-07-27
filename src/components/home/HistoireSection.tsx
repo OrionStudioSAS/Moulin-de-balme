@@ -8,7 +8,7 @@ export default function HistoireSection() {
         {/* Photo — gauche, pleine hauteur */}
         <div className="relative min-h-[500px] md:min-h-[700px] bg-brown/10 overflow-hidden">
           <Image
-            src="/images/histoire-photo.jpg"
+            src="/images/histoire-photo.png"
             alt="Stéphane et Tomoko Reinat — Le Moulin de Balme"
             fill
             className="object-cover object-center"
