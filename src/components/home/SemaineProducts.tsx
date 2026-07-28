@@ -27,12 +27,12 @@ export default function SemaineProducts({ products }: { products: Product[] }) {
   };
 
   return (
-    <div className="relative h-full">
+    <div className="absolute inset-0">
       {/* Grille scrollable */}
       <div
         ref={scrollRef}
-        className="h-full overflow-y-auto scrollbar-hide"
-        style={{ maxHeight: "inherit" }}
+        onScroll={checkScroll}
+        className="absolute inset-0 overflow-y-auto scrollbar-hide"
       >
         <div className="grid grid-cols-2 gap-px bg-brown/10">
           {products.map((product) => (
