@@ -10,7 +10,7 @@ const NAV_LEFT = [
   { label: "Nos produits", href: "/produits" },
   { label: "La Maison Moulin de Balme®", href: "/#histoire" },
   { label: "La Semaine", href: "/#la-semaine" },
-  { label: "Stéphane Reinat", href: "/#histoire" },
+  { label: "Stéphane Reinat", href: "/stephane-reinat" },
 ];
 
 function CartButton({ scrolled }: { scrolled: boolean }) {
