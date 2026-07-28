@@ -8,7 +8,7 @@ export default function LaMaisonPage() {
     <div className="bg-cream">
 
       {/* ─── 1. HERO ─── */}
-      <section className="relative overflow-hidden mt-[-64px]" style={{ minHeight: "85vh" }}>
+      <section className="relative overflow-hidden mt-[-64px] h-[calc(100vh-37px)]">
         <div className="absolute inset-0">
           <Image
             src="/images/maison-hero.jpg"

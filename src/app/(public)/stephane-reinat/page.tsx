@@ -23,7 +23,7 @@ export default async function StephaneReinatPage() {
     <div className="bg-cream">
 
       {/* ─── 1. HERO — LE BOULANGER ─── */}
-      <section className="relative overflow-hidden bg-brown mt-[-64px]" style={{ minHeight: "80vh" }}>
+      <section className="relative overflow-hidden bg-brown mt-[-64px] h-[calc(100vh-37px)]">
         <div className="absolute inset-0">
           <Image
             src="/images/stephane-hero.jpg"
