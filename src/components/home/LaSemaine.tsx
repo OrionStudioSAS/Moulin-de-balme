@@ -27,7 +27,7 @@ export default async function LaSemaine() {
 
   return (
     <section id="la-semaine" className="bg-[#4B3A33]">
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:h-[680px]">
 
         {/* Gauche — titre + horaires */}
         <div className="px-8 md:px-14 py-14 flex flex-col gap-8">
@@ -71,8 +71,8 @@ export default async function LaSemaine() {
           </div>
         </div>
 
-        {/* Droite — produits scrollables */}
-        <div className="relative bg-cream overflow-hidden">
+        {/* Droite — produits slider */}
+        <div className="relative bg-cream overflow-hidden h-full">
           {items.length === 0 ? (
             <div className="h-full flex items-center justify-center">
               <p className="text-sm text-brown/30 tracking-wider italic">
