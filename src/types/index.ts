@@ -4,6 +4,20 @@ export interface Category {
   slug: string;
   description: string | null;
   image_url: string | null;
+  banner_image_url: string | null;
+  banner_title: string | null;
+  banner_subtitle: string | null;
+  banner_description: string | null;
+  sort_order: number;
+  created_at: string;
+  subcategories?: Subcategory[];
+}
+
+export interface Subcategory {
+  id: string;
+  category_id: string;
+  name: string;
+  slug: string;
   sort_order: number;
   created_at: string;
 }
@@ -31,9 +45,11 @@ export interface Product {
   conservation: string | null;
   savoir_faire: string | null;
   le_saviez_vous: string | null;
+  subcategory_id: string | null;
   sort_order: number;
   created_at: string;
   category?: Category;
+  subcategory?: Subcategory;
 }
 
 export interface Collection {

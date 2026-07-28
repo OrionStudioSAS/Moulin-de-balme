@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
-import type { Product, Category } from "@/types";
+import type { Product, Category, Subcategory } from "@/types";
 
 const DAYS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
 const BADGES = [
@@ -16,9 +16,11 @@ const BADGES = [
 
 export default function ProductForm({
   categories,
+  subcategories,
   product,
 }: {
   categories: Category[];
+  subcategories: Subcategory[];
   product?: Product;
 }) {
   const router = useRouter();
@@ -45,6 +47,7 @@ export default function ProductForm({
     le_saviez_vous: product?.le_saviez_vous ?? "",
     sort_order: product?.sort_order?.toString() ?? "0",
     image_url: product?.image_url ?? "",
+    subcategory_id: product?.subcategory_id ?? "",
   });
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,6 +97,7 @@ export default function ProductForm({
       price: parseFloat(form.price),
       sort_order: parseInt(form.sort_order),
       category_id: form.category_id || null,
+      subcategory_id: form.subcategory_id || null,
       badge: form.badge || null,
     };
 
@@ -230,16 +234,32 @@ export default function ProductForm({
         </div>
       </div>
 
-      <div>
-        <label className={labelClass}>Catégorie</label>
-        <select value={form.category_id}
-          onChange={(e) => setForm({ ...form, category_id: e.target.value })}
-          className={inputClass}>
-          <option value="">— Sans catégorie —</option>
-          {categories.map((cat) => (
-            <option key={cat.id} value={cat.id}>{cat.name}</option>
-          ))}
-        </select>
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className={labelClass}>Catégorie</label>
+          <select value={form.category_id}
+            onChange={(e) => setForm({ ...form, category_id: e.target.value, subcategory_id: "" })}
+            className={inputClass}>
+            <option value="">— Sans catégorie —</option>
+            {categories.map((cat) => (
+              <option key={cat.id} value={cat.id}>{cat.name}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className={labelClass}>Sous-catégorie</label>
+          <select value={form.subcategory_id}
+            onChange={(e) => setForm({ ...form, subcategory_id: e.target.value })}
+            className={inputClass}
+            disabled={!form.category_id}>
+            <option value="">— Aucune —</option>
+            {subcategories
+              .filter((s) => s.category_id === form.category_id)
+              .map((sub) => (
+                <option key={sub.id} value={sub.id}>{sub.name}</option>
+              ))}
+          </select>
+        </div>
       </div>
 
       <div>
