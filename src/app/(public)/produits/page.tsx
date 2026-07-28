@@ -18,7 +18,7 @@ export default async function ProduitsPage({
     { data: products },
     { data: settings },
   ] = await Promise.all([
-    supabase.from("categories").select("*").order("sort_order").lte("sort_order", 6),
+    supabase.from("categories").select("*").order("sort_order"),
     categorie
       ? supabase
           .from("subcategories")
