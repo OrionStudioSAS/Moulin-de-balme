@@ -22,11 +22,12 @@ const FOOTER_COLS = [
   {
     title: "Nos produits",
     links: [
-      { label: "Pains", href: "/produits?categorie=pains" },
-      { label: "Biscuits", href: "/produits?categorie=biscuits" },
+      { label: "Pain", href: "/produits?categorie=pain" },
       { label: "Viennoiseries", href: "/produits?categorie=viennoiseries" },
-      { label: "Pâtisseries boulangères", href: "/produits?categorie=patisseries" },
-      { label: "Farines", href: "/produits?categorie=farines" },
+      { label: "Pâtisseries", href: "/produits?categorie=patisseries" },
+      { label: "Confitures", href: "/produits?categorie=confitures" },
+      { label: "Sel", href: "/produits?categorie=sel" },
+      { label: "Miel", href: "/produits?categorie=miel" },
       { label: "Tous les produits", href: "/produits" },
     ],
   },

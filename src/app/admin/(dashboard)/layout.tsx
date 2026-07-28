@@ -27,6 +27,7 @@ export default async function AdminLayout({
           {[
             { label: "Tableau de bord", href: "/admin" },
             { label: "Produits", href: "/admin/produits" },
+            { label: "Catégories", href: "/admin/categories" },
             { label: "Commandes", href: "/admin/commandes" },
           ].map((l) => (
             <Link
