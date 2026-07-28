@@ -40,6 +40,7 @@ export default function ProductForm({
     available_days: product?.available_days ?? [],
     is_available: product?.is_available ?? true,
     is_featured: product?.is_featured ?? false,
+    is_semaine: product?.is_semaine ?? false,
     badge: product?.badge ?? "",
     ingredients: product?.ingredients ?? "",
     conservation: product?.conservation ?? "",
@@ -309,6 +310,12 @@ export default function ProductForm({
             onChange={(e) => setForm({ ...form, is_featured: e.target.checked })}
             className="w-4 h-4" />
           <span className="text-xs tracking-widest uppercase text-brown">Mis en avant</span>
+        </label>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" checked={form.is_semaine}
+            onChange={(e) => setForm({ ...form, is_semaine: e.target.checked })}
+            className="w-4 h-4" />
+          <span className="text-xs tracking-widest uppercase text-brown">Cette semaine</span>
         </label>
       </div>
 

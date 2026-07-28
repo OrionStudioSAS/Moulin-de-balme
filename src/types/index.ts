@@ -39,6 +39,7 @@ export interface Product {
   available_days: string[];
   is_available: boolean;
   is_featured: boolean;
+  is_semaine: boolean;
   badge: "nouveau" | "bestseller" | "exclusif" | null;
   variations: ProductVariation[];
   ingredients: string | null;
