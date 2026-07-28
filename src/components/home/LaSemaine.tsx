@@ -27,7 +27,7 @@ export default async function LaSemaine() {
 
   return (
     <section id="la-semaine" className="bg-[#4B3A33]">
-      <div className="grid grid-cols-1 md:grid-cols-2 md:h-[680px]">
+      <div className="grid grid-cols-1 md:grid-cols-2">
 
         {/* Gauche — titre + horaires */}
         <div className="px-8 md:px-14 py-14 flex flex-col gap-8">
