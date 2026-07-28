@@ -71,6 +71,36 @@ export interface CollectionProduct {
   product?: Product;
 }
 
+export interface RecipeStep {
+  title: string;
+  chip: string;
+  chip_color: string;
+  description: string;
+}
+
+export interface Recipe {
+  id: string;
+  title: string;
+  slug: string;
+  subtitle: string | null;
+  excerpt: string | null;
+  description: string | null;
+  image_url: string | null;
+  category: string;
+  difficulty: string;
+  total_time: string | null;
+  portions: string | null;
+  ingredients: string[];
+  materiel: string[];
+  steps: RecipeStep[];
+  badge: string | null;
+  tags: string[];
+  is_published: boolean;
+  published_at: string | null;
+  sort_order: number;
+  created_at: string;
+}
+
 export interface OrderItem {
   product_id: string;
   product_name: string;

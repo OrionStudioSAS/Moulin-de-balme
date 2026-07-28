@@ -29,6 +29,7 @@ export default async function AdminLayout({
             { label: "Produits", href: "/admin/produits" },
             { label: "Catégories", href: "/admin/categories" },
             { label: "La Semaine", href: "/admin/la-semaine" },
+            { label: "Recettes", href: "/admin/recettes" },
             { label: "Commandes", href: "/admin/commandes" },
           ].map((l) => (
             <Link
