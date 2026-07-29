@@ -77,7 +77,8 @@ export default function Footer() {
   return (
     <footer>
       {/* Social + Newsletter + Instagram */}
-      <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="bg-cream px-6 md:px-12 pt-12 pb-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto">
         {/* Left — dark */}
         <div className="bg-brown text-cream p-10 md:p-14 flex flex-col gap-10">
           <div>
@@ -138,6 +139,7 @@ export default function Footer() {
             ))}
           </div>
         </div>
+      </div>
       </div>
 
       {/* Press */}

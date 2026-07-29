@@ -10,8 +10,8 @@ const MAP_Q = encodeURIComponent("7 avenue Alsace-Lorraine, Brive-la-Gaillarde, 
 
 export default function ContactSection() {
   return (
-    <section id="contact" className="bg-brown">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-20">
+    <section id="contact" className="bg-cream px-6 md:px-12 py-12">
+      <div className="bg-brown max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
 
           {/* ─── Gauche : titre + contact rows ─── */}
