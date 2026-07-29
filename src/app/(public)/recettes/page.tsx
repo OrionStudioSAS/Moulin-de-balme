@@ -55,10 +55,10 @@ export default async function RecettesPage({
           <h1 className="text-[clamp(2.2rem,5vw,5.5rem)] font-bold text-white uppercase tracking-tight leading-none mb-4">
             Recettes &amp;<br />histoires de pain.
           </h1>
-          <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-white/50 mb-3">
+          <p className="text-sm font-medium tracking-[0.15em] uppercase text-white/60 mb-3">
             Le Moulin de Balme anciennement Le Fournil de Lisa
           </p>
-          <p className="text-sm text-white/60 leading-relaxed max-w-lg">
+          <p className="font-editorial font-light italic text-[1.05rem] text-white/80 leading-relaxed max-w-lg">
             Des recettes transmises avec passion, chacune avec son histoire. Du canelé bordelais
             à la baguette d&apos;auteur — prenez le temps de faire.
           </p>

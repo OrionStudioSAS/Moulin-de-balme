@@ -36,13 +36,13 @@ export default async function StephaneReinatPage() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
         </div>
         <div className="relative z-10 h-full flex flex-col justify-end max-w-[1400px] mx-auto px-6 md:px-12 pb-16 pt-40">
-          <p className="text-[11px] font-bold tracking-[0.25em] uppercase text-white/60 mb-3">
+          <p className="text-sm font-medium tracking-[0.15em] uppercase text-white/60 mb-3">
             Stéphane Reinat un parcours qui sent bon le pain chaud
           </p>
           <h1 className={`${H2} text-white mb-4`}>
             Le<br />Boulanger
           </h1>
-          <p className="text-sm text-white/70 leading-relaxed max-w-xl">
+          <p className="font-editorial font-light italic text-[1.05rem] text-white/80 leading-relaxed max-w-xl">
             De Tokyo à Brive, en passant par Hong Kong et Shanghai. Quinze années à enseigner
             la boulangerie française aux quatre coins du monde — avant de poser ses mains, enfin,
             sur la pâte d&apos;un fournil à lui.
@@ -64,7 +64,7 @@ export default async function StephaneReinatPage() {
           <h2 className={`${H2} text-black mb-4`}>
             Stéphane<br />Reinat
           </h2>
-          <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-black mb-8 leading-relaxed">
+          <p className="text-sm font-medium tracking-[0.15em] uppercase text-black mb-8 leading-relaxed">
             DE TOKYO À BRIVE ... Le retour aux sources d&apos;un globe-trotter
           </p>
           {/* Stats */}
@@ -80,7 +80,7 @@ export default async function StephaneReinatPage() {
               </li>
             ))}
           </ul>
-          <div className="text-sm text-black/70 leading-relaxed max-w-md space-y-4">
+          <div className="font-editorial font-light italic text-[1.05rem] text-black/70 leading-relaxed max-w-md space-y-4">
             <p>
               On parle souvent de Stéphane, parce qu&apos;il est devant le four. Mais le Fournil de
               Balme ne serait pas ce qu&apos;il est sans Tomoko Reinat. Pâtissière de formation, elle
@@ -105,7 +105,7 @@ export default async function StephaneReinatPage() {
           </p>
           <div>
             <h3 className={`${H2} text-brown mb-6`}>L&apos;apprentissage</h3>
-            <p className="text-xs text-brown/70 leading-relaxed max-w-sm">
+            <p className="font-editorial font-light italic text-[1rem] text-brown/70 leading-relaxed max-w-sm">
               Stéphane Reinat n&apos;a pas grandi dans un fournil. Il y est entré par choix, à seize
               ans, au CFA de Versailles, parce qu&apos;il aimait l&apos;idée d&apos;un métier qui se lève avec
               la nuit et qui finit avec l&apos;odeur. Le pain n&apos;était pas une tradition familiale ; il
@@ -134,7 +134,7 @@ export default async function StephaneReinatPage() {
               Le Grand Départ
             </p>
             <h3 className={`${H2} text-white mb-4`}>Tokyo,<br />premier exil</h3>
-            <p className="text-xs text-white/70 leading-relaxed max-w-sm">
+            <p className="font-editorial font-light italic text-[1rem] text-white/75 leading-relaxed max-w-sm">
               En 2009, une opportunité change tout. Le Cordon Bleu Tokyo cherche un formateur
               français pour transmettre le savoir-faire de la boulangerie traditionnelle à des
               élèves japonais. Stéphane n&apos;hésite pas : il embarque pour le Japon avec quelques
@@ -154,7 +154,7 @@ export default async function StephaneReinatPage() {
       <section className="bg-cream grid grid-cols-1 md:grid-cols-2">
         <div className="px-10 md:px-14 py-16 flex flex-col gap-8">
           <h2 className={`${H2} text-black`}>Tomoko<br />Reinat</h2>
-          <p className="text-[11px] font-bold tracking-[0.18em] uppercase text-black leading-relaxed">
+          <p className="text-sm font-medium tracking-[0.15em] uppercase text-black leading-relaxed">
             DE TOKYO À BRIVE ... Le retour aux sources d&apos;un globe-trotter
           </p>
           <ul className="space-y-2">
@@ -169,7 +169,7 @@ export default async function StephaneReinatPage() {
               </li>
             ))}
           </ul>
-          <div className="text-sm text-black/70 leading-relaxed max-w-md space-y-4">
+          <div className="font-editorial font-light italic text-[1.05rem] text-black/70 leading-relaxed max-w-md space-y-4">
             <p>
               On parle souvent de Stéphane, parce qu&apos;il est devant le four. Mais le Fournil de
               Balme ne serait pas ce qu&apos;il est sans Tomoko Reinat. Pâtissière de formation, elle
@@ -225,7 +225,7 @@ export default async function StephaneReinatPage() {
             <h2 className={`${H2} text-white mb-6`}>
               Les Toqués<br />du Japon
             </h2>
-            <p className="text-xs text-white/60 leading-relaxed max-w-sm mb-10">
+            <p className="font-editorial font-light italic text-[1rem] text-white/75 leading-relaxed max-w-sm mb-10">
               M6 lui a consacré un portrait dans ce documentaire culinaire tourné au cœur du
               Japon — un voyage entre deux cultures boulangères, entre tradition française et
               précision nippone. Une rencontre rare, à voir absolument.
@@ -309,7 +309,7 @@ export default async function StephaneReinatPage() {
           <h2 className={`${H2} text-black mb-4`}>
             Apprenez à ses côtés.
           </h2>
-          <p className="text-sm text-black/60 leading-relaxed max-w-xl mb-12">
+          <p className="font-editorial font-light italic text-[1.05rem] text-black/70 leading-relaxed max-w-xl mb-12">
             Stéphane Reinat partage son savoir-faire au travers de deux dispositifs
             complémentaires : des stages en immersion à Saint-Julien et un programme annuel
             à l&apos;École Auriac.

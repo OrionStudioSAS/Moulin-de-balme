@@ -24,10 +24,10 @@ export default function LaMaisonPage() {
           <h1 className={`${H2} text-white mb-3`}>
             Moulin<br />de Balme®
           </h1>
-          <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-white/60 mb-3">
+          <p className="text-sm font-medium tracking-[0.15em] uppercase text-white/60 mb-3">
             Le Moulin de Balme anciennement Le Fournil de Lisa
           </p>
-          <p className="text-sm text-white/70 leading-relaxed max-w-xl">
+          <p className="font-editorial font-light italic text-[1.05rem] text-white/80 leading-relaxed max-w-xl">
             Une boutique au 7 avenue Alsace-Lorraine. Et toute une histoire celle d&apos;un lieu
             qui change de mains sans jamais perdre son âme.
           </p>
@@ -52,11 +52,11 @@ export default function LaMaisonPage() {
             <h2 className={`${H2} text-black mb-3`}>
               Une adresse<br />qui a une<br />histoire
             </h2>
-            <p className="text-[11px] font-bold tracking-[0.2em] uppercase text-brown/60">
+            <p className="text-sm font-medium tracking-[0.15em] uppercase text-brown/60">
               Le 7, avenue Alsace-Lorraine
             </p>
           </div>
-          <div className="text-sm text-black/60 leading-relaxed space-y-4 max-w-md">
+          <div className="font-editorial font-light italic text-[1.05rem] text-black/70 leading-relaxed space-y-4 max-w-md">
             <p>
               Au bas de l&apos;avenue Alsace-Lorraine, à deux pas de la gare de Brive, il y a une
               boulangerie depuis aussi longtemps que les Brivistes s&apos;en souviennent. Une boutique
@@ -99,7 +99,7 @@ export default function LaMaisonPage() {
             <h3 className={`${H2} text-white mb-5`}>
               Hommage<br />au Fournil<br />de Lisa
             </h3>
-            <div className="text-xs text-white/60 leading-relaxed space-y-3 max-w-sm">
+            <div className="font-editorial font-light italic text-[1rem] text-white/75 leading-relaxed space-y-3 max-w-sm">
               <p>
                 Avant d&apos;écrire notre propre histoire, nous tenons à rendre hommage à celle qui
                 nous a précédés. Le Fournil de Lisa a été pendant des années l&apos;un des repères du
@@ -139,7 +139,7 @@ export default function LaMaisonPage() {
             <h3 className={`${H2} text-brown mb-5`}>
               Printemps<br />2025
             </h3>
-            <div className="text-xs text-brown/80 leading-relaxed space-y-3 max-w-sm">
+            <div className="font-editorial font-light italic text-[1rem] text-brown/80 leading-relaxed space-y-3 max-w-sm">
               <p>
                 Au printemps 2024, après une année de fermeture, la boutique du 7 avenue
                 Alsace-Lorraine retrouve la vie. Stéphane et Tomoko Reinat poussent la porte,

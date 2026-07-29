@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
+import { Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-editorial",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Le Moulin de Balme® — Boulangerie Artisanale",
@@ -18,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="fr">
+    <html lang="fr" className={cormorant.variable}>
       <body className="min-h-screen flex flex-col bg-cream text-brown">
         {children}
       </body>

@@ -59,11 +59,11 @@ export default async function RecetteDetailPage({
               {recipe.title}
             </h1>
             {recipe.subtitle && (
-              <p className="text-[11px] text-white/40 tracking-widest uppercase">{recipe.subtitle}</p>
+              <p className="text-sm font-medium tracking-[0.15em] uppercase text-white/60">{recipe.subtitle}</p>
             )}
           </div>
           {recipe.description && (
-            <p className="text-sm text-white/60 leading-relaxed max-w-md">{recipe.description}</p>
+            <p className="font-editorial font-light italic text-[1.05rem] text-white/80 leading-relaxed max-w-md">{recipe.description}</p>
           )}
           {/* Stats */}
           <div className="grid grid-cols-3 gap-4 border-t border-white/10 pt-6">
@@ -165,7 +165,7 @@ export default async function RecetteDetailPage({
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-black/60 leading-relaxed">{step.description}</p>
+                  <p className="font-editorial font-light italic text-[1rem] text-black/70 leading-relaxed">{step.description}</p>
                 </div>
               </div>
             ))}

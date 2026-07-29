@@ -21,8 +21,8 @@ export default async function NosProduits() {
             <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-brown mb-6">
               Nos<br />produits
             </h2>
-            <p className="text-sm text-brown leading-relaxed max-w-xs mb-8">
-              Des pains au levain, viennoiseries, pâtisseries boulangères, biscuits et une sélection d&apos;épicerie fine.
+            <p className="font-editorial font-light italic text-[clamp(1.1rem,1.8vw,1.5rem)] text-brown/80 leading-snug max-w-xs mb-8">
+              Chaque pièce est façonnée à la main, levée plusieurs heures, cuite sur sole. Rien de plus. La farine, l&apos;eau, le sel, le levain et le temps.
             </p>
             <Link
               href="/produits"
