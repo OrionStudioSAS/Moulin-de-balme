@@ -67,7 +67,7 @@ export default async function ProduitsPage({
   return (
     <div className="min-h-screen bg-cream">
       {/* Bannière dynamique */}
-      <div className="relative overflow-hidden h-[calc(100vh-37px)] flex items-end bg-brown mt-[-64px]">
+      <div className="relative overflow-hidden h-[465px] flex items-end bg-brown mt-[-64px]">
         {bannerImage && (
           <Image
             src={bannerImage}

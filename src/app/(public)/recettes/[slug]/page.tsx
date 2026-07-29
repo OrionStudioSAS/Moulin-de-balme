@@ -43,7 +43,7 @@ export default async function RecetteDetailPage({
   return (
     <div className="bg-cream">
       {/* ── HERO ── */}
-      <section className="grid grid-cols-1 md:grid-cols-2 mt-[-64px] min-h-[calc(100vh-37px)]">
+      <section className="grid grid-cols-1 md:grid-cols-2 mt-[-64px] min-h-[465px]">
         {/* Gauche — texte */}
         <div className="bg-[#2A1F1A] flex flex-col justify-center px-10 md:px-14 pt-28 pb-14 gap-6">
           <div className="flex gap-2 flex-wrap">
