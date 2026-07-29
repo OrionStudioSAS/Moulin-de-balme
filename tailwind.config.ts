@@ -10,7 +10,6 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["Helvetica Neue", "Helvetica", "Arial", "sans-serif"],
-        editorial: ["var(--font-editorial)", "Georgia", "serif"],
       },
       colors: {
         cream: "#F5F0E8",

@@ -25,7 +25,7 @@ export default function HistoireSection() {
             De Tokyo à Brive&nbsp;... le retour aux sources d&apos;un globe-trotter
           </p>
 
-          <div className="space-y-5 font-editorial font-light italic text-[1.05rem] text-black/80 leading-relaxed max-w-md mb-12">
+          <div className="space-y-5 text-sm text-black leading-relaxed max-w-md mb-12">
             <p>
               Une réouverture aux allures de retour aux sources pour le boulanger lotois Stéphane
               Reinat, originaire de Saint-Denis-lès-Martel, et un sacré changement de décor pour sa
