@@ -1,46 +1,60 @@
+const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none";
+
+const ROWS = [
+  { label: "Téléphone", value: "+33 5 55 00 00 00", href: "tel:+33555000000" },
+  { label: "Email", value: "contact@moulin-de-balme.fr", href: "mailto:contact@moulin-de-balme.fr" },
+  { label: "Adresse", value: "7 avenue Alsace-Lorraine, 19100 Brive-la-Gaillarde", href: null },
+];
+
+const MAP_KEY = "AIzaSyADPRTkBIVicVI4bqzeUF_8w6g7lxOLYIg";
+const MAP_Q = encodeURIComponent("7 avenue Alsace-Lorraine, Brive-la-Gaillarde, France");
+
 export default function ContactSection() {
   return (
-    <section id="contact" className="py-20 bg-cream-dark">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-          {/* Info */}
-          <div>
-            <p className="label-tag mb-4">Nous contacter</p>
-            <h2 className="section-title mb-8">La Montagne</h2>
+    <section id="contact" className="bg-brown">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
 
-            <div className="space-y-6 text-sm text-warm-gray">
-              <div>
-                <p className="text-xs tracking-widest uppercase text-brown mb-1">Adresse</p>
-                <p>12 Rue de la Boulangerie</p>
-                <p>74120 Megève, France</p>
-              </div>
-              <div>
-                <p className="text-xs tracking-widest uppercase text-brown mb-1">Téléphone</p>
-                <a href="tel:+33450000000" className="hover:text-brown transition-colors">
-                  +33 (0)4 50 00 00 00
-                </a>
-              </div>
-              <div>
-                <p className="text-xs tracking-widests uppercase text-brown mb-1">Email</p>
-                <a href="mailto:contact@moulindebalme.fr" className="hover:text-brown transition-colors">
-                  contact@moulindebalme.fr
-                </a>
-              </div>
-              <div>
-                <p className="text-xs tracking-widests uppercase text-brown mb-2">Horaires</p>
-                <div className="space-y-1">
-                  {["Lundi — Vendredi : 7h → 19h", "Samedi : 7h → 19h", "Dimanche : Fermé"].map((h) => (
-                    <p key={h} className="text-xs tracking-wider">{h}</p>
-                  ))}
+          {/* ─── Gauche : titre + contact rows ─── */}
+          <div>
+            <h2 className={`${H2} text-white mb-14`}>
+              Nous<br />Contacter
+            </h2>
+
+            <div className="divide-y divide-white/10">
+              {ROWS.map(({ label, value, href }) => (
+                <div key={label} className="grid grid-cols-[140px_1fr] gap-4 py-6">
+                  <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/40 pt-0.5">
+                    {label}
+                  </span>
+                  {href ? (
+                    <a
+                      href={href}
+                      className="text-sm text-white/80 hover:text-white transition-colors"
+                    >
+                      {value}
+                    </a>
+                  ) : (
+                    <span className="text-sm text-white/80">{value}</span>
+                  )}
                 </div>
-              </div>
+              ))}
             </div>
           </div>
 
-          {/* Map placeholder */}
-          <div className="aspect-square bg-warm-gray/20 flex items-center justify-center">
-            <p className="text-xs text-warm-gray tracking-wider">Carte Google Maps</p>
+          {/* ─── Droite : Google Maps ─── */}
+          <div className="w-full aspect-[4/3] md:aspect-auto md:h-[420px]">
+            <iframe
+              src={`https://www.google.com/maps/embed/v1/place?key=${MAP_KEY}&q=${MAP_Q}&zoom=15`}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
+
         </div>
       </div>
     </section>
