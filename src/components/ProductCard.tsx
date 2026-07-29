@@ -39,7 +39,7 @@ export default function ProductCard({
           {product.name}
         </p>
         <p className="text-xs text-warm-gray tracking-wider mb-2">
-          {product.poids && <span className="mr-2">{product.poids} —</span>}
+          {product.poids && <span className="mr-2">{product.poids}g —</span>}
           {product.weight_prices?.length > 0
             ? `À partir de ${Math.min(...product.weight_prices.map((w) => w.price)).toFixed(2).replace(".", ",")}€`
             : `${product.price.toFixed(2).replace(".", ",")}€`}

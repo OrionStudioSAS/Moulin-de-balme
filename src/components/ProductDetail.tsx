@@ -100,7 +100,7 @@ export default function ProductDetail({ product, similar }: { product: Product; 
 
             {(product.subtitle || product.poids) && (
               <p className="text-xs tracking-widest uppercase text-warm-gray italic mb-6">
-                {product.poids && <span>{product.poids}{product.subtitle ? " — " : ""}</span>}
+                {product.poids && <span>{product.poids}g{product.subtitle ? " — " : ""}</span>}
                 {product.subtitle}
               </p>
             )}
