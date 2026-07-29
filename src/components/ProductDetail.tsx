@@ -47,7 +47,12 @@ export default function ProductDetail({ product, similar }: { product: Product; 
   const [added, setAdded] = useState(false);
 
   const variations: ProductVariation[] = Array.isArray(product.variations) ? product.variations : [];
-  const currentPrice = product.price + (variations[selectedVariation]?.price_modifier ?? 0);
+  const weightPrices = Array.isArray(product.weight_prices) ? product.weight_prices : [];
+  const [selectedWeightIdx, setSelectedWeightIdx] = useState(0);
+
+  const currentPrice = weightPrices.length > 0
+    ? (weightPrices[selectedWeightIdx]?.price ?? product.price)
+    : product.price + (variations[selectedVariation]?.price_modifier ?? 0);
 
   const toggle = (key: string) => setAccordionOpen(accordionOpen === key ? null : key);
 
@@ -93,8 +98,9 @@ export default function ProductDetail({ product, similar }: { product: Product; 
               </span>
             </div>
 
-            {product.subtitle && (
+            {(product.subtitle || product.poids) && (
               <p className="text-xs tracking-widest uppercase text-warm-gray italic mb-6">
+                {product.poids && <span>{product.poids}{product.subtitle ? " — " : ""}</span>}
                 {product.subtitle}
               </p>
             )}
@@ -106,41 +112,64 @@ export default function ProductDetail({ product, similar }: { product: Product; 
             )}
 
             {/* Selectors */}
-            <div className={`grid gap-4 mb-8 ${variations.length > 0 ? "grid-cols-2" : "grid-cols-1 max-w-[200px]"}`}>
-              {variations.length > 0 && (
-                <div>
-                  <p className="text-[11px] tracking-widest uppercase text-brown mb-2">Taille</p>
-                  <div className="relative">
-                    <select
-                      value={selectedVariation}
-                      onChange={(e) => setSelectedVariation(Number(e.target.value))}
-                      className="w-full border border-brown/30 bg-cream px-3 py-2.5 text-xs text-brown appearance-none pr-8 focus:outline-none focus:border-brown"
-                    >
-                      {variations.map((v, i) => (
-                        <option key={i} value={i}>
-                          {v.label}{v.price_modifier !== 0 ? ` — ${(product.price + v.price_modifier).toFixed(2).replace(".", ",")}€` : ""}
-                        </option>
-                      ))}
-                    </select>
-                    <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brown/40 pointer-events-none">∨</span>
+            {(weightPrices.length > 0 || variations.length > 0 || product.is_tranche) && (
+              <div className={`grid gap-4 mb-8 ${(weightPrices.length > 0 || variations.length > 0) && product.is_tranche ? "grid-cols-2" : "grid-cols-1 max-w-[240px]"}`}>
+                {weightPrices.length > 0 && (
+                  <div>
+                    <p className="text-[11px] tracking-widest uppercase text-brown mb-2">Grammage</p>
+                    <div className="relative">
+                      <select
+                        value={selectedWeightIdx}
+                        onChange={(e) => setSelectedWeightIdx(Number(e.target.value))}
+                        className="w-full border border-brown/30 bg-cream px-3 py-2.5 text-xs text-brown appearance-none pr-8 focus:outline-none focus:border-brown"
+                      >
+                        {weightPrices.map((wp, i) => (
+                          <option key={i} value={i}>
+                            {wp.weight} — {wp.price.toFixed(2).replace(".", ",")}€
+                          </option>
+                        ))}
+                      </select>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brown/40 pointer-events-none">∨</span>
+                    </div>
                   </div>
-                </div>
-              )}
-              <div>
-                <p className="text-[11px] tracking-widest uppercase text-brown mb-2">Tranché</p>
-                <div className="relative">
-                  <select
-                    value={tranche ? "oui" : "non"}
-                    onChange={(e) => setTranche(e.target.value === "oui")}
-                    className="w-full border border-brown/30 bg-cream px-3 py-2.5 text-xs text-brown appearance-none pr-8 focus:outline-none focus:border-brown"
-                  >
-                    <option value="non">Non</option>
-                    <option value="oui">Oui</option>
-                  </select>
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brown/40 pointer-events-none">∨</span>
-                </div>
+                )}
+                {weightPrices.length === 0 && variations.length > 0 && (
+                  <div>
+                    <p className="text-[11px] tracking-widest uppercase text-brown mb-2">Taille</p>
+                    <div className="relative">
+                      <select
+                        value={selectedVariation}
+                        onChange={(e) => setSelectedVariation(Number(e.target.value))}
+                        className="w-full border border-brown/30 bg-cream px-3 py-2.5 text-xs text-brown appearance-none pr-8 focus:outline-none focus:border-brown"
+                      >
+                        {variations.map((v, i) => (
+                          <option key={i} value={i}>
+                            {v.label}{v.price_modifier !== 0 ? ` — ${(product.price + v.price_modifier).toFixed(2).replace(".", ",")}€` : ""}
+                          </option>
+                        ))}
+                      </select>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brown/40 pointer-events-none">∨</span>
+                    </div>
+                  </div>
+                )}
+                {product.is_tranche && (
+                  <div>
+                    <p className="text-[11px] tracking-widest uppercase text-brown mb-2">Tranché</p>
+                    <div className="relative">
+                      <select
+                        value={tranche ? "oui" : "non"}
+                        onChange={(e) => setTranche(e.target.value === "oui")}
+                        className="w-full border border-brown/30 bg-cream px-3 py-2.5 text-xs text-brown appearance-none pr-8 focus:outline-none focus:border-brown"
+                      >
+                        <option value="non">Non</option>
+                        <option value="oui">Oui</option>
+                      </select>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-brown/40 pointer-events-none">∨</span>
+                    </div>
+                  </div>
+                )}
               </div>
-            </div>
+            )}
 
             {/* Accordions */}
             <div className="border-t border-brown/10 mb-8">
