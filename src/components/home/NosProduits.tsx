@@ -22,7 +22,7 @@ export default async function NosProduits() {
               Nos<br />produits
             </h2>
             <p className="text-sm font-medium tracking-[0.15em] uppercase text-brown mb-8">
-              Chaque pièce est façonnée à la main, levée plusieurs heures, cuite sur sole. Rien de plus. La farine, l&apos;eau, le sel, le levain et le temps.
+              Poilâne® nourrit le corps et<br />L&apos;esprit de son art Boulanger
             </p>
             <Link
               href="/produits"
