@@ -6,7 +6,6 @@ const ROWS = [
   { label: "Adresse", value: "7 avenue Alsace-Lorraine, 19100 Brive-la-Gaillarde", href: null },
 ];
 
-const MAP_KEY = "AIzaSyADPRTkBIVicVI4bqzeUF_8w6g7lxOLYIg";
 const MAP_Q = encodeURIComponent("7 avenue Alsace-Lorraine, Brive-la-Gaillarde, France");
 
 export default function ContactSection() {
@@ -45,7 +44,7 @@ export default function ContactSection() {
           {/* ─── Droite : Google Maps ─── */}
           <div className="w-full aspect-[4/3] md:aspect-auto md:h-[420px]">
             <iframe
-              src={`https://www.google.com/maps/embed/v1/place?key=${MAP_KEY}&q=${MAP_Q}&zoom=15`}
+              src={`https://maps.google.com/maps?q=${MAP_Q}&z=15&output=embed`}
               width="100%"
               height="100%"
               style={{ border: 0 }}
