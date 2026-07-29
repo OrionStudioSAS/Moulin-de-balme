@@ -4,7 +4,7 @@ import { useState, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
-import type { Product, Category, Subcategory } from "@/types";
+import type { Product, Category, Subcategory, WeightPrice } from "@/types";
 
 const DAYS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
 const BADGES = [
@@ -49,6 +49,9 @@ export default function ProductForm({
     sort_order: product?.sort_order?.toString() ?? "0",
     image_url: product?.image_url ?? "",
     subcategory_id: product?.subcategory_id ?? "",
+    poids: product?.poids ?? "",
+    is_tranche: product?.is_tranche ?? false,
+    weight_prices: product?.weight_prices ?? [] as WeightPrice[],
   });
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,6 +103,8 @@ export default function ProductForm({
       category_id: form.category_id || null,
       subcategory_id: form.subcategory_id || null,
       badge: form.badge || null,
+      poids: form.poids || null,
+      weight_prices: form.weight_prices,
     };
 
     const { error: err } = product
@@ -220,6 +225,13 @@ export default function ProductForm({
             className={inputClass} />
         </div>
         <div>
+          <label className={labelClass}>Poids / Grammage</label>
+          <input value={form.poids}
+            onChange={(e) => setForm({ ...form, poids: e.target.value })}
+            placeholder="ex : 500g, 1kg"
+            className={inputClass} />
+        </div>
+        <div>
           <label className={labelClass}>Badge</label>
           <select value={form.badge}
             onChange={(e) => setForm({ ...form, badge: e.target.value })}
@@ -227,6 +239,58 @@ export default function ProductForm({
             {BADGES.map((b) => <option key={b.value} value={b.value}>{b.label}</option>)}
           </select>
         </div>
+      </div>
+
+      {/* Prix par poids multiples */}
+      <div className="border border-brown/20 p-4">
+        <div className="flex items-center justify-between mb-3">
+          <p className={labelClass}>Prix par poids (optionnel)</p>
+          <button
+            type="button"
+            onClick={() => setForm((p) => ({ ...p, weight_prices: [...p.weight_prices, { weight: "", price: 0 }] }))}
+            className="text-[10px] tracking-widest uppercase border border-brown/40 text-brown px-3 py-1 hover:bg-brown hover:text-cream transition-colors"
+          >
+            + Ajouter
+          </button>
+        </div>
+        {form.weight_prices.length === 0 && (
+          <p className="text-[11px] text-warm-gray">Aucun — le prix unique ci-dessus s'applique.</p>
+        )}
+        {form.weight_prices.map((wp, i) => (
+          <div key={i} className="flex gap-2 mb-2 items-center">
+            <input
+              placeholder="Poids (ex : 500g)"
+              value={wp.weight}
+              onChange={(e) => {
+                const updated = [...form.weight_prices];
+                updated[i] = { ...updated[i], weight: e.target.value };
+                setForm((p) => ({ ...p, weight_prices: updated }));
+              }}
+              className={`${inputClass} flex-1`}
+            />
+            <input
+              type="number" step="0.01" min="0"
+              placeholder="Prix €"
+              value={wp.price}
+              onChange={(e) => {
+                const updated = [...form.weight_prices];
+                updated[i] = { ...updated[i], price: parseFloat(e.target.value) || 0 };
+                setForm((p) => ({ ...p, weight_prices: updated }));
+              }}
+              className={`${inputClass} w-28`}
+            />
+            <button
+              type="button"
+              onClick={() => setForm((p) => ({ ...p, weight_prices: p.weight_prices.filter((_, j) => j !== i) }))}
+              className="text-red-400 hover:text-red-600 text-lg leading-none px-1"
+            >
+              ×
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Ordre</label>
           <input type="number" value={form.sort_order}
@@ -298,7 +362,7 @@ export default function ProductForm({
         ))}
       </div>
 
-      <div className="flex gap-4 pt-1">
+      <div className="flex flex-wrap gap-4 pt-1">
         <label className="flex items-center gap-2 cursor-pointer">
           <input type="checkbox" checked={form.is_available}
             onChange={(e) => setForm({ ...form, is_available: e.target.checked })}
@@ -316,6 +380,12 @@ export default function ProductForm({
             onChange={(e) => setForm({ ...form, is_semaine: e.target.checked })}
             className="w-4 h-4" />
           <span className="text-xs tracking-widest uppercase text-brown">Cette semaine</span>
+        </label>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" checked={form.is_tranche}
+            onChange={(e) => setForm({ ...form, is_tranche: e.target.checked })}
+            className="w-4 h-4" />
+          <span className="text-xs tracking-widest uppercase text-brown">Tranché disponible</span>
         </label>
       </div>
 

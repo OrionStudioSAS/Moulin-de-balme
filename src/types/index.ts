@@ -27,6 +27,11 @@ export interface ProductVariation {
   price_modifier: number;
 }
 
+export interface WeightPrice {
+  weight: string;
+  price: number;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -48,6 +53,9 @@ export interface Product {
   le_saviez_vous: string | null;
   subcategory_id: string | null;
   sort_order: number;
+  poids: string | null;
+  is_tranche: boolean;
+  weight_prices: WeightPrice[];
   created_at: string;
   category?: Category;
   subcategory?: Subcategory;
