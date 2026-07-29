@@ -5,7 +5,6 @@ import NosProduits from "@/components/home/NosProduits";
 import LaSemaine from "@/components/home/LaSemaine";
 import NosFarines from "@/components/home/NosFarines";
 import ContactSection from "@/components/home/ContactSection";
-import InstagramSection from "@/components/home/InstagramSection";
 
 export default function HomePage() {
   return (
@@ -17,7 +16,6 @@ export default function HomePage() {
       <LaSemaine />
       <NosFarines />
       <ContactSection />
-      <InstagramSection />
     </>
   );
 }

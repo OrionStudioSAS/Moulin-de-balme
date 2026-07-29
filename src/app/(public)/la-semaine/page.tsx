@@ -1,7 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import type { Product } from "@/types";
 import SemaineCalendar from "@/components/semaine/SemaineCalendar";
-import InstagramSection from "@/components/home/InstagramSection";
 
 export default async function LaSemainePage() {
   const supabase = await createClient();
@@ -23,7 +22,6 @@ export default async function LaSemainePage() {
       </div>
 
       {/* Instagram + presse */}
-      <InstagramSection />
     </div>
   );
 }

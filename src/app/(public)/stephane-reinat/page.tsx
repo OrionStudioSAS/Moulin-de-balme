@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import type { Product } from "@/types";
-import InstagramSection from "@/components/home/InstagramSection";
 import SortieDuFourCard from "@/components/home/SortieDuFourCard";
 
 const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none";
@@ -401,7 +400,6 @@ export default async function StephaneReinatPage() {
       </section>
 
       {/* ─── Instagram + Press ─── */}
-      <InstagramSection />
 
     </div>
   );

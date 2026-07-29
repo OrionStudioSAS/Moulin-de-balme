@@ -1,5 +1,4 @@
 import Image from "next/image";
-import InstagramSection from "@/components/home/InstagramSection";
 
 const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none";
 
@@ -163,7 +162,6 @@ export default function LaMaisonPage() {
       </section>
 
       {/* ─── 4. Instagram + Presse ─── */}
-      <InstagramSection />
 
     </div>
   );

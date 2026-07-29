@@ -3,7 +3,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { Recipe } from "@/types";
-import InstagramSection from "@/components/home/InstagramSection";
 
 const CHIP_COLORS: Record<string, string> = {
   green:  "bg-[#4A7C59] text-white",
@@ -225,7 +224,6 @@ export default async function RecetteDetailPage({
         </section>
       )}
 
-      <InstagramSection />
     </div>
   );
 }

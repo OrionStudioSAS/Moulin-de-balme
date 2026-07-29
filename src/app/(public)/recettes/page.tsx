@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import type { Recipe } from "@/types";
-import InstagramSection from "@/components/home/InstagramSection";
 import RecettesFilters from "@/components/recettes/RecettesFilters";
 
 export default async function RecettesPage({
@@ -167,7 +166,6 @@ export default async function RecettesPage({
         </div>
       </section>
 
-      <InstagramSection />
     </div>
   );
 }
