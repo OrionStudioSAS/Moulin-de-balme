@@ -38,7 +38,7 @@ export default function LaMaisonPage() {
         {/* Photo gauche */}
         <div className="relative min-h-[400px] md:min-h-[600px] bg-brown/20">
           <Image
-            src="/images/histoire-photo.png"
+            src="/images/histoire-before-photo.png"
             alt="Le 7, avenue Alsace-Lorraine — archives"
             fill
             className="object-cover object-center grayscale"

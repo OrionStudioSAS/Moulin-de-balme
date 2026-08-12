@@ -16,7 +16,7 @@ export default function HistoireSection() {
         </div>
 
         {/* Texte — droite */}
-        <div className="flex flex-col justify-center px-10 md:px-16 py-16 md:py-20">
+        <div className="flex flex-col justify-center px-6 md:px-12 py-16 md:py-20">
           <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-black mb-5">
             Le Moulin®
           </h2>
