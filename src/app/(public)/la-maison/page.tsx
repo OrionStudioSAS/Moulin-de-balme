@@ -10,7 +10,7 @@ export default function LaMaisonPage() {
       <section className="relative overflow-hidden mt-[-64px] h-[465px]">
         <div className="absolute inset-0">
           <Image
-            src="/images/maison-hero.jpg"
+            src="/images/hero-banner.png"
             alt="Le Moulin de Balme"
             fill
             className="object-cover object-center"

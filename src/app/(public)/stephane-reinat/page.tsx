@@ -25,7 +25,7 @@ export default async function StephaneReinatPage() {
       <section className="relative overflow-hidden bg-brown mt-[-64px] h-[465px]">
         <div className="absolute inset-0">
           <Image
-            src="/images/stephane-hero.jpg"
+            src="/images/hero-banner.png"
             alt="Stéphane Reinat — Le Boulanger"
             fill
             className="object-cover object-center"
