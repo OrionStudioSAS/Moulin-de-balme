@@ -96,7 +96,7 @@ export default function Footer() {
               type="submit"
               className="bg-cream text-brown px-6 text-xs tracking-widests uppercase font-bold hover:bg-gold transition-colors whitespace-nowrap"
             >
-              S'inscrire
+              S&apos;inscrire
             </button>
           </form>
         </div>
