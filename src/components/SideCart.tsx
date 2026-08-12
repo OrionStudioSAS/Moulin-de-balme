@@ -96,7 +96,7 @@ export default function SideCart({ products }: { products: Product[] | null }) {
         {/* Items */}
         <div className="flex-1 overflow-y-auto overscroll-contain px-4 sm:px-6 py-4 space-y-5">
           {items.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
+            <div className="flex flex-col items-center gap-4 py-5 text-center">
               <p className="text-warm-gray text-sm tracking-wider">
                 Votre panier est vide
               </p>
@@ -174,7 +174,7 @@ export default function SideCart({ products }: { products: Product[] | null }) {
               );
             })
           )}
-          {items.length > 0 && <CartRecommendations products={products} />}
+          <CartRecommendations products={products} />
         </div>
 
         {/* Footer */}

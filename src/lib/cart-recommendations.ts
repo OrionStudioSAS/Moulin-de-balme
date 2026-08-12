@@ -3,6 +3,22 @@ import type { Product } from "@/types";
 
 export const MAX_CART_RECOMMENDATIONS = 3;
 
+export function selectRandomAvailableProducts(
+  products: Product[],
+  limit = MAX_CART_RECOMMENDATIONS,
+  random = Math.random,
+) {
+  if (limit <= 0) return [];
+
+  const available = products.filter((product) => product.is_available);
+  for (let index = available.length - 1; index > 0; index -= 1) {
+    const randomIndex = Math.floor(random() * (index + 1));
+    [available[index], available[randomIndex]] = [available[randomIndex], available[index]];
+  }
+
+  return available.slice(0, limit);
+}
+
 function compareProducts(a: Product, b: Product) {
   return (
     a.sort_order - b.sort_order ||

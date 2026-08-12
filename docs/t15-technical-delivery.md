@@ -23,6 +23,7 @@
 ## Périmètre livré
 
 - maximum trois recommandations, exclusion du panier et des indisponibles ;
+- lorsque le panier est vide, tirage aléatoire de trois produits disponibles, stable pendant le rendu courant ;
 - priorité de catégorie et fallback stable ;
 - recalcul à chaque mutation des lignes du panier ;
 - image ou fallback, nom, poids/prix existants et action accessible ;
@@ -44,7 +45,7 @@ Hors périmètre respecté : T03, Figma, profilage/historique, migration/RLS, do
 | `npm ci` | code 0 ; 405 packages installés depuis le lockfile. |
 | `npm run lint` | code 0 ; aucun avertissement ni erreur ESLint. |
 | `npm run typecheck` | code 0. |
-| `npm run test:e2e:chromium` | code 0 ; 22 tests réussis, 2 ignorés par conception, dont 7 exécutions T15 réussies sur desktop/mobile. |
+| `npm run test:e2e:chromium` | code 0 ; 24 tests réussis, 2 ignorés par conception, dont 9 exécutions T15 réussies sur desktop/mobile. |
 
 `npm ci` signale 10 vulnérabilités dans l'arbre verrouillé existant (2 faibles, 8 élevées). Aucun `npm audit fix` n'a été appliqué car cela sortirait du périmètre et pourrait modifier les dépendances.
 

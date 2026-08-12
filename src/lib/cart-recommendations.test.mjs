@@ -4,6 +4,7 @@ import {
   MAX_CART_RECOMMENDATIONS,
   requiresProductSelection,
   selectCartRecommendations,
+  selectRandomAvailableProducts,
 } from "./cart-recommendations.ts";
 
 function product(id, categoryId, sortOrder, overrides = {}) {
@@ -19,6 +20,22 @@ function product(id, categoryId, sortOrder, overrides = {}) {
     ...overrides,
   };
 }
+
+test("selects at most three random available products for an empty cart", () => {
+  const catalogue = [
+    product("a", "bread", 1),
+    product("unavailable", "bread", 2, { is_available: false }),
+    product("b", "bread", 3),
+    product("c", "bread", 4),
+    product("d", "bread", 5),
+  ];
+
+  const result = selectRandomAvailableProducts(catalogue, 3, () => 0);
+
+  assert.equal(result.length, 3);
+  assert.equal(result.some(({ id }) => id === "unavailable"), false);
+  assert.equal(new Set(result.map(({ id }) => id)).size, 3);
+});
 
 test("limits recommendations to three and excludes cart and unavailable products", () => {
   const inCart = product("cart", "bread", 0);

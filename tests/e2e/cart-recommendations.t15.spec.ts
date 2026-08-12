@@ -44,6 +44,17 @@ async function openSeededCart(page: Page) {
 }
 
 test.describe("T15 — recommandations du panier", () => {
+  test("propose trois produits disponibles lorsque le panier est vide", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("button", { name: /Mon panier \(0\)/ }).click();
+    const dialog = page.getByRole("dialog", { name: "Mon panier" });
+    const section = dialog.getByRole("region", { name: "Ces produits pourraient vous plaire" });
+
+    await expect(dialog.getByText("Votre panier est vide")).toBeVisible();
+    await expect(section.getByRole("listitem")).toHaveCount(3);
+    await expect(section.getByRole("button", { name: /^Ajouter / })).toHaveCount(3);
+  });
+
   test("affiche au plus trois suggestions et exclut le produit présent", async ({ page }) => {
     await openSeededCart(page);
     const section = page.getByRole("region", { name: "Ces produits pourraient vous plaire" });

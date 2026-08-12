@@ -7,6 +7,7 @@ import { useCart } from "@/lib/cart-context";
 import {
   requiresProductSelection,
   selectCartRecommendations,
+  selectRandomAvailableProducts,
 } from "@/lib/cart-recommendations";
 import type { Product } from "@/types";
 
@@ -25,12 +26,16 @@ export default function CartRecommendations({ products }: { products: Product[] 
   const [addingId, setAddingId] = useState<string | null>(null);
   const [message, setMessage] = useState("");
   const addingRef = useRef(new Set<string>());
-  const recommendations = useMemo(
-    () => selectCartRecommendations(products ?? [], items),
-    [items, products],
+  const emptyCartRecommendations = useMemo(
+    () => selectRandomAvailableProducts(products ?? []),
+    [products],
   );
-
-  if (items.length === 0) return null;
+  const recommendations = useMemo(
+    () => items.length === 0
+      ? emptyCartRecommendations
+      : selectCartRecommendations(products ?? [], items),
+    [emptyCartRecommendations, items, products],
+  );
 
   const handleAdd = (product: Product) => {
     if (addingRef.current.has(product.id)) return;
