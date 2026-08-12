@@ -72,74 +72,34 @@ const SHIPPING_ITEMS = [
 ];
 
 export default function Footer() {
-  const igPlaceholders = Array.from({ length: 6 });
 
   return (
     <footer>
-      {/* Social + Newsletter + Instagram */}
+      {/* Newsletter */}
       <div className="bg-cream px-6 md:px-12 py-6 md:py-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto">
-        {/* Left — dark */}
-        <div className="bg-brown text-cream p-10 md:p-14 flex flex-col gap-10">
-          <div>
-            <p className="text-xs font-bold tracking-widests uppercase text-cream mb-4">
-              Suivez-nous
-            </p>
-            <div className="flex gap-4">
-              {["f", "IG", "TK", "in"].map((icon) => (
-                <a
-                  key={icon}
-                  href="#"
-                  className="w-9 h-9 border border-cream/20 flex items-center justify-center text-[11px] text-cream/60 hover:border-gold hover:text-gold transition-colors"
-                >
-                  {icon}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <p className="text-2xl font-bold tracking-widests uppercase mb-2">
+        <div className="bg-brown max-w-[1400px] mx-auto p-10 md:p-14 flex flex-col md:flex-row gap-10 md:gap-20 items-start md:items-center">
+          <div className="flex-1">
+            <p className="text-2xl font-bold tracking-widests uppercase text-cream mb-2">
               Newsletter
             </p>
-            <p className="text-xs text-cream/50 leading-relaxed mb-5 max-w-xs">
-              Pour ne pas en perdre une miette !<br />
-              Recevez nos nouvelles recettes exclusives, offres alléchantes et toutes les dernières actualités directement dans votre boîte email !
+            <p className="text-xs text-cream/50 leading-relaxed max-w-sm">
+              Pour ne pas en perdre une miette ! Recevez nos nouvelles recettes exclusives, offres alléchantes et toutes les dernières actualités directement dans votre boîte email.
             </p>
-            <form className="flex gap-0">
-              <input
-                type="email"
-                placeholder="E-mail"
-                className="flex-1 bg-cream/10 border border-cream/20 px-4 py-3 text-xs text-cream placeholder-cream/30 focus:outline-none focus:border-gold"
-              />
-              <button
-                type="submit"
-                className="bg-cream text-brown px-5 text-xs tracking-widests uppercase font-bold hover:bg-gold transition-colors"
-              >
-                OK
-              </button>
-            </form>
           </div>
+          <form className="flex gap-0 w-full md:max-w-sm">
+            <input
+              type="email"
+              placeholder="Votre e-mail"
+              className="flex-1 bg-cream/10 border border-cream/20 px-4 py-3 text-xs text-cream placeholder-cream/30 focus:outline-none focus:border-gold"
+            />
+            <button
+              type="submit"
+              className="bg-cream text-brown px-6 text-xs tracking-widests uppercase font-bold hover:bg-gold transition-colors whitespace-nowrap"
+            >
+              S'inscrire
+            </button>
+          </form>
         </div>
-
-        {/* Right — Instagram */}
-        <div className="bg-cream-dark p-10 md:p-14">
-          <p className="text-xs font-bold tracking-widests uppercase text-brown mb-6">
-            Instagram @moulindebalme
-          </p>
-          <div className="grid grid-cols-3 gap-2">
-            {igPlaceholders.map((_, i) => (
-              <a
-                key={i}
-                href="https://instagram.com/moulindebalme"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="aspect-square bg-brown/10 hover:bg-brown/15 transition-colors block"
-              />
-            ))}
-          </div>
-        </div>
-      </div>
       </div>
 
       {/* Press */}
