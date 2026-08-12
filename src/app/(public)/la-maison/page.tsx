@@ -34,7 +34,8 @@ export default function LaMaisonPage() {
       </section>
 
       {/* ─── 2. UNE ADRESSE QUI A UNE HISTOIRE ─── */}
-      <section className="grid grid-cols-1 md:grid-cols-2">
+      <section className="bg-cream px-6 md:px-12 py-6 md:py-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto overflow-hidden bg-white">
         {/* Photo gauche */}
         <div className="relative min-h-[400px] md:min-h-[600px] bg-brown/20">
           <Image
@@ -46,7 +47,7 @@ export default function LaMaisonPage() {
         </div>
 
         {/* Texte droite */}
-        <div className="px-10 md:px-16 py-16 flex flex-col justify-center gap-6">
+        <div className="px-6 md:px-12 py-16 flex flex-col justify-center gap-6">
           <div>
             <h2 className={`${H2} text-black mb-3`}>
               Une adresse<br />qui a une<br />histoire
@@ -74,10 +75,12 @@ export default function LaMaisonPage() {
             </p>
           </div>
         </div>
+      </div>
       </section>
 
       {/* ─── 3. DEUX CARTES — L'HÉRITAGE / LA RENAISSANCE ─── */}
-      <section className="grid grid-cols-1 md:grid-cols-2">
+      <section className="bg-cream px-6 md:px-12 pb-6 md:pb-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto overflow-hidden">
 
         {/* L'HÉRITAGE DE LISA — carte sombre */}
         <div className="relative overflow-hidden bg-[#1A1410] min-h-[560px] flex flex-col">
@@ -159,6 +162,7 @@ export default function LaMaisonPage() {
           </div>
         </div>
 
+      </div>
       </section>
 
       {/* ─── 4. Instagram + Presse ─── */}
