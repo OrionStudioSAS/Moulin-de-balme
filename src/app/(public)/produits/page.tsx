@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
+import FlourClassificationGuide from "@/components/FlourClassificationGuide";
 import type { Product, Category, Subcategory } from "@/types";
 import { Fragment } from "react";
 
@@ -264,6 +265,7 @@ export default async function ProduitsPage({
           </div>
         )}
       </div>
+      {isFlourCategory && <FlourClassificationGuide />}
     </div>
   );
 }
