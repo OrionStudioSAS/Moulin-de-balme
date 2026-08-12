@@ -3,8 +3,8 @@ import Image from "next/image";
 
 export default function HistoireSection() {
   return (
-    <section id="histoire" className="bg-white">
-      <div className="grid grid-cols-1 md:grid-cols-2">
+    <section id="histoire" className="bg-cream px-6 md:px-12 py-6 md:py-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto overflow-hidden bg-white">
         {/* Photo — gauche, pleine hauteur */}
         <div className="relative min-h-[500px] md:min-h-[700px] bg-brown/10 overflow-hidden">
           <Image
