@@ -171,7 +171,7 @@ export default function ProductForm({
                 onClick={() => { setForm((p) => ({ ...p, image_url: "" })); setImagePreview(null); }}
                 className="text-[11px] text-red-500 hover:text-red-700 mt-1 tracking-wider"
               >
-                Supprimer l'image
+                Supprimer l&apos;image
               </button>
             )}
           </div>
@@ -254,7 +254,7 @@ export default function ProductForm({
           </button>
         </div>
         {form.weight_prices.length === 0 && (
-          <p className="text-[11px] text-warm-gray">Aucun — le prix unique ci-dessus s'applique.</p>
+          <p className="text-[11px] text-warm-gray">Aucun — le prix unique ci-dessus s&apos;applique.</p>
         )}
         {form.weight_prices.map((wp, i) => (
           <div key={i} className="flex gap-2 mb-2 items-center">
