@@ -17,6 +17,7 @@ interface CartContext {
   count: number;
   total: number;
   open: boolean;
+  hydrated: boolean;
   setOpen: (v: boolean) => void;
   addItem: (product: Product, variationIndex?: number, tranche?: boolean) => void;
   removeItem: (id: string) => void;
@@ -88,7 +89,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const total = items.reduce((s, i) => s + i.unitPrice * i.quantity, 0);
 
   return (
-    <CartCtx.Provider value={{ items, count, total, open, setOpen, addItem, removeItem, updateQty, clear }}>
+    <CartCtx.Provider value={{ items, count, total, open, hydrated, setOpen, addItem, removeItem, updateQty, clear }}>
       {children}
     </CartCtx.Provider>
   );
