@@ -47,7 +47,7 @@ Hors périmètre respecté : T03, Figma, profilage/historique, migration/RLS, do
 
 ## Recette E2E à transmettre à Baptiste
 
-Version : commit de cette PR (à reporter après commit). Preview : `non disponible`.
+Version initiale : commit `5e715e4`. Preview : `non disponible`.
 
 Pour chacun des viewports `390×844`, `768×1024` et `1440×900` :
 
