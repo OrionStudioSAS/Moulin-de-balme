@@ -1,0 +1,65 @@
+name: Notifier Google Chat des pull requests
+
+on:
+  pull_request:
+    types: [opened, reopened, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  notify:
+    name: Envoyer la notification au Space projet
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Construire le message
+        env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          node <<'NODE'
+          const fs = require('fs');
+
+          const text = [
+            `✅ *Mission terminée — PR #${process.env.PR_NUMBER}*`,
+            `*${process.env.PR_TITLE}*`,
+            `Branche : \`${process.env.PR_BRANCH}\``,
+            `Agent / auteur : ${process.env.PR_AUTHOR}`,
+            '',
+            '*Actions requises*',
+            '> Julien : contrôler le produit, le contenu et le rendu visuel si concernés.',
+            '> Théo : contrôler l’architecture, la sécurité, les tests et autoriser le merge.',
+            '',
+            `🔗 ${process.env.PR_URL}`,
+            '',
+            '_Les validations et le merge restent dans GitHub._',
+          ].join('\n');
+
+          fs.writeFileSync('google-chat-message.json', JSON.stringify({ text }));
+          NODE
+
+      - name: Envoyer au Space MOULIN DE BALME
+        env:
+          GOOGLE_CHAT_WEBHOOK: ${{ secrets.GOOGLE_CHAT_WEBHOOK }}
+        run: |
+          if [ -z "$GOOGLE_CHAT_WEBHOOK" ]; then
+            echo "Le secret GOOGLE_CHAT_WEBHOOK est absent."
+            exit 1
+          fi
+
+          curl --fail-with-body \
+            --silent \
+            --show-error \
+            --retry 3 \
+            --retry-all-errors \
+            --header 'Content-Type: application/json; charset=UTF-8' \
+            --data-binary @google-chat-message.json \
+            "$GOOGLE_CHAT_WEBHOOK"
+
