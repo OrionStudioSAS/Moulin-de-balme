@@ -26,8 +26,8 @@ export default async function LaSemaine() {
   const total = items.length;
 
   return (
-    <section id="la-semaine" className="bg-[#4B3A33]">
-      <div className="grid grid-cols-1 md:grid-cols-2">
+    <section id="la-semaine" className="bg-cream px-6 md:px-12 py-6 md:py-12">
+      <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto bg-[#4B3A33]">
 
         {/* Gauche — titre + horaires */}
         <div className="px-8 md:px-14 py-14 flex flex-col gap-8">

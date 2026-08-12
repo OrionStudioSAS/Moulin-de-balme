@@ -12,8 +12,8 @@ export default async function NosProduits() {
     .limit(6);
 
   return (
-    <section className="bg-cream">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-16">
+    <section className="bg-cream px-6 md:px-12 py-6 md:py-12">
+      <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
 
           {/* Colonne gauche — titre sticky */}

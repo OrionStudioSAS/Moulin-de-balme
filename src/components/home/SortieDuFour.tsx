@@ -17,8 +17,8 @@ export default async function SortieDuFour() {
   const items = products ?? [];
 
   return (
-    <section className="py-16 bg-cream">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+    <section className="bg-cream px-6 md:px-12 py-6 md:py-12">
+      <div className="max-w-[1400px] mx-auto">
         {/* Header */}
         <div className="flex items-start justify-between gap-8 mb-10">
           <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-brown shrink-0">

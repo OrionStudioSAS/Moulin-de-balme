@@ -23,8 +23,8 @@ export default async function NosFarines() {
     : { data: [] };
 
   return (
-    <section id="nos-farines" className="bg-cream py-16">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+    <section id="nos-farines" className="bg-cream px-6 md:px-12 py-6 md:py-12">
+      <div className="max-w-[1400px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-10 items-start">
 
           {/* Colonne gauche étroite */}
