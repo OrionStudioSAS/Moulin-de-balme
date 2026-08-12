@@ -11,11 +11,14 @@ export default function FlourClassificationGuide() {
       data-content-version={content.version}
       data-testid="flour-classification-guide"
     >
-      <div className="mx-auto max-w-[1440px] px-4 py-12 md:px-6 md:py-16 lg:px-[34px] lg:py-20">
-        <div className="max-w-4xl">
+      <div
+        className="mx-auto max-w-[1120px] px-4 py-12 md:px-6 md:py-16 lg:px-[34px] lg:py-20 min-[1188px]:px-0"
+        data-testid="flour-classification-content"
+      >
+        <div className="max-w-[820px]">
           <h2
             id="flour-classification-heading"
-            className="text-[32px] font-bold uppercase leading-none tracking-[0.016em] text-brown md:text-[44px] lg:text-[52px]"
+            className="text-[32px] font-normal leading-[1.05] tracking-normal text-brown md:text-[44px] lg:text-[60px]"
           >
             {content.heading}
           </h2>
@@ -34,7 +37,7 @@ export default function FlourClassificationGuide() {
           {content.cards.map((card) => (
             <li
               key={card.type}
-              className="flex min-w-0 flex-col border border-brown/20 bg-cream p-5 text-brown md:p-6"
+              className="flex min-w-0 flex-col border border-brown/10 bg-cream p-5 text-brown even:bg-cream-dark md:p-6"
               data-flour-type={card.type}
             >
               <h3 className="text-3xl font-bold uppercase leading-none tracking-[0.016em]">

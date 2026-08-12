@@ -169,6 +169,41 @@ test.describe("T17 — guide prudent de classification des farines", () => {
     expect(focus.outlineWidth).toBe("2px");
   });
 
+  test("transpose les règles visuelles Figma approuvées avec les tokens Piste A", async ({
+    page,
+  }) => {
+    const content = page.getByTestId("flour-classification-content");
+    const contentBox = await content.boundingBox();
+    const heading = page.getByRole("heading", {
+      level: 2,
+      name: "Comprendre les types de farine",
+    });
+    const headingStyle = await heading.evaluate((element) => {
+      const style = window.getComputedStyle(element);
+      return {
+        fontFamily: style.fontFamily,
+        fontSize: style.fontSize,
+        fontWeight: style.fontWeight,
+        textTransform: style.textTransform,
+      };
+    });
+    const cardBackgrounds = await page
+      .getByTestId("flour-classification-grid")
+      .locator("[data-flour-type]")
+      .evaluateAll((cards) =>
+        cards.map((card) => window.getComputedStyle(card).backgroundColor),
+      );
+
+    expect(contentBox?.width).toBe(1120);
+    expect(headingStyle.fontFamily).toContain("Helvetica Neue");
+    expect(headingStyle.fontSize).toBe("60px");
+    expect(headingStyle.fontWeight).toBe("400");
+    expect(headingStyle.textTransform).toBe("none");
+    expect(cardBackgrounds[0]).toBe(cardBackgrounds[2]);
+    expect(cardBackgrounds[1]).toBe(cardBackgrounds[3]);
+    expect(cardBackgrounds[0]).not.toBe(cardBackgrounds[1]);
+  });
+
   for (const target of [
     { name: "desktop", width: 1440, height: 900, columns: 4 },
     { name: "tablette", width: 768, height: 1024, columns: 2 },

@@ -45,3 +45,21 @@ copie exacte, les exclusions éditoriales, l'isolation Farines et le reflow
 - confirmer l'isolation de rendu, l'accessibilité et la couverture de test ;
 - interdire la fusion/publication tant que les validations Julien et Baptiste ne
   sont pas consignées.
+
+## Assimilation visuelle Figma autorisée par Julien
+
+Après lecture du nœud Figma `197:15`, Julien a donné son accord dans le canal de
+mission pour les ajustements visuels suivants, appliqués uniquement au guide
+Farines :
+
+- resserrer à `1120px` le conteneur éditorial desktop, tout en conservant le
+  reflow contractuel `4 / 2 / 1` ;
+- rendre le titre en casse phrase, Helvetica Regular, jusqu'à `60px`, sans
+  introduire Inter ;
+- alterner légèrement les surfaces des cartes avec les tokens Piste A `cream` et
+  `cream-dark`.
+
+Cette validation ne rend pas publiables les contenus de démonstration du Figma.
+Les types, usages, plages, sources, allégations, pastilles et barres progressives
+du nœud restent exclus. La validation technique de Théo et la recette finale de
+Baptiste restent requises avant fusion ou publication.
