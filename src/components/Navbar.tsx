@@ -10,6 +10,7 @@ const NAV_LEFT = [
   { label: "Nos produits", href: "/produits" },
   { label: "La Maison Moulin de Balme®", href: "/la-maison" },
   { label: "La Semaine", href: "/la-semaine" },
+  { label: "Nos recettes", href: "/recettes" },
   { label: "Stéphane Reinat", href: "/stephane-reinat" },
 ];
 
