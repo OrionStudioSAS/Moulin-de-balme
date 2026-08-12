@@ -17,6 +17,7 @@ export default function SideCart({ products }: { products: Product[] | null }) {
   // Lock scroll when open
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
+    panelRef.current?.toggleAttribute("inert", !open);
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
@@ -71,7 +72,6 @@ export default function SideCart({ products }: { products: Product[] | null }) {
         aria-modal="true"
         aria-labelledby="side-cart-title"
         aria-hidden={!open}
-        inert={!open}
       >
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-5 border-b border-brown/10">

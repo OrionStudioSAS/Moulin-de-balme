@@ -57,17 +57,20 @@ test.describe("T15 — recommandations du panier", () => {
   test("ajoute une suggestion, recalcule le total et garde le tiroir ouvert", async ({ page, request }) => {
     await openSeededCart(page);
     const dialog = page.getByRole("dialog", { name: "Mon panier" });
-    await expect(dialog.getByText("5,00 €")).toBeVisible();
+    const total = dialog.getByText("Total", { exact: true }).locator("..");
+    await expect(total.getByText("5,00 €")).toBeVisible();
 
     await dialog.getByRole("button", { name: "Ajouter Pain aux noix au panier" }).click();
 
     await expect(page.getByRole("button", { name: /Mon panier \(2\)/ })).toBeVisible();
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByText("11,00 €")).toBeVisible();
+    await expect(total.getByText("11,00 €")).toBeVisible();
     await expect(dialog.getByText("Pain aux noix a été ajouté au panier.")).toBeVisible();
-    await expect(
-      dialog.getByRole("region", { name: "Ces produits pourraient vous plaire" }),
-    ).not.toContainText("Pain aux noix");
+    const recommendationItems = dialog
+      .getByRole("region", { name: "Ces produits pourraient vous plaire" })
+      .getByRole("listitem");
+    await expect(recommendationItems).toHaveCount(3);
+    await expect(recommendationItems.filter({ hasText: "Pain aux noix" })).toHaveCount(0);
 
     const audit = await request.get("http://127.0.0.1:54321/requests");
     expect(await audit.json()).toEqual({ writes: [] });
