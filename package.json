@@ -6,26 +6,32 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "test:e2e": "playwright test",
+    "test:e2e:chromium": "playwright test --project=desktop-chromium --project=mobile-chromium",
+    "test:e2e:list": "playwright test --list",
+    "test:e2e:report": "playwright show-report test-results/playwright-report"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.4",
+    "@supabase/supabase-js": "^2",
+    "clsx": "^2",
     "next": "^14.2.0",
     "react": "^18",
     "react-dom": "^18",
-    "@supabase/supabase-js": "^2",
-    "@supabase/ssr": "^0.4",
-    "clsx": "^2",
     "tailwind-merge": "^2"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@playwright/test": "^1.62.1",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "autoprefixer": "^10",
     "eslint": "^8",
     "eslint-config-next": "^14",
-    "tailwindcss": "^3",
     "postcss": "^8",
-    "autoprefixer": "^10"
+    "tailwindcss": "^3",
+    "typescript": "^5"
   }
 }
