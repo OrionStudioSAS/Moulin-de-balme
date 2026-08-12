@@ -19,9 +19,10 @@ function fmt(s: number) {
 }
 
 export default function HeroCountdownBar() {
-  const [secs, setSecs] = useState(getSecondsUntil17);
+  const [secs, setSecs] = useState<number | null>(null);
 
   useEffect(() => {
+    setSecs(getSecondsUntil17());
     const id = setInterval(() => setSecs(getSecondsUntil17()), 1000);
     return () => clearInterval(id);
   }, []);
@@ -54,7 +55,9 @@ export default function HeroCountdownBar() {
         {/* Countdown */}
         <div className="text-center shrink-0">
           <p className="text-white text-[10px] tracking-widest uppercase mb-0.5">Clôture dans</p>
-          <p className="text-white text-2xl font-bold tracking-widest tabular-nums">{fmt(secs)}</p>
+          <p className="text-white text-2xl font-bold tracking-widest tabular-nums">
+            {secs !== null ? fmt(secs) : "--:--:--"}
+          </p>
         </div>
 
         {/* CTA */}
