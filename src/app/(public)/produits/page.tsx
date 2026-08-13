@@ -2,7 +2,10 @@ import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";
+import FlourClassificationGuide from "@/components/FlourClassificationGuide";
+import MoulinDeColagneSection from "@/components/MoulinDeColagneSection";
 import type { Product, Category, Subcategory } from "@/types";
+import { Fragment } from "react";
 
 export default async function ProduitsPage({
   searchParams,
@@ -63,11 +66,19 @@ export default async function ProduitsPage({
   const bannerSubtitle = currentCat?.banner_subtitle || defaultBanner.subtitle || "Façonnés à la main, cuits au four.";
   const bannerDescription = currentCat?.banner_description || defaultBanner.description || "";
   const bannerImage = currentCat?.banner_image_url || defaultBanner.banner_image_url || null;
+  const isFlourCategory = categorie === "farines";
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen bg-cream" data-products-variant={isFlourCategory ? "farines" : "default"}>
       {/* Bannière dynamique */}
-      <div className="relative overflow-hidden h-[465px] flex items-end bg-brown mt-[-64px]">
+      <div
+        className={
+          isFlourCategory
+            ? "relative mt-[-64px] flex h-[390px] items-end overflow-hidden bg-brown md:h-[420px] lg:h-[465px]"
+            : "relative overflow-hidden h-[465px] flex items-end bg-brown mt-[-64px]"
+        }
+        data-testid={isFlourCategory ? "farines-hero" : undefined}
+      >
         {bannerImage && (
           <Image
             src={bannerImage}
@@ -79,17 +90,41 @@ export default async function ProduitsPage({
           />
         )}
         <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-10 max-w-[1400px] mx-auto px-6 pb-12 pt-24 w-full">
-          <h1 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold tracking-tight uppercase text-white leading-none mb-3">
+        <div
+          className={
+            isFlourCategory
+              ? "relative z-10 mx-auto w-full max-w-[1440px] px-4 pb-8 pt-24 md:px-6 md:pb-11 lg:px-[34px] lg:pb-14"
+              : "relative z-10 max-w-[1400px] mx-auto px-6 pb-12 pt-24 w-full"
+          }
+        >
+          <h1
+            className={
+              isFlourCategory
+                ? "mb-4 max-w-[940px] text-[44px] font-bold uppercase leading-[0.95] tracking-[0.016em] text-white md:text-[56px] lg:text-[80px]"
+                : "text-[clamp(2.2rem,4vw,4.5rem)] font-bold tracking-tight uppercase text-white leading-none mb-3"
+            }
+          >
             {bannerTitle}
           </h1>
           {bannerSubtitle && (
-            <p className="text-sm text-white tracking-[0.15em] uppercase mb-2">
+            <p
+              className={
+                isFlourCategory
+                  ? "mb-3 max-w-[940px] text-xs font-bold uppercase leading-relaxed tracking-[0.15em] text-white md:text-sm"
+                  : "text-sm text-white tracking-[0.15em] uppercase mb-2"
+              }
+            >
               {bannerSubtitle}
             </p>
           )}
           {bannerDescription && (
-            <p className="text-xs text-white/70 leading-relaxed max-w-xl">
+            <p
+              className={
+                isFlourCategory
+                  ? "max-w-[940px] text-xs leading-relaxed text-white/80 md:max-w-2xl md:text-sm"
+                  : "text-xs text-white/70 leading-relaxed max-w-xl"
+              }
+            >
               {bannerDescription}
             </p>
           )}
@@ -97,12 +132,27 @@ export default async function ProduitsPage({
       </div>
 
       {/* Barre de filtre principale */}
-      <div className="border-b border-brown/10 bg-cream sticky top-[64px] z-30">
-        <div className="max-w-[1400px] mx-auto px-6">
-          <div className="flex items-center gap-0 overflow-x-auto scrollbar-hide">
+      <nav
+        className={
+          isFlourCategory
+            ? "sticky top-[64px] z-30 border-b border-brown/10 bg-cream"
+            : "border-b border-brown/10 bg-cream sticky top-[64px] z-30"
+        }
+        aria-label="Catégories de produits"
+        data-testid={isFlourCategory ? "farines-category-nav" : undefined}
+      >
+        <div className={isFlourCategory ? "mx-auto max-w-[1440px] px-4 md:px-6 lg:px-[34px]" : "max-w-[1400px] mx-auto px-6"}>
+          <div
+            className={
+              isFlourCategory
+                ? "scrollbar-hide flex min-h-16 items-center gap-0 overflow-x-auto lg:min-h-[76px]"
+                : "flex items-center gap-0 overflow-x-auto scrollbar-hide"
+            }
+          >
             <Link
               href="/produits"
-              className={`shrink-0 text-[11px] tracking-widest uppercase px-5 py-4 border-b-2 transition-colors whitespace-nowrap font-bold ${
+              aria-current={!categorie ? "page" : undefined}
+              className={`${isFlourCategory ? "inline-flex min-h-11 items-center px-4 py-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-gold motion-reduce:transition-none lg:px-5" : "px-5 py-4"} shrink-0 text-[11px] tracking-widest uppercase border-b-2 transition-colors whitespace-nowrap font-bold ${
                 !categorie
                   ? "border-brown text-brown"
                   : "border-transparent text-brown/50 hover:text-brown font-normal"
@@ -114,7 +164,8 @@ export default async function ProduitsPage({
               <Link
                 key={cat.slug}
                 href={`/produits?categorie=${cat.slug}`}
-                className={`shrink-0 text-[11px] tracking-widest uppercase px-5 py-4 border-b-2 transition-colors whitespace-nowrap ${
+                aria-current={categorie === cat.slug ? "page" : undefined}
+                className={`${isFlourCategory ? "inline-flex min-h-11 items-center px-4 py-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-gold motion-reduce:transition-none lg:px-5" : "px-5 py-4"} shrink-0 text-[11px] tracking-widest uppercase border-b-2 transition-colors whitespace-nowrap ${
                   categorie === cat.slug
                     ? "border-brown text-brown font-bold"
                     : "border-transparent text-brown/50 hover:text-brown"
@@ -125,15 +176,19 @@ export default async function ProduitsPage({
             ))}
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* Barre de filtre secondaire (sous-catégories) */}
       {currentSubs.length > 0 && (
-        <div className="border-b border-brown/10 bg-cream/80 sticky top-[112px] z-20">
+        <nav
+          className="border-b border-brown/10 bg-cream/80 sticky top-[112px] z-20"
+          aria-label={isFlourCategory ? "Sous-catégories de farines" : "Sous-catégories de produits"}
+        >
           <div className="max-w-[1400px] mx-auto px-6">
             <div className="flex items-center gap-0 overflow-x-auto scrollbar-hide">
               <Link
                 href={`/produits?categorie=${categorie}`}
+                aria-current={!sous ? "page" : undefined}
                 className={`shrink-0 text-[10px] tracking-widest uppercase px-4 py-3 border-b-2 transition-colors whitespace-nowrap ${
                   !sous
                     ? "border-brown text-brown font-bold"
@@ -146,6 +201,7 @@ export default async function ProduitsPage({
                 <Link
                   key={sub.slug}
                   href={`/produits?categorie=${categorie}&sous=${sub.slug}`}
+                  aria-current={sous === sub.slug ? "page" : undefined}
                   className={`shrink-0 text-[10px] tracking-widest uppercase px-4 py-3 border-b-2 transition-colors whitespace-nowrap ${
                     sous === sub.slug
                       ? "border-brown text-brown font-bold"
@@ -157,22 +213,39 @@ export default async function ProduitsPage({
               ))}
             </div>
           </div>
-        </div>
+        </nav>
       )}
 
       {/* Grille produits */}
-      <div className="max-w-[1400px] mx-auto px-6 py-10">
+      <div
+        className={
+          isFlourCategory
+            ? "mx-auto max-w-[1440px] px-4 py-8 md:px-6 md:py-10 lg:px-[34px]"
+            : "max-w-[1400px] mx-auto px-6 py-10"
+        }
+      >
         {filtered.length === 0 ? (
           <p className="text-sm text-warm-gray text-center py-20 tracking-wider">
             Aucun produit disponible pour le moment.
           </p>
         ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10">
+          <div
+            className={
+              isFlourCategory
+                ? "grid grid-cols-1 gap-x-3 gap-y-6 min-[360px]:grid-cols-2 md:gap-x-6 md:gap-y-8 lg:grid-cols-4 lg:gap-x-5 lg:gap-y-10"
+                : "grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-5 gap-y-10"
+            }
+            data-testid={isFlourCategory ? "farines-product-grid" : undefined}
+          >
             {filtered.map((product: Product, i: number) => (
-              <>
-                <ProductCard key={product.id} product={product} showAddButton />
+              <Fragment key={product.id}>
+                <ProductCard
+                  product={product}
+                  showAddButton
+                  variant={isFlourCategory ? "farines" : "default"}
+                />
                 {i === 5 && (
-                  <div key="recette" className="col-span-2 bg-brown text-cream flex flex-col justify-end p-8 min-h-[300px] relative overflow-hidden">
+                  <div className={`${isFlourCategory ? "col-span-1 min-[360px]:col-span-2" : "col-span-2"} bg-brown text-cream flex flex-col justify-end p-8 min-h-[300px] relative overflow-hidden`}>
                     <div className="absolute inset-0 bg-gradient-to-t from-brown via-brown/80 to-brown/20" />
                     <div className="relative z-10">
                       <p className="label-tag text-cream/50 mb-2">En ce moment</p>
@@ -188,11 +261,13 @@ export default async function ProduitsPage({
                     </div>
                   </div>
                 )}
-              </>
+              </Fragment>
             ))}
           </div>
         )}
       </div>
+      {isFlourCategory && <FlourClassificationGuide />}
+      {isFlourCategory && <MoulinDeColagneSection />}
     </div>
   );
 }
