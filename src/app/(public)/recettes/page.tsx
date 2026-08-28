@@ -70,46 +70,54 @@ export default async function RecettesPage({
       {/* ── ARTICLE EN UNE ── */}
       {featured && (
         <section className="max-w-[1400px] mx-auto px-6 md:px-12 py-10">
-          <Link
-            href={`/recettes/${featured.slug}`}
-            className="group relative flex flex-col md:flex-row overflow-hidden bg-[#2A1F1A] min-h-[320px]"
-          >
-            {/* Image droite */}
-            <div className="hidden md:block relative md:w-2/5 min-h-[320px]">
+          <Link href={`/recettes/${featured.slug}`} className="group block">
+            {/* Zone image — fond crème clair, image centrée */}
+            <div className="relative bg-cream-dark flex items-end justify-center overflow-hidden min-h-[300px] px-8 pt-8">
+              {featured.tags.length > 0 && (
+                <div className="absolute top-5 left-6 flex gap-2 flex-wrap z-10">
+                  {featured.tags.slice(0, 2).map((t) => (
+                    <span key={t} className="bg-[#4A7C59] text-white text-[8px] font-bold tracking-widest uppercase px-2 py-1">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              )}
               {featured.image_url ? (
                 <Image
                   src={featured.image_url}
                   alt={featured.title}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  width={400}
+                  height={300}
+                  className="object-contain relative z-10 group-hover:scale-105 transition-transform duration-700"
+                  style={{ maxHeight: "300px" }}
                 />
               ) : (
-                <div className="w-full h-full bg-brown/40" />
+                <div className="w-full h-[300px]" />
               )}
             </div>
-            {/* Texte gauche */}
-            <div className="flex-1 flex flex-col justify-center p-10 md:p-14 gap-4">
-              <div className="flex gap-2 flex-wrap">
-                {featured.tags.slice(0, 2).map((t) => (
-                  <span key={t} className="bg-[#4A7C59] text-white text-[8px] font-bold tracking-widest uppercase px-2 py-1">
-                    {t}
-                  </span>
-                ))}
+            {/* Zone texte — fond brun */}
+            <div className="bg-brown px-6 md:px-10 py-8 flex flex-col md:flex-row md:items-end gap-6 justify-between">
+              <div className="flex flex-col gap-3">
+                <h2 className="text-[clamp(1.4rem,3vw,2.6rem)] font-bold text-cream uppercase tracking-tight leading-tight">
+                  {featured.title}
+                </h2>
+                <div className="flex items-center gap-4 text-[9px] text-cream/40 tracking-widest uppercase">
+                  {featured.total_time && (
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cream/40 inline-block" />
+                      {featured.total_time}
+                    </span>
+                  )}
+                  {featured.published_at && (
+                    <span>
+                      {new Date(featured.published_at).toLocaleDateString("fr-FR", {
+                        day: "numeric", month: "long", year: "numeric",
+                      })}
+                    </span>
+                  )}
+                </div>
               </div>
-              <h2 className="text-[clamp(1.4rem,3vw,2.8rem)] font-bold text-white uppercase tracking-tight leading-tight">
-                {featured.title}
-              </h2>
-              <div className="flex gap-4 text-[9px] text-white/40 tracking-widest uppercase">
-                {featured.total_time && <span>{featured.total_time}</span>}
-                {featured.published_at && (
-                  <span>
-                    {new Date(featured.published_at).toLocaleDateString("fr-FR", {
-                      day: "numeric", month: "long", year: "numeric",
-                    })}
-                  </span>
-                )}
-              </div>
-              <span className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-cream border border-cream/30 px-4 py-2 w-fit group-hover:bg-cream group-hover:text-brown transition-colors">
+              <span className="shrink-0 text-[10px] font-bold tracking-widest uppercase text-cream border border-cream/40 px-5 py-3 group-hover:bg-cream group-hover:text-brown transition-colors">
                 Découvrir la recette →
               </span>
             </div>
@@ -213,8 +221,17 @@ function RecetteCard({ recipe }: { recipe: Recipe }) {
           {recipe.title}
         </p>
         {recipe.total_time && (
-          <p className="text-xs text-warm-gray tracking-wider">{recipe.total_time}</p>
+          <p className="text-xs text-warm-gray tracking-wider mb-2">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-warm-gray/60 mr-1.5 align-middle" />
+            {recipe.total_time}
+          </p>
         )}
+      </Link>
+      <Link
+        href={`/recettes/${recipe.slug}`}
+        className="block w-full text-center border border-brown text-brown text-[11px] tracking-widest uppercase py-2.5 hover:bg-brown hover:text-cream transition-colors"
+      >
+        Découvrir la recette
       </Link>
     </div>
   );
