@@ -69,7 +69,7 @@ export default async function StephaneReinatPage() {
       </section>
 
       {/* ─── 2. BIO — STÉPHANE REINAT ─── */}
-      <section className="grid grid-cols-1 md:grid-cols-2 bg-cream">
+      <section className="grid grid-cols-1 md:grid-cols-2 bg-cream mb-6 md:mb-12">
         <div className="relative min-h-[500px] md:min-h-[680px]">
           <Image
             src="/images/histoire-photo.png"
