@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
-const H2 = "text-[clamp(1.8rem,3vw,3.5rem)] font-bold uppercase tracking-tight leading-none";
+const TITLE = "text-[35px] font-bold uppercase tracking-tight leading-none";
 
 const CARDS = [
   {
@@ -87,7 +87,7 @@ export default function HistoireCards() {
               }}
             >
               {/* Label */}
-              <p className={`text-[10px] font-bold tracking-[0.25em] uppercase ${card.labelColor} px-8 pt-8 pb-5`}>
+              <p className={`${TITLE} ${card.textColor} px-8 pt-8 pb-5`}>
                 {card.label}
               </p>
 
@@ -104,7 +104,7 @@ export default function HistoireCards() {
 
               {/* Content */}
               <div className="px-8 py-8 flex flex-col gap-5 flex-1">
-                <h3 className={`${H2} ${card.textColor}`}>
+                <h3 className={`${TITLE} ${card.textColor}`}>
                   {card.title.split("\n").map((line, j) => (
                     <span key={j}>
                       {line}
