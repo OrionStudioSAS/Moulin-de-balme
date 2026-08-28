@@ -152,7 +152,7 @@ export default async function StephaneReinatPage() {
         </div>
         <div className="relative min-h-[500px]">
           <Image
-            src="/images/tomoko-photo.jpg"
+            src="/images/histoire-photo.png"
             alt="Tomoko Reinat"
             fill
             className="object-cover object-top"
