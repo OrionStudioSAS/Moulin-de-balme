@@ -91,7 +91,7 @@ export default function HistoireCards() {
               </p>
 
               {/* Image */}
-              <div className="relative w-full h-[250px]">
+              <div className="relative h-[250px] mx-8">
                 <Image
                   src={card.image}
                   alt={card.imageAlt}
