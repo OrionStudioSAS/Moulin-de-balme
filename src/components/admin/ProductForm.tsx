@@ -6,7 +6,6 @@ import Image from "next/image";
 import { createClient } from "@/lib/supabase/client";
 import type { Product, Category, Subcategory, WeightPrice } from "@/types";
 
-const DAYS = ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"];
 const BADGES = [
   { value: "", label: "Aucun" },
   { value: "nouveau", label: "Nouveau" },
@@ -81,13 +80,27 @@ export default function ProductForm({
     setUploading(false);
   };
 
-  const toggleDay = (day: string) => {
+  const [dateInput, setDateInput] = useState("");
+
+  const addDate = () => {
+    if (!dateInput || form.available_days.includes(dateInput)) return;
     setForm((prev) => ({
       ...prev,
-      available_days: prev.available_days.includes(day)
-        ? prev.available_days.filter((d) => d !== day)
-        : [...prev.available_days, day],
+      available_days: [...prev.available_days, dateInput].sort(),
     }));
+    setDateInput("");
+  };
+
+  const removeDate = (date: string) => {
+    setForm((prev) => ({
+      ...prev,
+      available_days: prev.available_days.filter((d) => d !== date),
+    }));
+  };
+
+  const formatDate = (iso: string) => {
+    const d = new Date(iso + "T00:00:00");
+    return d.toLocaleDateString("fr-FR", { weekday: "short", day: "numeric", month: "long", year: "numeric" });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -328,19 +341,36 @@ export default function ProductForm({
       </div>
 
       <div>
-        <label className={labelClass}>Jours de disponibilité</label>
-        <div className="flex flex-wrap gap-2 mt-1">
-          {DAYS.map((day) => (
-            <button key={day} type="button" onClick={() => toggleDay(day)}
-              className={`text-xs tracking-wider px-3 py-1 border transition-colors capitalize ${
-                form.available_days.includes(day)
-                  ? "border-brown bg-brown text-cream"
-                  : "border-brown/30 text-brown/60 hover:border-brown"
-              }`}>
-              {day}
-            </button>
-          ))}
+        <label className={labelClass}>Dates de disponibilité</label>
+        <div className="flex gap-2 mt-1">
+          <input
+            type="date"
+            value={dateInput}
+            onChange={(e) => setDateInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addDate())}
+            className={`${inputClass} flex-1`}
+          />
+          <button
+            type="button"
+            onClick={addDate}
+            className="text-[10px] tracking-widest uppercase border border-brown/40 text-brown px-4 py-2 hover:bg-brown hover:text-cream transition-colors whitespace-nowrap"
+          >
+            + Ajouter
+          </button>
         </div>
+        {form.available_days.length > 0 && (
+          <div className="flex flex-wrap gap-2 mt-3">
+            {form.available_days.map((date) => (
+              <span key={date} className="flex items-center gap-1.5 bg-brown/10 border border-brown/20 px-3 py-1 text-xs text-brown capitalize">
+                {formatDate(date)}
+                <button type="button" onClick={() => removeDate(date)} className="text-brown/40 hover:text-red-500 leading-none text-base">×</button>
+              </span>
+            ))}
+          </div>
+        )}
+        {form.available_days.length === 0 && (
+          <p className="text-[11px] text-warm-gray mt-2">Aucune date — le produit est disponible en permanence.</p>
+        )}
       </div>
 
       {/* Accordion content */}
