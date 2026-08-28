@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
-const TITLE = "text-[35px] font-bold uppercase tracking-tight leading-none";
+const TITLE = "text-[35px] font-light uppercase tracking-tight leading-tight";
 
 const CARDS = [
   {
@@ -87,7 +87,7 @@ export default function HistoireCards() {
               }}
             >
               {/* Label */}
-              <p className={`${TITLE} ${card.textColor} px-8 pt-8 pb-5`}>
+              <p className={`${TITLE} ${card.textColor} px-8 pt-8 pb-3 whitespace-nowrap overflow-hidden text-ellipsis`}>
                 {card.label}
               </p>
 
