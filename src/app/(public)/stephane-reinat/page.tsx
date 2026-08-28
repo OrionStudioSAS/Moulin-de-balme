@@ -1,5 +1,24 @@
 import Image from "next/image";
 import Link from "next/link";
+import StoryCardsSlider from "@/components/StoryCardsSlider";
+import type { StoryCard } from "@/components/StoryCardsSlider";
+
+const TIMELINE_CARDS: StoryCard[] = [
+  {
+    label: "Le Commencement",
+    image: "/images/histoire-photo.png",
+    imageAlt: "Stéphane Reinat — ses débuts",
+    title: "L'Apprentissage",
+    text: "Stéphane Reinat n'a pas grandi dans un fournil. Il y est entré par choix, à seize ans, au CFA de Versailles, parce qu'il aimait l'idée d'un métier qui se lève avec la nuit et qui finit avec l'odeur. Le pain n'était pas une tradition familiale ; il l'a fait sienne.\n\nTrès vite, il comprend que la boulangerie n'est pas qu'une affaire de technique : c'est une affaire de patience, d'écoute du levain, de respect du grain. Pendant ses premières années, il fait ses gammes dans les fournils parisiens — apprend la baguette de tradition, la pâte feuilletée, la cuisson au bois.",
+  },
+  {
+    label: "Le Grand Départ",
+    image: "/images/histoire-photo.png",
+    imageAlt: "Tokyo — Le Cordon Bleu",
+    title: "Tokyo, Premier Exil",
+    text: "En 2009, une opportunité change tout. Le Cordon Bleu Tokyo cherche un formateur français pour transmettre le savoir-faire de la boulangerie traditionnelle à des élèves japonais. Stéphane n'hésite pas : il embarque pour le Japon avec quelques outils, un livre de recettes, et l'envie d'apprendre autant qu'il enseignera.\n\nAu Japon, il découvre une autre forme d'exigence. Les élèves japonais cherchent la perfection du geste, la propreté absolue, la mesure au gramme près. Lui leur apporte la patience française, la fermentation longue, la confiance dans l'imperfection. Cette rencontre, il ne l'oubliera jamais. C'est aussi à Tokyo qu'il rencontre Tomoko, qui deviendra son épouse, sa partenaire, et la pâtissière du futur Fournil de Balme.",
+  },
+];
 import { createClient } from "@/lib/supabase/server";
 import type { Product } from "@/types";
 import SortieDuFourCard from "@/components/home/SortieDuFourCard";
@@ -95,59 +114,8 @@ export default async function StephaneReinatPage() {
         </div>
       </section>
 
-      {/* ─── 3. TIMELINE — LE COMMENCEMENT / LE GRAND DÉPART ─── */}
-      <section className="grid grid-cols-1 md:grid-cols-2">
-        {/* Gauche — L'Apprentissage */}
-        <div className="bg-[#E8D5A3] px-10 md:px-14 py-14 flex flex-col gap-8 min-h-[500px]">
-          <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-brown/60">
-            Le Commencement
-          </p>
-          <div>
-            <h3 className={`${H2} text-brown mb-6`}>L&apos;apprentissage</h3>
-            <p className="text-xs text-brown/70 leading-relaxed max-w-sm">
-              Stéphane Reinat n&apos;a pas grandi dans un fournil. Il y est entré par choix, à seize
-              ans, au CFA de Versailles, parce qu&apos;il aimait l&apos;idée d&apos;un métier qui se lève avec
-              la nuit et qui finit avec l&apos;odeur. Le pain n&apos;était pas une tradition familiale ; il
-              l&apos;a fait sienne.
-            </p>
-            <p className="text-xs text-brown/70 leading-relaxed max-w-sm mt-4">
-              Très vite, il comprend que la boulangerie n&apos;est pas qu&apos;une affaire de technique :
-              c&apos;est une affaire de patience, d&apos;écoute du levain, de respect du grain. Pendant ses
-              premières années, il fait ses gammes dans les fournils parisiens — apprend la
-              baguette de tradition, la pâte feuilletée, la cuisson au bois.
-            </p>
-          </div>
-        </div>
-
-        {/* Droite — Tokyo */}
-        <div className="relative min-h-[500px] overflow-hidden">
-          <Image
-            src="/images/tokyo-photo.jpg"
-            alt="Tokyo — Premier exil"
-            fill
-            className="object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 p-10 md:p-14">
-            <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-white/60 mb-4">
-              Le Grand Départ
-            </p>
-            <h3 className={`${H2} text-white mb-4`}>Tokyo,<br />premier exil</h3>
-            <p className="text-xs text-white/70 leading-relaxed max-w-sm">
-              En 2009, une opportunité change tout. Le Cordon Bleu Tokyo cherche un formateur
-              français pour transmettre le savoir-faire de la boulangerie traditionnelle à des
-              élèves japonais. Stéphane n&apos;hésite pas : il embarque pour le Japon avec quelques
-              outils, un livre de recettes, et l&apos;envie d&apos;apprendre autant qu&apos;il enseignera.
-            </p>
-            <p className="text-xs text-white/70 leading-relaxed max-w-sm mt-3">
-              Au Japon, il découvre une autre forme d&apos;exigence. Les élèves japonais cherchent la
-              perfection du geste, la propreté absolue, la mesure au gramme près. Cette rencontre,
-              il ne l&apos;oubliera jamais. C&apos;est aussi à Tokyo qu&apos;il rencontre Tomoko, qui deviendra
-              son épouse, sa partenaire, et la pâtissière du futur Fournil de Balme.
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* ─── 3. TIMELINE SLIDER ─── */}
+      <StoryCardsSlider cards={TIMELINE_CARDS} />
 
       {/* ─── 4. TOMOKO REINAT ─── */}
       <section className="bg-cream grid grid-cols-1 md:grid-cols-2">
