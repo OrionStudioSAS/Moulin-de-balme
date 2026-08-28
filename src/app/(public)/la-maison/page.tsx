@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HistoireCards from "@/components/home/HistoireCards";
 
 const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none";
 
@@ -78,7 +79,10 @@ export default function LaMaisonPage() {
       </div>
       </section>
 
-      {/* ─── 3. Instagram + Presse ─── */}
+      {/* ─── 3. HISTOIRE CARDS SLIDER ─── */}
+      <HistoireCards />
+
+      {/* ─── 4. Instagram + Presse ─── */}
 
     </div>
   );

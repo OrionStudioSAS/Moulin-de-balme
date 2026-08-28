@@ -1,5 +1,4 @@
 import HeroSection from "@/components/home/HeroSection";
-import HistoireCards from "@/components/home/HistoireCards";
 import SortieDuFour from "@/components/home/SortieDuFour";
 import HistoireSection from "@/components/home/HistoireSection";
 import NosProduits from "@/components/home/NosProduits";
@@ -11,7 +10,6 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <HistoireCards />
       <SortieDuFour />
       <HistoireSection />
       <NosProduits />
