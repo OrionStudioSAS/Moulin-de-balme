@@ -118,49 +118,56 @@ export default async function RecettesPage({
       )}
 
       {/* ── GRILLE RECETTES ── */}
-      {rest.length > 0 && (
-        <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-16">
+      {rest.length > 1 && (
+        <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {rest.slice(0, -1).map((recipe) => (
               <RecetteCard key={recipe.id} recipe={recipe} />
             ))}
-            {/* Dernière recette en grand */}
-            {(() => {
-              const last = rest[rest.length - 1];
-              return (
-                <Link
-                  key={last.id}
-                  href={`/recettes/${last.slug}`}
-                  className="group col-span-2 relative overflow-hidden min-h-[280px] flex flex-col justify-end"
-                >
-                  {last.image_url ? (
-                    <Image
-                      src={last.image_url}
-                      alt={last.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-700"
-                    />
-                  ) : (
-                    <div className="absolute inset-0 bg-brown" />
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                  <div className="relative z-10 p-8">
-                    <p className="text-[10px] tracking-widest uppercase text-cream/50 mb-2">
-                      Recette du moment
-                    </p>
-                    <h3 className="text-[clamp(1.4rem,3vw,2.2rem)] font-bold uppercase tracking-tight leading-tight text-cream mb-4">
-                      {last.title}
-                    </h3>
-                    <span className="text-[10px] font-bold tracking-widest uppercase border border-cream/40 text-cream px-4 py-2 group-hover:bg-cream group-hover:text-brown transition-colors">
-                      Découvrir →
-                    </span>
-                  </div>
-                </Link>
-              );
-            })()}
           </div>
         </section>
       )}
+
+      {/* ── RECETTE DU MOMENT (dernier article, pleine largeur) ── */}
+      {rest.length > 0 && (() => {
+        const last = rest[rest.length - 1];
+        return (
+          <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-16">
+            <Link href={`/recettes/${last.slug}`} className="group block">
+              {/* Image pleine largeur */}
+              <div className="relative w-full h-[420px] overflow-hidden bg-[#C4A882] mb-0">
+                {last.image_url ? (
+                  <Image
+                    src={last.image_url}
+                    alt={last.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-gradient-to-br from-[#C4A882] to-[#6B4A35]" />
+                )}
+              </div>
+              {/* Texte en dessous */}
+              <div className="bg-brown px-8 py-8 md:px-12 md:py-10">
+                <p className="text-[9px] font-bold tracking-[0.25em] uppercase text-cream/40 mb-3">
+                  Recette du moment
+                </p>
+                <h3 className="text-[clamp(1.6rem,3.5vw,3rem)] font-bold uppercase tracking-tight leading-tight text-cream mb-3">
+                  {last.title}
+                </h3>
+                {last.description && (
+                  <p className="text-xs text-cream/60 leading-relaxed max-w-2xl mb-6">
+                    {last.description}
+                  </p>
+                )}
+                <span className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-cream border border-cream/30 px-5 py-2.5 group-hover:bg-cream group-hover:text-brown transition-colors">
+                  Découvrir la recette →
+                </span>
+              </div>
+            </Link>
+          </section>
+        );
+      })()}
 
       {/* ── CITATION ── */}
       <section className="bg-[#2A1F1A] py-16 px-6">
@@ -181,30 +188,34 @@ export default async function RecettesPage({
 
 function RecetteCard({ recipe }: { recipe: Recipe }) {
   return (
-    <Link href={`/recettes/${recipe.slug}`} className="group">
-      <div className="relative aspect-square overflow-hidden bg-[#C4A882] mb-3">
-        {recipe.image_url ? (
-          <Image
-            src={recipe.image_url}
-            alt={recipe.title}
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
-          />
-        ) : (
-          <div className="w-full h-full bg-gradient-to-br from-[#C4A882] to-[#6B4A35]" />
+    <div className="group">
+      <Link href={`/recettes/${recipe.slug}`} className="block">
+        <div className="aspect-square bg-cream-dark overflow-hidden mb-3 relative">
+          {recipe.image_url ? (
+            <Image
+              src={recipe.image_url}
+              alt={recipe.title}
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+          ) : (
+            <div className="w-full h-full bg-gradient-to-br from-brown/5 to-gold/10" />
+          )}
+          {recipe.badge && (
+            <div className="absolute top-2.5 left-2.5">
+              <span className="bg-cream text-brown text-[8px] font-bold tracking-widest uppercase px-2 py-0.5">
+                {recipe.badge}
+              </span>
+            </div>
+          )}
+        </div>
+        <p className="text-xs font-medium tracking-wider text-brown mb-1 uppercase">
+          {recipe.title}
+        </p>
+        {recipe.total_time && (
+          <p className="text-xs text-warm-gray tracking-wider">{recipe.total_time}</p>
         )}
-        {recipe.badge && (
-          <span className="absolute top-2 left-2 bg-cream text-brown text-[8px] font-bold tracking-widest uppercase px-2 py-0.5">
-            {recipe.badge}
-          </span>
-        )}
-      </div>
-      <p className="text-[10px] font-medium tracking-widest uppercase text-brown mb-1 leading-snug">
-        {recipe.title}
-      </p>
-      {recipe.total_time && (
-        <p className="text-[9px] text-brown/40 tracking-wider">{recipe.total_time}</p>
-      )}
-    </Link>
+      </Link>
+    </div>
   );
 }
