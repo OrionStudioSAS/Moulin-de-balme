@@ -121,34 +121,43 @@ export default async function RecettesPage({
       {rest.length > 0 && (
         <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {rest.map((recipe, i) => {
-              // Carte "Recette du moment" insérée après la 6e carte
-              const insertMoment = i === 5;
+            {rest.slice(0, -1).map((recipe) => (
+              <RecetteCard key={recipe.id} recipe={recipe} />
+            ))}
+            {/* Dernière recette en grand */}
+            {(() => {
+              const last = rest[rest.length - 1];
               return (
-                <>
-                  {insertMoment && (
-                    <div
-                      key="moment"
-                      className="col-span-2 bg-brown text-cream flex flex-col justify-end p-8 min-h-[300px] relative overflow-hidden"
-                    >
-                      <p className="text-[10px] tracking-widest uppercase text-cream/40 mb-2">
-                        À ne pas manquer
-                      </p>
-                      <h3 className="text-[clamp(1.6rem,3vw,2.5rem)] font-bold uppercase tracking-tight leading-tight mb-4">
-                        Recette du moment
-                      </h3>
-                      <Link
-                        href={`/recettes/${recipe.slug}`}
-                        className="text-[10px] font-bold tracking-widest uppercase border border-cream/40 text-cream px-4 py-2 w-fit hover:bg-cream hover:text-brown transition-colors"
-                      >
-                        Découvrir →
-                      </Link>
-                    </div>
+                <Link
+                  key={last.id}
+                  href={`/recettes/${last.slug}`}
+                  className="group col-span-2 relative overflow-hidden min-h-[280px] flex flex-col justify-end"
+                >
+                  {last.image_url ? (
+                    <Image
+                      src={last.image_url}
+                      alt={last.title}
+                      fill
+                      className="object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-brown" />
                   )}
-                  <RecetteCard key={recipe.id} recipe={recipe} />
-                </>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                  <div className="relative z-10 p-8">
+                    <p className="text-[10px] tracking-widest uppercase text-cream/50 mb-2">
+                      Recette du moment
+                    </p>
+                    <h3 className="text-[clamp(1.4rem,3vw,2.2rem)] font-bold uppercase tracking-tight leading-tight text-cream mb-4">
+                      {last.title}
+                    </h3>
+                    <span className="text-[10px] font-bold tracking-widest uppercase border border-cream/40 text-cream px-4 py-2 group-hover:bg-cream group-hover:text-brown transition-colors">
+                      Découvrir →
+                    </span>
+                  </div>
+                </Link>
               );
-            })}
+            })()}
           </div>
         </section>
       )}
@@ -172,11 +181,8 @@ export default async function RecettesPage({
 
 function RecetteCard({ recipe }: { recipe: Recipe }) {
   return (
-    <Link
-      href={`/recettes/${recipe.slug}`}
-      className="group flex flex-col overflow-hidden bg-white border border-brown/10 hover:border-brown/30 transition-colors"
-    >
-      <div className="relative aspect-[4/3] overflow-hidden bg-brown/10">
+    <Link href={`/recettes/${recipe.slug}`} className="group">
+      <div className="relative aspect-square overflow-hidden bg-[#C4A882] mb-3">
         {recipe.image_url ? (
           <Image
             src={recipe.image_url}
@@ -193,17 +199,12 @@ function RecetteCard({ recipe }: { recipe: Recipe }) {
           </span>
         )}
       </div>
-      <div className="p-4 flex flex-col gap-2 flex-1">
-        <p className="text-[10px] font-bold tracking-widest uppercase text-brown leading-snug">
-          {recipe.title}
-        </p>
-        {recipe.total_time && (
-          <p className="text-[9px] text-brown/40 tracking-wider">{recipe.total_time}</p>
-        )}
-        <span className="mt-auto text-[9px] font-bold tracking-widest uppercase text-brown/60 border-b border-brown/20 pb-0.5 w-fit">
-          Découvrir la recette →
-        </span>
-      </div>
+      <p className="text-[10px] font-medium tracking-widest uppercase text-brown mb-1 leading-snug">
+        {recipe.title}
+      </p>
+      {recipe.total_time && (
+        <p className="text-[9px] text-brown/40 tracking-wider">{recipe.total_time}</p>
+      )}
     </Link>
   );
 }
