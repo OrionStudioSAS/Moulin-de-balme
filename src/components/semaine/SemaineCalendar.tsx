@@ -10,14 +10,14 @@ const MONTHS_FR = [
   "Juillet","Août","Septembre","Octobre","Novembre","Décembre",
 ];
 const DAYS_HEADER = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
-// JS getDay() → French key
-const JS_TO_FR = ["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
 
-const ALL_WEEKDAYS = ["lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+function toISO(year: number, month: number, day: number) {
+  return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+}
 
 function productType(p: Product): "semaine" | "special" | "jour" {
   if (p.badge === "exclusif") return "special";
-  if (ALL_WEEKDAYS.every((d) => p.available_days.includes(d))) return "semaine";
+  if (!p.available_days || p.available_days.length === 0) return "semaine";
   return "jour";
 }
 
@@ -59,8 +59,14 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
   const isToday = (d: number) =>
     d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
 
-  const productsForDay = (frDay: string) =>
-    products.filter((p) => p.available_days.includes(frDay));
+  const productsForDay = (day: number) => {
+    const iso = toISO(year, month, day);
+    return products.filter((p) =>
+      !p.available_days || p.available_days.length === 0
+        ? true
+        : p.available_days.includes(iso)
+    );
+  };
 
   return (
     <div>
@@ -84,27 +90,23 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
 
         {/* Navigation mois + légende */}
         <div className="flex flex-col gap-4 items-end">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-5">
             <button
               onClick={prevMonth}
-              className="w-8 h-8 flex items-center justify-center border border-cream/30 text-cream hover:bg-cream/10 transition-colors"
+              className="w-10 h-10 flex items-center justify-center border border-cream/30 text-cream hover:bg-cream/10 transition-colors text-lg"
               aria-label="Mois précédent"
             >
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M7 1L3 5L7 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
+              ←
             </button>
-            <span className="text-sm font-bold tracking-widest uppercase text-cream min-w-[120px] text-center">
+            <span className="text-2xl font-bold tracking-widest uppercase text-cream min-w-[200px] text-center">
               {MONTHS_FR[month]} {year}
             </span>
             <button
               onClick={nextMonth}
-              className="w-8 h-8 flex items-center justify-center border border-cream/30 text-cream hover:bg-cream/10 transition-colors"
+              className="w-10 h-10 flex items-center justify-center border border-cream/30 text-cream hover:bg-cream/10 transition-colors text-lg"
               aria-label="Mois suivant"
             >
-              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
-                <path d="M3 1L7 5L3 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
+              →
             </button>
           </div>
           <p className="text-[10px] text-cream/40 tracking-wider">
@@ -155,8 +157,7 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
 
             const isSunday = cell.jsDay === 0;
             const isT      = isToday(cell.date);
-            const frDay    = JS_TO_FR[cell.jsDay];
-            const dayProds = isSunday ? [] : productsForDay(frDay);
+            const dayProds = isSunday ? [] : productsForDay(cell.date);
 
             return (
               <div
