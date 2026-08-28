@@ -91,7 +91,7 @@ export default function HistoireCards() {
               </p>
 
               {/* Image */}
-              <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+              <div className="relative w-full h-[250px]">
                 <Image
                   src={card.image}
                   alt={card.imageAlt}
