@@ -65,15 +65,16 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
   return (
     <div>
       {/* ── En-tête calendrier ── */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pt-10 pb-6 flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-14 flex flex-col md:flex-row md:items-center md:justify-between gap-8">
         <div>
-          <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-cream/40 mb-2">
+          <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-cream/40 mb-3">
             Le calendrier du fournil
           </p>
           <h1 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold text-cream uppercase tracking-tight leading-none">
             Le mois<br />au fournil.
           </h1>
-          <p className="text-xs text-cream/60 leading-relaxed max-w-sm mt-4">
+          <div className="w-8 h-px bg-cream/30 my-5" />
+          <p className="text-xs text-cream/60 leading-relaxed max-w-sm">
             Chaque jour a sa propre carte au Moulin de Balme.<br />
             Les pains au levain, façonnés à la main, sont là<br />
             toute la semaine — mais certains spéciaux<br />
