@@ -114,6 +114,7 @@ export default function HistoireCards() {
               </div>
             </div>
           ))}
+          <div className="flex-shrink-0 w-6 md:w-12" aria-hidden />
         </div>
 
         {/* Nav buttons */}
