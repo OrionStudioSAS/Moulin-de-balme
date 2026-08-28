@@ -67,8 +67,7 @@ export default function HistoireCards() {
   };
 
   return (
-    <section className="bg-cream px-6 md:px-12 py-6 md:py-12">
-      <div className="max-w-[1400px] mx-auto">
+    <section className="bg-cream pl-6 md:pl-12 py-6 md:py-12">
         {/* Slider track */}
         <div
           ref={trackRef}
@@ -82,8 +81,8 @@ export default function HistoireCards() {
               data-card
               className="bg-brown flex-shrink-0 flex flex-col overflow-hidden"
               style={{
-                width: "calc((100% - 48px) / 2.25)",
-                minWidth: 280,
+                width: "calc((100vw - 48px) / 2)",
+                minWidth: 320,
               }}
             >
               {/* Label */}
@@ -118,7 +117,7 @@ export default function HistoireCards() {
         </div>
 
         {/* Nav buttons */}
-        <div className="flex justify-end gap-2 mt-6">
+        <div className="flex gap-2 mt-6 pr-6 md:pr-12 justify-end">
           <button
             onClick={() => scroll("prev")}
             disabled={!canPrev}
@@ -136,7 +135,6 @@ export default function HistoireCards() {
             →
           </button>
         </div>
-      </div>
     </section>
   );
 }
