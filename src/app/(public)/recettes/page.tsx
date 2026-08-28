@@ -196,9 +196,9 @@ export default async function RecettesPage({
 
 function RecetteCard({ recipe }: { recipe: Recipe }) {
   return (
-    <div className="group">
+    <div className="group bg-brown flex flex-col">
       <Link href={`/recettes/${recipe.slug}`} className="block">
-        <div className="aspect-square bg-cream-dark overflow-hidden mb-3 relative">
+        <div className="aspect-square bg-brown-dark overflow-hidden relative">
           {recipe.image_url ? (
             <Image
               src={recipe.image_url}
@@ -217,22 +217,26 @@ function RecetteCard({ recipe }: { recipe: Recipe }) {
             </div>
           )}
         </div>
-        <p className="text-xs font-medium tracking-wider text-brown mb-1 uppercase">
-          {recipe.title}
-        </p>
-        {recipe.total_time && (
-          <p className="text-xs text-warm-gray tracking-wider mb-2">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-warm-gray/60 mr-1.5 align-middle" />
-            {recipe.total_time}
+        <div className="p-4 pb-0">
+          <p className="text-xs font-bold tracking-wider text-cream mb-1 uppercase leading-snug">
+            {recipe.title}
           </p>
-        )}
+          {recipe.total_time && (
+            <p className="text-xs text-cream/70 tracking-wider mb-3">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-cream/60 mr-1.5 align-middle" />
+              {recipe.total_time}
+            </p>
+          )}
+        </div>
       </Link>
-      <Link
-        href={`/recettes/${recipe.slug}`}
-        className="block w-full text-center border border-brown text-brown text-[11px] tracking-widest uppercase py-2.5 hover:bg-brown hover:text-cream transition-colors"
-      >
-        Découvrir la recette
-      </Link>
+      <div className="p-4 pt-1 mt-auto">
+        <Link
+          href={`/recettes/${recipe.slug}`}
+          className="block w-full text-center border border-cream text-cream text-[11px] tracking-widest uppercase py-2.5 hover:bg-cream hover:text-brown transition-colors"
+        >
+          Découvrir la recette
+        </Link>
+      </div>
     </div>
   );
 }
