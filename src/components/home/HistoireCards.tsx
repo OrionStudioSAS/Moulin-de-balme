@@ -67,7 +67,7 @@ export default function HistoireCards() {
   };
 
   return (
-    <section className="bg-cream pl-6 md:pl-12 py-6 md:py-12">
+    <section className="bg-cream pl-6 md:pl-12 pb-6 md:pb-12">
         {/* Slider track */}
         <div
           ref={trackRef}
