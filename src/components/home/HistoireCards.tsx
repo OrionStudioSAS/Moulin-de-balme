@@ -19,7 +19,7 @@ const CARDS = [
   },
   {
     label: "La Renaissance",
-    image: "/images/renaissance-photo.jpg",
+    image: "/images/histoire-photo.png",
     imageAlt: "La boutique du Moulin de Balme",
     title: "Printemps\n2025",
     text: "Au printemps 2024, après une année de fermeture, la boutique du 7 avenue Alsace-Lorraine retrouve la vie. Stéphane et Tomoko Reinat poussent la porte, encore en travaux, et imaginent ce qu'elle pourrait devenir.\n\nDe retour de quinze années passées à enseigner la boulangerie française à Tokyo, Hong Kong et Shanghai, Stéphane cherchait depuis des mois un fournil à reprendre. Il voulait un quartier vivant, une clientèle fidèle, un four qui en avait vu d'autres. Brive cochait toutes les cases.\n\nQuelques semaines de chantier plus tard — un coup de peinture, un mobilier repensé par Tomoko, une nouvelle enseigne — la boutique rouvre. Elle s'appelle désormais Le Moulin de Balme.",
@@ -30,7 +30,7 @@ const CARDS = [
   },
   {
     label: "Le Grand Départ",
-    image: "/images/tokyo-photo.jpg",
+    image: "/images/histoire-photo.png",
     imageAlt: "Tokyo — Le Cordon Bleu",
     title: "L'Appren-\ntissage",
     text: "En 2009, une opportunité change tout. Le Cordon Bleu Tokyo cherche un formateur français pour transmettre le savoir-faire de la boulangerie traditionnelle à des élèves japonais. Stéphane n'hésite pas : il embarque pour le Japon avec quelques outils, un livre de recettes, et l'envie d'apprendre autant qu'il enseignera.\n\nAu Japon, il découvre une autre forme d'exigence. Les élèves japonais cherchent la perfection du geste, la propreté absolue, la mesure au gramme près. Lui leur apporte la patience française, la fermentation longue, la confiance dans l'imperfection. Cette rencontre, il ne l'oubliera jamais.\n\nC'est aussi à Tokyo qu'il rencontre Tomoko, qui deviendra son épouse, sa partenaire, et la pâtissière du futur Fournil de Balme.",
