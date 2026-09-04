@@ -30,21 +30,29 @@ const TYPE_STYLE = {
 
 export default function SemaineCalendar({ products }: { products: Product[] }) {
   const today = new Date();
-  const [year, setYear]   = useState(today.getFullYear());
-  const [month, setMonth] = useState(today.getMonth()); // 0-indexed
+  const [year, setYear]     = useState(today.getFullYear());
+  const [month, setMonth]   = useState(today.getMonth()); // 0-indexed
+  const [mobileWeek, setMobileWeek] = useState(() => {
+    // Initialise sur la semaine contenant aujourd'hui
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    const offset   = (firstDay.getDay() + 6) % 7;
+    return Math.floor((today.getDate() - 1 + offset) / 7);
+  });
 
   const prevMonth = () => {
     if (month === 0) { setMonth(11); setYear((y) => y - 1); }
     else setMonth((m) => m - 1);
+    setMobileWeek(0);
   };
   const nextMonth = () => {
     if (month === 11) { setMonth(0); setYear((y) => y + 1); }
     else setMonth((m) => m + 1);
+    setMobileWeek(0);
   };
 
   // Build calendar cells (European grid: Monday = col 0)
-  const firstDay   = new Date(year, month, 1);
-  const totalDays  = new Date(year, month + 1, 0).getDate();
+  const firstDay    = new Date(year, month, 1);
+  const totalDays   = new Date(year, month + 1, 0).getDate();
   const startOffset = (firstDay.getDay() + 6) % 7; // Mon=0…Sun=6
 
   type Cell = { date: number; jsDay: number } | null;
@@ -56,6 +64,21 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
     }),
   ];
   while (cells.length % 7 !== 0) cells.push(null);
+
+  const totalWeeks = cells.length / 7;
+
+  // Découpage en semaines pour mobile
+  const weeks: Cell[][] = Array.from({ length: totalWeeks }, (_, w) =>
+    cells.slice(w * 7, w * 7 + 7)
+  );
+  const currentMobileWeek = Math.min(mobileWeek, totalWeeks - 1);
+  const mobileWeekLabel = (() => {
+    const row = weeks[currentMobileWeek];
+    const first = row.find(Boolean);
+    const last  = [...row].reverse().find(Boolean);
+    if (!first || !last) return "";
+    return `${first.date} – ${last.date} ${MONTHS_FR[month]}`;
+  })();
 
   const isToday = (d: number) =>
     d === today.getDate() && month === today.getMonth() && year === today.getFullYear();
@@ -133,12 +156,34 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
       {/* ── Grille calendrier ── */}
       <div className="bg-cream">
         <div className="max-w-[1400px] mx-auto px-3 md:px-12 pb-12 pt-6">
+
+          {/* ── Navigation semaine (mobile uniquement) ── */}
+          <div className="flex md:hidden items-center justify-between mb-4 px-1">
+            <button
+              onClick={() => setMobileWeek((w) => Math.max(0, w - 1))}
+              disabled={currentMobileWeek === 0}
+              className="w-9 h-9 flex items-center justify-center border border-brown/20 text-brown disabled:opacity-20 text-base"
+            >
+              ←
+            </button>
+            <span className="text-[11px] font-bold tracking-widest uppercase text-brown/60">
+              {mobileWeekLabel}
+            </span>
+            <button
+              onClick={() => setMobileWeek((w) => Math.min(totalWeeks - 1, w + 1))}
+              disabled={currentMobileWeek === totalWeeks - 1}
+              className="w-9 h-9 flex items-center justify-center border border-brown/20 text-brown disabled:opacity-20 text-base"
+            >
+              →
+            </button>
+          </div>
+
           {/* En-têtes jours */}
           <div className="grid grid-cols-7 border-l border-t border-brown/10">
             {DAYS_HEADER_SHORT.map((short, i) => (
               <div
                 key={short}
-                className="border-r border-b border-brown/10 px-1 md:px-2 py-2 text-[8px] md:text-[9px] font-bold tracking-widest uppercase text-brown/40"
+                className="border-r border-b border-brown/10 px-1 md:px-2 py-2 text-[9px] font-bold tracking-widest uppercase text-brown/40"
               >
                 <span className="md:hidden">{short}</span>
                 <span className="hidden md:inline">{DAYS_HEADER_FULL[i]}</span>
@@ -146,58 +191,80 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
             ))}
           </div>
 
-          {/* Cellules */}
-          <div className="grid grid-cols-7 border-l border-brown/10">
-            {cells.map((cell, i) => {
-              if (!cell) {
+          {/* Cellules — mobile : 1 semaine | desktop : mois entier */}
+          {[
+            /* Mobile : seulement la semaine courante */
+            <div key="mobile" className="md:hidden grid grid-cols-7 border-l border-brown/10">
+              {weeks[currentMobileWeek]?.map((cell, i) => {
+                if (!cell) {
+                  return <div key={i} className="border-r border-b border-brown/10 min-h-[100px] bg-brown/5" />;
+                }
+                const isSunday = cell.jsDay === 0;
+                const isT      = isToday(cell.date);
+                const dayProds = isSunday ? [] : productsForDay(cell.date);
                 return (
                   <div
                     key={i}
-                    className="border-r border-b border-brown/10 min-h-[60px] md:min-h-[110px] bg-brown/5"
-                  />
-                );
-              }
-
-              const isSunday = cell.jsDay === 0;
-              const isT      = isToday(cell.date);
-              const dayProds = isSunday ? [] : productsForDay(cell.date);
-
-              return (
-                <div
-                  key={i}
-                  className={`border-r border-b border-brown/10 min-h-[60px] md:min-h-[110px] p-1 md:p-2 transition-colors ${
-                    isT ? "bg-gold/10" : isSunday ? "bg-brown/5" : "bg-cream hover:bg-cream-dark/40"
-                  }`}
-                >
-                  <span
-                    className={`text-[10px] md:text-xs font-bold ${
-                      isT ? "text-brown" : isSunday ? "text-brown/20" : "text-brown/60"
+                    className={`border-r border-b border-brown/10 min-h-[100px] p-2 ${
+                      isT ? "bg-gold/10" : isSunday ? "bg-brown/5" : "bg-cream"
                     }`}
                   >
-                    {cell.date}
-                  </span>
-                  {isSunday && (
-                    <p className="hidden md:block text-[8px] text-brown/20 mt-1 tracking-wider uppercase">Fermé</p>
-                  )}
-                  <div className="mt-1 space-y-1">
-                    {dayProds.map((p) => {
-                      const { chip, label } = TYPE_STYLE[productType(p)];
-                      return (
-                        <div key={p.id}>
-                          <span className={`text-[6px] md:text-[7px] font-bold px-1 py-0.5 ${chip} tracking-wider uppercase`}>
-                            {label}
-                          </span>
-                          <p className="hidden md:block text-[9px] text-brown/70 leading-snug mt-0.5 truncate">
-                            {p.name}
-                          </p>
-                        </div>
-                      );
-                    })}
+                    <span className={`text-xs font-bold ${isT ? "text-brown" : isSunday ? "text-brown/20" : "text-brown/60"}`}>
+                      {cell.date}
+                    </span>
+                    {isSunday && <p className="text-[8px] text-brown/20 mt-1 tracking-wider uppercase">Fermé</p>}
+                    <div className="mt-1.5 space-y-1.5">
+                      {dayProds.map((p) => {
+                        const { chip, label } = TYPE_STYLE[productType(p)];
+                        return (
+                          <div key={p.id}>
+                            <span className={`text-[7px] font-bold px-1 py-0.5 ${chip} tracking-wider uppercase`}>{label}</span>
+                            <p className="text-[9px] text-brown/70 leading-snug mt-0.5 truncate">{p.name}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>,
+
+            /* Desktop : mois entier */
+            <div key="desktop" className="hidden md:grid grid-cols-7 border-l border-brown/10">
+              {cells.map((cell, i) => {
+                if (!cell) {
+                  return <div key={i} className="border-r border-b border-brown/10 min-h-[110px] bg-brown/5" />;
+                }
+                const isSunday = cell.jsDay === 0;
+                const isT      = isToday(cell.date);
+                const dayProds = isSunday ? [] : productsForDay(cell.date);
+                return (
+                  <div
+                    key={i}
+                    className={`border-r border-b border-brown/10 min-h-[110px] p-2 transition-colors ${
+                      isT ? "bg-gold/10" : isSunday ? "bg-brown/5" : "bg-cream hover:bg-cream-dark/40"
+                    }`}
+                  >
+                    <span className={`text-xs font-bold ${isT ? "text-brown" : isSunday ? "text-brown/20" : "text-brown/60"}`}>
+                      {cell.date}
+                    </span>
+                    {isSunday && <p className="text-[8px] text-brown/20 mt-1 tracking-wider uppercase">Fermé</p>}
+                    <div className="mt-1 space-y-1">
+                      {dayProds.map((p) => {
+                        const { chip, label } = TYPE_STYLE[productType(p)];
+                        return (
+                          <div key={p.id}>
+                            <span className={`text-[7px] font-bold px-1 py-0.5 ${chip} tracking-wider uppercase`}>{label}</span>
+                            <p className="text-[9px] text-brown/70 leading-snug mt-0.5 truncate">{p.name}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>,
+          ]}
         </div>
       </div>
 
