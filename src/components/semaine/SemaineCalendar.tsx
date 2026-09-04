@@ -178,51 +178,57 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
             </button>
           </div>
 
-          {/* En-têtes jours */}
-          <div className="grid grid-cols-7 border-l border-t border-brown/10">
-            {DAYS_HEADER_SHORT.map((short, i) => (
-              <div
-                key={short}
-                className="border-r border-b border-brown/10 px-1 md:px-2 py-2 text-[9px] font-bold tracking-widest uppercase text-brown/40"
-              >
-                <span className="md:hidden">{short}</span>
-                <span className="hidden md:inline">{DAYS_HEADER_FULL[i]}</span>
+          {/* En-têtes jours — desktop uniquement */}
+          <div className="hidden md:grid grid-cols-7 border-l border-t border-brown/10">
+            {DAYS_HEADER_FULL.map((d) => (
+              <div key={d} className="border-r border-b border-brown/10 px-2 py-2 text-[9px] font-bold tracking-widest uppercase text-brown/40">
+                {d}
               </div>
             ))}
           </div>
 
-          {/* Cellules — mobile : 1 semaine | desktop : mois entier */}
+          {/* Cellules — mobile : liste verticale | desktop : grille mensuelle */}
           {[
-            /* Mobile : seulement la semaine courante */
-            <div key="mobile" className="md:hidden grid grid-cols-7 border-l border-brown/10">
+            /* Mobile : jours en liste verticale */
+            <div key="mobile" className="md:hidden divide-y divide-brown/10 border border-brown/10">
               {weeks[currentMobileWeek]?.map((cell, i) => {
-                if (!cell) {
-                  return <div key={i} className="border-r border-b border-brown/10 min-h-[100px] bg-brown/5" />;
-                }
+                if (!cell) return null;
                 const isSunday = cell.jsDay === 0;
                 const isT      = isToday(cell.date);
                 const dayProds = isSunday ? [] : productsForDay(cell.date);
                 return (
                   <div
                     key={i}
-                    className={`border-r border-b border-brown/10 min-h-[100px] p-2 ${
+                    className={`flex gap-4 px-4 py-3 ${
                       isT ? "bg-gold/10" : isSunday ? "bg-brown/5" : "bg-cream"
                     }`}
                   >
-                    <span className={`text-xs font-bold ${isT ? "text-brown" : isSunday ? "text-brown/20" : "text-brown/60"}`}>
-                      {cell.date}
-                    </span>
-                    {isSunday && <p className="text-[8px] text-brown/20 mt-1 tracking-wider uppercase">Fermé</p>}
-                    <div className="mt-1.5 space-y-1.5">
-                      {dayProds.map((p) => {
-                        const { chip, label } = TYPE_STYLE[productType(p)];
-                        return (
-                          <div key={p.id}>
-                            <span className={`text-[7px] font-bold px-1 py-0.5 ${chip} tracking-wider uppercase`}>{label}</span>
-                            <p className="text-[9px] text-brown/70 leading-snug mt-0.5 truncate">{p.name}</p>
-                          </div>
-                        );
-                      })}
+                    {/* Colonne date + jour */}
+                    <div className="w-14 shrink-0 flex flex-col items-center justify-start pt-0.5">
+                      <span className={`text-2xl font-bold leading-none ${isT ? "text-brown" : isSunday ? "text-brown/20" : "text-brown"}`}>
+                        {cell.date}
+                      </span>
+                      <span className={`text-[9px] font-bold tracking-widest uppercase mt-0.5 ${isSunday ? "text-brown/20" : "text-brown/40"}`}>
+                        {DAYS_HEADER_SHORT[i]}
+                      </span>
+                    </div>
+                    {/* Produits */}
+                    <div className="flex-1 flex flex-col justify-center gap-1.5 min-h-[48px]">
+                      {isSunday ? (
+                        <p className="text-[10px] text-brown/20 tracking-wider uppercase">Fermé</p>
+                      ) : dayProds.length === 0 ? (
+                        <p className="text-[10px] text-brown/20 italic">—</p>
+                      ) : (
+                        dayProds.map((p) => {
+                          const { chip, label } = TYPE_STYLE[productType(p)];
+                          return (
+                            <div key={p.id} className="flex items-center gap-2">
+                              <span className={`text-[7px] font-bold px-1.5 py-0.5 ${chip} tracking-wider uppercase shrink-0`}>{label}</span>
+                              <p className="text-[11px] text-brown/80 leading-snug truncate">{p.name}</p>
+                            </div>
+                          );
+                        })
+                      )}
                     </div>
                   </div>
                 );
