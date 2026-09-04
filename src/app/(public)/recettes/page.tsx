@@ -126,56 +126,15 @@ export default async function RecettesPage({
       )}
 
       {/* ── GRILLE RECETTES ── */}
-      {rest.length > 1 && (
-        <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-10">
+      {rest.length > 0 && (
+        <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {rest.slice(0, -1).map((recipe) => (
+            {rest.map((recipe) => (
               <RecetteCard key={recipe.id} recipe={recipe} />
             ))}
           </div>
         </section>
       )}
-
-      {/* ── RECETTE DU MOMENT (dernier article, pleine largeur) ── */}
-      {rest.length > 0 && (() => {
-        const last = rest[rest.length - 1];
-        return (
-          <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-16">
-            <Link href={`/recettes/${last.slug}`} className="group block">
-              {/* Image pleine largeur */}
-              <div className="relative w-full h-[420px] overflow-hidden bg-[#C4A882] mb-0">
-                {last.image_url ? (
-                  <Image
-                    src={last.image_url}
-                    alt={last.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-700"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-gradient-to-br from-[#C4A882] to-[#6B4A35]" />
-                )}
-              </div>
-              {/* Texte en dessous */}
-              <div className="bg-brown px-8 py-8 md:px-12 md:py-10">
-                <p className="text-[9px] font-bold tracking-[0.25em] uppercase text-cream/40 mb-3">
-                  Recette du moment
-                </p>
-                <h3 className="text-[clamp(1.6rem,3.5vw,3rem)] font-bold uppercase tracking-tight leading-tight text-cream mb-3">
-                  {last.title}
-                </h3>
-                {last.description && (
-                  <p className="text-xs text-cream/60 leading-relaxed max-w-2xl mb-6">
-                    {last.description}
-                  </p>
-                )}
-                <span className="inline-flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase text-cream border border-cream/30 px-5 py-2.5 group-hover:bg-cream group-hover:text-brown transition-colors">
-                  Découvrir la recette →
-                </span>
-              </div>
-            </Link>
-          </section>
-        );
-      })()}
 
       {/* ── CITATION ── */}
       <section className="bg-[#2A1F1A] py-16 px-6">

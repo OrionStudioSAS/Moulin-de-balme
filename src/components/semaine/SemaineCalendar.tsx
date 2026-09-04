@@ -9,7 +9,8 @@ const MONTHS_FR = [
   "Janvier","Février","Mars","Avril","Mai","Juin",
   "Juillet","Août","Septembre","Octobre","Novembre","Décembre",
 ];
-const DAYS_HEADER = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
+const DAYS_HEADER_FULL   = ["Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"];
+const DAYS_HEADER_SHORT  = ["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"];
 
 function toISO(year: number, month: number, day: number) {
   return `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
@@ -130,70 +131,73 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
       </div>
 
       {/* ── Grille calendrier ── */}
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 pb-12">
-        {/* En-têtes jours */}
-        <div className="grid grid-cols-7 border-l border-t border-cream/10">
-          {DAYS_HEADER.map((d) => (
-            <div
-              key={d}
-              className="border-r border-b border-cream/10 px-2 py-2 text-[9px] font-bold tracking-widest uppercase text-cream/30"
-            >
-              {d}
-            </div>
-          ))}
-        </div>
+      <div className="bg-cream">
+        <div className="max-w-[1400px] mx-auto px-3 md:px-12 pb-12 pt-6">
+          {/* En-têtes jours */}
+          <div className="grid grid-cols-7 border-l border-t border-brown/10">
+            {DAYS_HEADER_SHORT.map((short, i) => (
+              <div
+                key={short}
+                className="border-r border-b border-brown/10 px-1 md:px-2 py-2 text-[8px] md:text-[9px] font-bold tracking-widest uppercase text-brown/40"
+              >
+                <span className="md:hidden">{short}</span>
+                <span className="hidden md:inline">{DAYS_HEADER_FULL[i]}</span>
+              </div>
+            ))}
+          </div>
 
-        {/* Cellules */}
-        <div className="grid grid-cols-7 border-l border-cream/10">
-          {cells.map((cell, i) => {
-            if (!cell) {
+          {/* Cellules */}
+          <div className="grid grid-cols-7 border-l border-brown/10">
+            {cells.map((cell, i) => {
+              if (!cell) {
+                return (
+                  <div
+                    key={i}
+                    className="border-r border-b border-brown/10 min-h-[60px] md:min-h-[110px] bg-brown/5"
+                  />
+                );
+              }
+
+              const isSunday = cell.jsDay === 0;
+              const isT      = isToday(cell.date);
+              const dayProds = isSunday ? [] : productsForDay(cell.date);
+
               return (
                 <div
                   key={i}
-                  className="border-r border-b border-cream/10 min-h-[110px] bg-black/20"
-                />
-              );
-            }
-
-            const isSunday = cell.jsDay === 0;
-            const isT      = isToday(cell.date);
-            const dayProds = isSunday ? [] : productsForDay(cell.date);
-
-            return (
-              <div
-                key={i}
-                className={`border-r border-b border-cream/10 min-h-[110px] p-2 transition-colors ${
-                  isT ? "bg-cream/10" : isSunday ? "bg-black/30" : "hover:bg-cream/5"
-                }`}
-              >
-                <span
-                  className={`text-xs font-bold ${
-                    isT ? "text-cream" : isSunday ? "text-cream/20" : "text-cream/50"
+                  className={`border-r border-b border-brown/10 min-h-[60px] md:min-h-[110px] p-1 md:p-2 transition-colors ${
+                    isT ? "bg-gold/10" : isSunday ? "bg-brown/5" : "bg-cream hover:bg-cream-dark/40"
                   }`}
                 >
-                  {cell.date}
-                </span>
-                {isSunday && (
-                  <p className="text-[8px] text-cream/20 mt-1 tracking-wider uppercase">Fermé</p>
-                )}
-                <div className="mt-1 space-y-1">
-                  {dayProds.map((p) => {
-                    const { chip, label } = TYPE_STYLE[productType(p)];
-                    return (
-                      <div key={p.id}>
-                        <span className={`text-[7px] font-bold px-1 py-0.5 ${chip} tracking-wider uppercase`}>
-                          {label}
-                        </span>
-                        <p className="text-[9px] text-cream/70 leading-snug mt-0.5 truncate">
-                          {p.name}
-                        </p>
-                      </div>
-                    );
-                  })}
+                  <span
+                    className={`text-[10px] md:text-xs font-bold ${
+                      isT ? "text-brown" : isSunday ? "text-brown/20" : "text-brown/60"
+                    }`}
+                  >
+                    {cell.date}
+                  </span>
+                  {isSunday && (
+                    <p className="hidden md:block text-[8px] text-brown/20 mt-1 tracking-wider uppercase">Fermé</p>
+                  )}
+                  <div className="mt-1 space-y-1">
+                    {dayProds.map((p) => {
+                      const { chip, label } = TYPE_STYLE[productType(p)];
+                      return (
+                        <div key={p.id}>
+                          <span className={`text-[6px] md:text-[7px] font-bold px-1 py-0.5 ${chip} tracking-wider uppercase`}>
+                            {label}
+                          </span>
+                          <p className="hidden md:block text-[9px] text-brown/70 leading-snug mt-0.5 truncate">
+                            {p.name}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
 
