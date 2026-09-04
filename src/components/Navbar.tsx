@@ -41,7 +41,9 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  const textColor = scrolled
+  // Quand le menu mobile est ouvert, forcer le style sombre même sans scroll
+  const forceDark = mobileOpen;
+  const textColor = scrolled || forceDark
     ? "text-black hover:text-black/70"
     : "text-white hover:text-white/80";
 
@@ -64,7 +66,7 @@ export default function Navbar() {
       {/* Header — sticky : transparent en position naturelle, blanc quand collé en haut */}
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ${
-          scrolled
+          scrolled || mobileOpen
             ? "bg-white shadow-sm border-b border-black/10"
             : "bg-transparent"
         }`}
@@ -111,13 +113,19 @@ export default function Navbar() {
           <div className="lg:hidden flex items-center gap-3 ml-auto">
             <CartButton scrolled={scrolled} />
             <button
-              className="p-2"
+              className="p-2 w-9 h-9 flex items-center justify-center"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Menu"
+              aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"}
             >
-              <div className={`w-5 h-px mb-1.5 transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
-              <div className={`w-5 h-px mb-1.5 transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
-              <div className={`w-5 h-px transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
+              {mobileOpen ? (
+                <span className="text-black text-xl leading-none">✕</span>
+              ) : (
+                <div className="flex flex-col gap-1.5">
+                  <div className={`w-5 h-px transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
+                  <div className={`w-5 h-px transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
+                  <div className={`w-5 h-px transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
+                </div>
+              )}
             </button>
           </div>
         </div>

@@ -278,7 +278,7 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
       {products.length > 0 && (
         <div className="bg-cream py-14">
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-            <h2 className="text-[clamp(2rem,4vw,4.5rem)] font-bold uppercase tracking-tight text-black mb-8 whitespace-nowrap">
+            <h2 className="text-[clamp(2rem,4vw,4.5rem)] font-bold uppercase tracking-tight text-black mb-8">
               À déguster cette semaine
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">

@@ -26,7 +26,7 @@ export default function HeroSection() {
         <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 flex items-end justify-between gap-8">
           {/* Left: title + description */}
           <div className="flex-1 min-w-0">
-            <h1 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold text-white tracking-wide uppercase leading-none mb-4 whitespace-nowrap">
+            <h1 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold text-white tracking-wide uppercase leading-none mb-4">
               Le Moulin de Balme®
             </h1>
             <p className="text-sm text-white tracking-[0.15em] uppercase font-medium mb-3">
