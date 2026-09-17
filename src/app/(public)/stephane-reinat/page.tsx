@@ -306,17 +306,8 @@ export default async function StephaneReinatPage() {
                   ))}
                 </ul>
               </div>
-              <div className="space-y-1 border-t border-brown/10 pt-5">
-                {[
-                  { date: "Mars 2025", label: "Initiation — Week-end" },
-                  { date: "Mai 2025", label: "Viennoiseries avancées" },
-                  { date: "Sept. 2025", label: "Pains au levain" },
-                ].map((s) => (
-                  <div key={s.date} className="flex justify-between text-xs">
-                    <span className="text-black/50">{s.date}</span>
-                    <span className="text-black/70">{s.label}</span>
-                  </div>
-                ))}
+              <div className="border-t border-brown/10 pt-5">
+                <p className="text-xs text-black/40 italic">Aucun stage disponible pour le moment.</p>
               </div>
               <div className="flex flex-col gap-2 mt-auto">
                 <p className="text-[9px] text-brown/40 tracking-wider">saint-julien-boulangerie.fr/stages</p>
