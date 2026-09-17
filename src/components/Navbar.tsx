@@ -50,14 +50,14 @@ export default function Navbar() {
   return (
     <>
       {/* Announcement bar — statique, scrolle avec la page */}
-      <div className="bg-brown text-white text-center py-2 px-4 flex items-center justify-center gap-4 text-[11px] tracking-wider">
-        <span className="bg-white/20 text-white px-2 py-0.5 text-[10px] tracking-widest uppercase font-bold">
+      <div className="bg-brown text-white py-2 px-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] tracking-wider text-center">
+        <span className="bg-white/20 text-white px-2 py-0.5 text-[10px] tracking-widest uppercase font-bold shrink-0">
           Nouveau
         </span>
         <span className="text-white">Commandez avant 17h — Retrait dès le lendemain 7h</span>
         <Link
           href="/click-and-collect"
-          className="font-bold text-white underline underline-offset-2 hover:opacity-80 transition-opacity whitespace-nowrap"
+          className="font-bold text-white underline underline-offset-2 hover:opacity-80 transition-opacity shrink-0"
         >
           En savoir plus &rsaquo;
         </Link>
