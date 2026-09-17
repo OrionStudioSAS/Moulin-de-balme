@@ -70,7 +70,7 @@ export default async function StephaneReinatPage() {
 
       {/* ─── 2. BIO — STÉPHANE REINAT ─── */}
       <section className="grid grid-cols-1 md:grid-cols-2 bg-cream mb-6 md:mb-12">
-        <div className="relative min-h-[500px] md:min-h-[680px]">
+        <div className="relative min-h-[500px] md:min-h-[680px] order-2 md:order-1">
           <Image
             src="/images/histoire-photo.png"
             alt="Stéphane et Tomoko Reinat"
@@ -78,7 +78,7 @@ export default async function StephaneReinatPage() {
             className="object-cover object-center"
           />
         </div>
-        <div className="flex flex-col justify-center px-10 md:px-16 py-16">
+        <div className="flex flex-col justify-center px-10 md:px-16 py-16 order-1 md:order-2">
           <h2 className={`${H2} text-black mb-4`}>
             Stéphane<br />Reinat
           </h2>
