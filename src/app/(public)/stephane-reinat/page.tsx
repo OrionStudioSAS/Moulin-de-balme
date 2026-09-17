@@ -353,13 +353,22 @@ export default async function StephaneReinatPage() {
                   ))}
                 </ul>
               </div>
-              <div className="flex flex-col gap-2 mt-auto">
-                <p className="text-[9px] text-brown/40 tracking-wider">ecole-auriac.fr/programme-boulangerie</p>
+              <div className="flex flex-col gap-3 mt-auto">
                 <Link
-                  href="/#contact"
+                  href="https://www.efbpa.fr/initiation-stage-remiseaniveau-boulangerie-viennoiserie-snacking-vabret"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[10px] font-bold tracking-widest uppercase border border-black text-black px-5 py-2.5 hover:bg-black hover:text-cream transition-colors text-center"
                 >
-                  Voir le calendrier →
+                  Stage amateur →
+                </Link>
+                <Link
+                  href="https://www.efbpa.fr/stage-professionnels-boulangerie-ecolevabret-cantal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[10px] font-bold tracking-widest uppercase bg-brown text-cream px-5 py-2.5 hover:bg-brown/80 transition-colors text-center"
+                >
+                  Stage pro →
                 </Link>
               </div>
             </div>
