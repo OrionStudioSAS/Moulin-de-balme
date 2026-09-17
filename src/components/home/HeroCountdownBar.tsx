@@ -29,7 +29,29 @@ export default function HeroCountdownBar() {
 
   return (
     <div className="absolute bottom-0 left-0 right-0 z-20 bg-brown/90 backdrop-blur-sm">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-5 flex items-center gap-6 md:gap-10">
+      {/* ── Mobile ── */}
+      <div className="md:hidden px-5 py-4 flex items-center justify-between gap-3">
+        <div className="min-w-0">
+          <p className="text-white text-[10px] font-bold tracking-widest uppercase leading-tight">
+            Click &amp; Collect
+          </p>
+          <p className="text-white text-[10px] tracking-wider text-white/70 mt-0.5">
+            Clôture dans{" "}
+            <span className="font-bold text-white tabular-nums">
+              {secs !== null ? fmt(secs) : "--:--:--"}
+            </span>
+          </p>
+        </div>
+        <Link
+          href="/click-and-collect"
+          className="shrink-0 bg-white text-brown px-4 py-2.5 text-[10px] tracking-widest uppercase font-bold hover:bg-gold transition-colors"
+        >
+          Je commande
+        </Link>
+      </div>
+
+      {/* ── Desktop ── */}
+      <div className="hidden md:flex max-w-[1400px] mx-auto px-12 py-5 items-center gap-10">
         {/* Icon + text */}
         <div className="flex items-center gap-4 flex-1 min-w-0">
           <div className="w-12 h-12 border border-white rounded-full flex items-center justify-center shrink-0">
@@ -40,27 +62,21 @@ export default function HeroCountdownBar() {
             </svg>
           </div>
           <div>
-            <p className="text-white text-xs md:text-sm font-bold tracking-widest uppercase leading-tight">
+            <p className="text-white text-sm font-bold tracking-widest uppercase leading-tight">
               Click &amp; Collect — Commandez la veille, retirez frais
             </p>
-            <p className="text-white text-[11px] tracking-wider mt-0.5 hidden sm:block">
+            <p className="text-white text-[11px] tracking-wider mt-0.5">
               Passez commande avant 17h pour un retrait dès le lendemain 7h en boutique.
             </p>
           </div>
         </div>
-
-        {/* Separator */}
-        <div className="hidden md:block w-px h-10 bg-white/30 shrink-0" />
-
-        {/* Countdown */}
+        <div className="w-px h-10 bg-white/30 shrink-0" />
         <div className="text-center shrink-0">
           <p className="text-white text-[10px] tracking-widest uppercase mb-0.5">Clôture dans</p>
           <p className="text-white text-2xl font-bold tracking-widest tabular-nums">
             {secs !== null ? fmt(secs) : "--:--:--"}
           </p>
         </div>
-
-        {/* CTA */}
         <Link
           href="/click-and-collect"
           className="shrink-0 bg-white text-brown px-6 py-3 text-xs tracking-widest uppercase font-bold hover:bg-gold transition-colors whitespace-nowrap"
