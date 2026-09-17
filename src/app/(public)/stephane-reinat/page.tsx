@@ -310,13 +310,9 @@ export default async function StephaneReinatPage() {
                 <p className="text-xs text-black/40 italic">Aucun stage disponible pour le moment.</p>
               </div>
               <div className="flex flex-col gap-2 mt-auto">
-                <p className="text-[9px] text-brown/40 tracking-wider">saint-julien-boulangerie.fr/stages</p>
-                <Link
-                  href="/#contact"
-                  className="text-[10px] font-bold tracking-widest uppercase border border-black text-black px-5 py-2.5 hover:bg-black hover:text-cream transition-colors text-center"
-                >
+                <span className="text-[10px] font-bold tracking-widest uppercase border border-black/20 text-black/30 px-5 py-2.5 text-center cursor-not-allowed">
                   Voir les disponibilités →
-                </Link>
+                </span>
               </div>
             </div>
 
