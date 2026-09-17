@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
 
-const TITLE = "text-[35px] font-normal uppercase tracking-tight leading-tight";
+const TITLE = "text-[clamp(20px,4vw,35px)] font-normal uppercase tracking-tight leading-tight";
 
 export interface StoryCard {
   label: string;
@@ -56,7 +56,7 @@ export default function StoryCardsSlider({ cards }: { cards: StoryCard[] }) {
             className="bg-brown flex-shrink-0 flex flex-col overflow-hidden"
             style={{ width: "calc((100vw - 48px) / 2)", minWidth: 320 }}
           >
-            <p className={`${TITLE} text-white px-8 pt-8 pb-3 whitespace-nowrap overflow-hidden text-ellipsis`}>
+            <p className={`${TITLE} text-white px-8 pt-8 pb-3`}>
               {card.label}
             </p>
             <div className="relative h-[250px] mx-8">
