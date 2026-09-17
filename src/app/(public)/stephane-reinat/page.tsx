@@ -163,13 +163,13 @@ export default async function StephaneReinatPage() {
       {/* ─── 5. L'ART BOULANGER À VOTRE TABLE ─── */}
       <section className="bg-cream py-16">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-          <div className="flex items-end justify-between mb-8">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
             <h2 className={`${H2} text-black`}>
               L&apos;art boulanger<br />à votre table.
             </h2>
             <Link
               href="/produits"
-              className="text-[11px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:opacity-50 transition-opacity whitespace-nowrap shrink-0 ml-8"
+              className="text-[11px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:opacity-50 transition-opacity w-fit"
             >
               Voir toutes les recettes
             </Link>
