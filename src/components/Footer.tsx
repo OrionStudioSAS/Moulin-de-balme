@@ -22,7 +22,6 @@ const FOOTER_COLS = [
       { label: "Savoir-faire", href: "/stephane-reinat" },
       { label: "La semaine", href: "/la-semaine" },
       { label: "Nos farines", href: "/#nos-farines" },
-      { label: "FAQ", href: "#" },
       { label: "Contactez-nous", href: "/#contact" },
     ],
   },
