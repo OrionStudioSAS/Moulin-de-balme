@@ -5,13 +5,13 @@ const FOOTER_COLS = [
   {
     title: "Nos produits",
     links: [
-      { label: "Pains", href: "/produits?categorie=pain" },
-      { label: "Biscuits", href: "/produits?categorie=biscuits" },
+      { label: "Pain", href: "/produits?categorie=pain" },
       { label: "Viennoiseries", href: "/produits?categorie=viennoiseries" },
-      { label: "Pâtisseries boulangères", href: "/produits?categorie=patisseries" },
-      { label: "Épicerie", href: "/produits?categorie=epicerie" },
-      { label: "Livres et accessoires", href: "/produits?categorie=accessoires" },
-      { label: "Coffrets et paniers", href: "/produits?categorie=coffrets" },
+      { label: "Pâtisseries", href: "/produits?categorie=patisseries" },
+      { label: "Salé", href: "/produits?categorie=sale" },
+      { label: "Confitures", href: "/produits?categorie=confitures" },
+      { label: "Farines", href: "/produits?categorie=farines" },
+      { label: "Miel", href: "/produits?categorie=miel" },
       { label: "Tous les produits", href: "/produits" },
     ],
   },
@@ -30,11 +30,9 @@ const FOOTER_COLS = [
     title: "Informations",
     links: [
       { label: "Mentions légales", href: "#" },
-      { label: "Politique de Confidentialité", href: "#" },
-      { label: "Avis des consommateurs", href: "#" },
+      { label: "Politique de confidentialité", href: "#" },
       { label: "CGU", href: "#" },
       { label: "CGV", href: "#" },
-      { label: "Modifier mes préférences en matière de cookie", href: "#" },
     ],
   },
 ];
