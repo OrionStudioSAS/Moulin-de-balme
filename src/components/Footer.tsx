@@ -16,17 +16,6 @@ const FOOTER_COLS = [
     ],
   },
   {
-    title: "Nos adresses",
-    links: [
-      { label: "Megève", href: "/#contact" },
-      { label: "Brive-la-Gaillarde", href: "/#contact" },
-      { label: "Saint-Julien", href: "/#contact" },
-      { label: "Aurillac", href: "/#contact" },
-      { label: "Nous contacter", href: "/#contact" },
-      { label: "Toutes les boutiques", href: "/#contact" },
-    ],
-  },
-  {
     title: "Le Moulin®",
     links: [
       { label: "Notre histoire", href: "/la-maison" },
@@ -72,7 +61,7 @@ export default function Footer() {
   return (
     <footer className="bg-cream text-brown">
       <div className="px-6 md:px-12 pt-14 pb-8">
-        <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 md:grid-cols-[1fr_0.9fr_0.9fr_1fr_1.15fr] md:gap-16">
+        <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 md:grid-cols-[1fr_0.9fr_1fr_1.15fr] md:gap-16">
           {FOOTER_COLS.map((col) => (
             <div key={col.title}>
               <p className="mb-3 text-[11px] font-bold uppercase tracking-[0.24em] text-brown">
