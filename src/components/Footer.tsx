@@ -29,10 +29,8 @@ const FOOTER_COLS = [
   {
     title: "Informations",
     links: [
-      { label: "Mentions légales", href: "#" },
-      { label: "Politique de confidentialité", href: "#" },
-      { label: "CGU", href: "#" },
-      { label: "CGV", href: "#" },
+      { label: "Mentions légales", href: "/mentions-legales" },
+      { label: "Politique de confidentialité", href: "/politique-de-confidentialite" },
     ],
   },
 ];
