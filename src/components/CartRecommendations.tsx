@@ -110,7 +110,7 @@ export default function CartRecommendations({ products }: { products: Product[] 
                     {product.name}
                   </p>
                   <p className="mt-0.5 text-[11px] text-warm-gray">
-                    {product.poids ? `${product.poids} g — ` : ""}{formatPrice(product)}
+                    {product.poids ? `${product.poids} — ` : ""}{formatPrice(product)}
                   </p>
                   {needsSelection ? (
                     <Link
