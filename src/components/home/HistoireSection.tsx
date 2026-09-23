@@ -1,22 +1,21 @@
 import Link from "next/link";
 import Image from "next/image";
+import { FadeIn } from "@/components/animations/FadeIn";
 
 export default function HistoireSection() {
   return (
     <section id="histoire" className="bg-cream px-6 md:px-12 py-6 md:py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto overflow-hidden bg-white">
-        {/* Photo — gauche, pleine hauteur */}
-        <div className="relative min-h-[500px] md:min-h-[700px] bg-brown/10 overflow-hidden">
+        <FadeIn y={0} className="relative min-h-[500px] md:min-h-[700px] bg-brown/10 overflow-hidden">
           <Image
             src="/images/histoire-photo.png"
             alt="Stéphane et Tomoko Reinat — Le Moulin de Balme"
             fill
             className="object-cover object-center"
           />
-        </div>
+        </FadeIn>
 
-        {/* Texte — droite */}
-        <div className="flex flex-col justify-center px-6 md:px-12 py-16 md:py-20">
+        <FadeIn delay={0.15} className="flex flex-col justify-center px-6 md:px-12 py-16 md:py-20">
           <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-black mb-5">
             Le Moulin®
           </h2>
@@ -57,7 +56,7 @@ export default function HistoireSection() {
               Découvrir le boulanger
             </Link>
           </div>
-        </div>
+        </FadeIn>
       </div>
     </section>
   );

@@ -1,3 +1,5 @@
+import { FadeIn } from "@/components/animations/FadeIn";
+
 const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none";
 
 const ROWS = [
@@ -15,7 +17,7 @@ export default function ContactSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
 
           {/* ─── Gauche : titre + contact rows ─── */}
-          <div>
+          <FadeIn>
             <h2 className={`${H2} text-white mb-14`}>
               Nous<br />Contacter
             </h2>
@@ -39,10 +41,10 @@ export default function ContactSection() {
                 </div>
               ))}
             </div>
-          </div>
+          </FadeIn>
 
           {/* ─── Droite : Google Maps ─── */}
-          <div className="w-full aspect-[4/3] md:aspect-auto md:h-[420px]">
+          <FadeIn delay={0.15} className="w-full aspect-[4/3] md:aspect-auto md:h-[420px]">
             <iframe
               src={`https://maps.google.com/maps?q=${MAP_Q}&z=15&output=embed`}
               width="100%"
@@ -52,7 +54,7 @@ export default function ContactSection() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
-          </div>
+          </FadeIn>
 
         </div>
       </div>

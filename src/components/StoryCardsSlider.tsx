@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const TITLE = "text-[clamp(20px,4vw,35px)] font-normal uppercase tracking-tight leading-tight";
 
@@ -42,7 +43,13 @@ export default function StoryCardsSlider({ cards }: { cards: StoryCard[] }) {
   };
 
   return (
-    <section className="bg-cream pl-6 md:pl-12 pb-6 md:pb-12">
+    <motion.section
+      className="bg-cream pl-6 md:pl-12 pb-6 md:pb-12"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+    >
       <div
         ref={trackRef}
         className="flex gap-6 overflow-x-auto scroll-smooth"
@@ -99,6 +106,6 @@ export default function StoryCardsSlider({ cards }: { cards: StoryCard[] }) {
           →
         </button>
       </div>
-    </section>
+    </motion.section>
   );
 }

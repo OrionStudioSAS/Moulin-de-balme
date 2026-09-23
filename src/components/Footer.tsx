@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FadeIn } from "@/components/animations/FadeIn";
 
 const FOOTER_COLS = [
   {
@@ -37,6 +38,7 @@ const FOOTER_COLS = [
 export default function Footer() {
   return (
     <footer className="bg-cream text-brown">
+      <FadeIn y={16}>
       <div className="px-6 md:px-12 pt-14 pb-8">
         <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 md:grid-cols-[1.2fr_1fr_1fr_1fr] md:gap-16">
 
@@ -80,6 +82,7 @@ export default function Footer() {
           </p>
         </div>
       </div>
+      </FadeIn>
     </footer>
   );
 }

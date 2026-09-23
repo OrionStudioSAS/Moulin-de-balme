@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import type { Product } from "@/types";
 import SortieDuFourCard from "./SortieDuFourCard";
+import { FadeIn, StaggerChildren, StaggerItem } from "@/components/animations/FadeIn";
 
 export default async function SortieDuFour() {
   const supabase = await createClient();
@@ -19,8 +20,7 @@ export default async function SortieDuFour() {
   return (
     <section className="bg-cream px-6 md:px-12 py-6 md:py-12">
       <div className="max-w-[1400px] mx-auto">
-        {/* Header */}
-        <div className="flex items-start justify-between gap-8 mb-10">
+        <FadeIn className="flex items-start justify-between gap-8 mb-10">
           <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-brown shrink-0">
             Sortie<br />du four
           </h2>
@@ -35,14 +35,15 @@ export default async function SortieDuFour() {
               Voir tout
             </Link>
           </div>
-        </div>
+        </FadeIn>
 
-        {/* Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StaggerChildren className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {items.map((product: Product) => (
-            <SortieDuFourCard key={product.id} product={product} />
+            <StaggerItem key={product.id}>
+              <SortieDuFourCard product={product} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
       </div>
     </section>
   );
