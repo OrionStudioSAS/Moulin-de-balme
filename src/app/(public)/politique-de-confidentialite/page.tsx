@@ -20,7 +20,7 @@ export default function PolitiqueConfidentialitePage() {
         <section className="mb-10">
           <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-brown mb-3">Données collectées</h2>
           <p className="text-sm text-brown/70 leading-relaxed">
-            Dans le cadre de l'utilisation de ce site, nous pouvons être amenés à collecter les données suivantes :
+            Dans le cadre de l&apos;utilisation de ce site, nous pouvons être amenés à collecter les données suivantes :
           </p>
           <ul className="mt-3 space-y-1 text-sm text-brown/70 list-disc list-inside">
             <li>Adresse e-mail (inscription à la newsletter)</li>
@@ -45,21 +45,21 @@ export default function PolitiqueConfidentialitePage() {
         <section className="mb-10">
           <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-brown mb-3">Durée de conservation</h2>
           <p className="text-sm text-brown/70 leading-relaxed">
-            Les données de commande sont conservées 3 ans à compter de la dernière commande. Les adresses email de newsletter sont conservées jusqu'à désinscription.
+            Les données de commande sont conservées 3 ans à compter de la dernière commande. Les adresses email de newsletter sont conservées jusqu&apos;à désinscription.
           </p>
         </section>
 
         <section className="mb-10">
           <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-brown mb-3">Vos droits</h2>
           <p className="text-sm text-brown/70 leading-relaxed">
-            Conformément au RGPD, vous disposez d'un droit d'accès, de rectification, d'effacement et d'opposition à vos données personnelles. Pour exercer ces droits, contactez-nous à [email].
+            Conformément au RGPD, vous disposez d&apos;un droit d&apos;accès, de rectification, d&apos;effacement et d&apos;opposition à vos données personnelles. Pour exercer ces droits, contactez-nous à [email].
           </p>
         </section>
 
         <section>
           <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-brown mb-3">Cookies</h2>
           <p className="text-sm text-brown/70 leading-relaxed">
-            Ce site utilise uniquement des cookies techniques nécessaires à son fonctionnement (session, panier). Aucun cookie publicitaire ou de tracking tiers n'est déposé.
+            Ce site utilise uniquement des cookies techniques nécessaires à son fonctionnement (session, panier). Aucun cookie publicitaire ou de tracking tiers n&apos;est déposé.
           </p>
         </section>
       </div>

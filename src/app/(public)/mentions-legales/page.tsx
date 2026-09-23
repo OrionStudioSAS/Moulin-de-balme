@@ -48,14 +48,14 @@ export default function MentionsLegalesPage() {
         <section className="mb-10">
           <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-brown mb-3">Propriété intellectuelle</h2>
           <p className="text-sm text-brown/70 leading-relaxed">
-            L'ensemble des contenus présents sur ce site (textes, images, visuels) est la propriété exclusive du Moulin de Balme ou de ses auteurs, et est protégé par le droit d'auteur. Toute reproduction, même partielle, est interdite sans autorisation préalable.
+            L&apos;ensemble des contenus présents sur ce site (textes, images, visuels) est la propriété exclusive du Moulin de Balme ou de ses auteurs, et est protégé par le droit d&apos;auteur. Toute reproduction, même partielle, est interdite sans autorisation préalable.
           </p>
         </section>
 
         <section>
           <h2 className="text-xs font-bold tracking-[0.2em] uppercase text-brown mb-3">Cookies</h2>
           <p className="text-sm text-brown/70 leading-relaxed">
-            Ce site peut utiliser des cookies techniques nécessaires à son bon fonctionnement. Aucune donnée personnelle n'est collectée à des fins publicitaires.
+            Ce site peut utiliser des cookies techniques nécessaires à son bon fonctionnement. Aucune donnée personnelle n&apos;est collectée à des fins publicitaires.
           </p>
         </section>
       </div>
