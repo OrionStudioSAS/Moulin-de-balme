@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 
-const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none";
+const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none whitespace-pre-line";
 
 export default function LaMaisonPage() {
   return (
@@ -37,7 +37,7 @@ export default function LaMaisonPage() {
         </div>
         <div className="relative z-10 h-full flex flex-col justify-end max-w-[1400px] mx-auto px-6 md:px-12 pb-16 pt-40">
           <h1 className={`${H2} text-white mb-3`}>
-            Moulin<br />de Balme®
+            {"Moulin\nde Balme®"}
           </h1>
           <p className="text-sm font-medium tracking-[0.15em] uppercase text-white/60 mb-3">
             Le Moulin de Balme anciennement Le Fournil de Lisa
@@ -66,7 +66,7 @@ export default function LaMaisonPage() {
         <div className="px-6 md:px-12 py-16 flex flex-col justify-center gap-6">
           <div>
             <h2 className={`${H2} text-black mb-3`}>
-              Une adresse<br />qui a une<br />histoire
+              {"Une adresse\nqui a une\nhistoire"}
             </h2>
             <p className="text-sm font-medium tracking-[0.15em] uppercase text-brown/60">
               Le 7, avenue Alsace-Lorraine

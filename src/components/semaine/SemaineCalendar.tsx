@@ -100,8 +100,8 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
           <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-cream/40 mb-3">
             Le calendrier du fournil
           </p>
-          <h1 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold text-cream uppercase tracking-tight leading-none">
-            Le mois<br />au fournil.
+          <h1 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold text-cream uppercase tracking-tight leading-none whitespace-pre-line">
+            {"Le mois\nau fournil."}
           </h1>
           <div className="w-8 h-px bg-cream/30 my-5" />
           <p className="text-xs text-cream/60 leading-relaxed max-w-sm">

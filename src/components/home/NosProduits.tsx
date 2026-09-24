@@ -22,7 +22,7 @@ export default async function NosProduits() {
               {"Nos\nproduits"}
             </h2>
             <p className="text-sm font-medium tracking-[0.15em] uppercase text-brown mb-8">
-              Poilâne® nourrit le corps et<br />L&apos;esprit de son art Boulanger
+              Poilâne® nourrit le corps et l&apos;esprit de son art Boulanger
             </p>
             <Link
               href="/produits"
