@@ -1,8 +1,30 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import type { Recipe } from "@/types";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const supabase = await createClient();
+  const { data } = await supabase.from("recipes").select("title,excerpt,image_url").eq("slug", slug).single();
+  if (!data) return { title: "Recette" };
+  return {
+    title: data.title,
+    description: data.excerpt
+      ? data.excerpt.slice(0, 155)
+      : `Recette ${data.title} par le Moulin de Balme, boulangerie artisanale à Brive-la-Gaillarde.`,
+    alternates: { canonical: `https://www.moulin-de-balme.fr/recettes/${slug}` },
+    openGraph: {
+      title: `${data.title} — Le Moulin de Balme®`,
+      description: data.excerpt?.slice(0, 155) ?? `Recette artisanale du Moulin de Balme, Brive-la-Gaillarde.`,
+      images: data.image_url ? [{ url: data.image_url, alt: data.title }] : undefined,
+      url: `https://www.moulin-de-balme.fr/recettes/${slug}`,
+    },
+  };
+}
+
 
 const CHIP_COLORS: Record<string, string> = {
   green:  "bg-[#4A7C59] text-white",

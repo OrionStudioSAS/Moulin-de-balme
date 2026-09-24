@@ -20,6 +20,34 @@ function buildItemsHtml(items: OrderItem[]) {
 }
 
 const STATUS_EMAILS: Record<string, { subject: (name: string) => string; body: (order: Record<string, unknown>) => string }> = {
+  ready: {
+    subject: () => `🛍️ Votre commande est prête — Le Moulin de Balme`,
+    body: (order) => `
+      <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#F5F0E8;padding:32px;">
+        <h1 style="font-size:20px;font-weight:bold;text-transform:uppercase;letter-spacing:0.1em;color:#3D2B1F;margin:0 0 8px;">
+          Votre commande est prête !
+        </h1>
+        <p style="font-size:14px;color:#6B5744;margin:0 0 28px;">
+          Bonjour ${order.customer_name}, votre commande est prête à être retirée en boutique.
+        </p>
+        <div style="background:#3D2B1F;padding:20px 24px;margin-bottom:20px;">
+          <h2 style="font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:0.2em;color:#C9A96E;margin:0 0 10px;">Retrait disponible</h2>
+          <p style="font-size:18px;font-weight:bold;color:#fff;margin:0;">${order.pickup_date} à ${order.pickup_time}</p>
+          <p style="font-size:13px;color:rgba(255,255,255,0.7);margin:6px 0 0;">7 avenue Alsace-Lorraine, 19100 Brive-la-Gaillarde</p>
+        </div>
+        <p style="font-size:14px;color:#6B5744;line-height:1.7;margin-bottom:24px;">
+          Nous vous attendons. Le paiement s&apos;effectue en boutique lors du retrait.
+        </p>
+        <p style="font-size:13px;color:#6B5744;margin-bottom:24px;">
+          Pour toute question : <a href="mailto:moulindebalme@gmail.com" style="color:#C9A96E;">moulindebalme@gmail.com</a>
+        </p>
+        <p style="font-size:11px;color:#9B8A7A;text-align:center;border-top:1px solid #e5ddd0;padding-top:20px;margin:0;">
+          Le Moulin de Balme — 7 avenue Alsace-Lorraine, 19100 Brive-la-Gaillarde
+        </p>
+      </div>
+    `,
+  },
+
   confirmed: {
     subject: (name) => `✅ Commande confirmée — Le Moulin de Balme`,
     body: (order) => `
@@ -49,7 +77,7 @@ const STATUS_EMAILS: Record<string, { subject: (name: string) => string; body: (
         </div>
         <p style="font-size:13px;color:#6B5744;line-height:1.6;margin-bottom:24px;">
           Le paiement s&apos;effectue directement en boutique.<br/>
-          Pour toute question : <a href="mailto:commandes@moulin-de-balme.fr" style="color:#C9A96E;">commandes@moulin-de-balme.fr</a>
+          Pour toute question : <a href="mailto:moulindebalme@gmail.com" style="color:#C9A96E;">moulindebalme@gmail.com</a>
         </p>
         <p style="font-size:11px;color:#9B8A7A;text-align:center;border-top:1px solid #e5ddd0;padding-top:20px;margin:0;">
           Le Moulin de Balme — 7 avenue Alsace-Lorraine, 19100 Brive-la-Gaillarde
@@ -91,7 +119,7 @@ const STATUS_EMAILS: Record<string, { subject: (name: string) => string; body: (
         </p>
         <p style="font-size:14px;color:#6B5744;line-height:1.7;margin-bottom:24px;">
           Pour toute question ou pour passer une nouvelle commande, contactez-nous à
-          <a href="mailto:commandes@moulin-de-balme.fr" style="color:#C9A96E;">commandes@moulin-de-balme.fr</a>.
+          <a href="mailto:moulindebalme@gmail.com" style="color:#C9A96E;">moulindebalme@gmail.com</a>.
         </p>
         <p style="font-size:11px;color:#9B8A7A;text-align:center;border-top:1px solid #e5ddd0;padding-top:20px;margin:0;">
           Le Moulin de Balme — 7 avenue Alsace-Lorraine, 19100 Brive-la-Gaillarde

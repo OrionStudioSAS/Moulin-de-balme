@@ -1,6 +1,21 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import type { Product } from "@/types";
 import SemaineCalendar from "@/components/semaine/SemaineCalendar";
+
+export const metadata: Metadata = {
+  title: "La Semaine — Produits du moment",
+  description:
+    "Découvrez les produits de la semaine au Moulin de Balme. Pains spéciaux, viennoiseries et créations artisanales qui changent chaque semaine à Brive-la-Gaillarde.",
+  alternates: { canonical: "https://www.moulin-de-balme.fr/la-semaine" },
+  openGraph: {
+    title: "La Semaine — Le Moulin de Balme®",
+    description:
+      "Les produits artisanaux de la semaine au Moulin de Balme, boulangerie à Brive-la-Gaillarde.",
+    url: "https://www.moulin-de-balme.fr/la-semaine",
+  },
+};
+
 
 export default async function LaSemainePage() {
   const supabase = await createClient();

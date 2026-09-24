@@ -6,8 +6,21 @@ import ProductDetail from "@/components/ProductDetail";
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const supabase = await createClient();
-  const { data } = await supabase.from("products").select("name,description").eq("slug", slug).single();
-  return { title: data ? `${data.name} — Le Moulin de Balme®` : "Produit" };
+  const { data } = await supabase.from("products").select("name,description,image_url").eq("slug", slug).single();
+  if (!data) return { title: "Produit" };
+  return {
+    title: data.name,
+    description: data.description
+      ? data.description.slice(0, 155)
+      : `Découvrez ${data.name}, produit artisanal du Moulin de Balme à Brive-la-Gaillarde.`,
+    alternates: { canonical: `https://www.moulin-de-balme.fr/produits/${slug}` },
+    openGraph: {
+      title: `${data.name} — Le Moulin de Balme®`,
+      description: data.description?.slice(0, 155) ?? `Produit artisanal — Le Moulin de Balme, Brive-la-Gaillarde.`,
+      images: data.image_url ? [{ url: data.image_url, alt: data.name }] : undefined,
+      url: `https://www.moulin-de-balme.fr/produits/${slug}`,
+    },
+  };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {

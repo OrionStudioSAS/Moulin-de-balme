@@ -1,6 +1,21 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata: Metadata = {
+  title: "Recettes & Histoires de pain",
+  description:
+    "Recettes artisanales du Moulin de Balme : pains, viennoiseries, pâtisseries. Des recettes transmises avec passion par Stéphane Reinat, Maître Boulanger à Brive-la-Gaillarde.",
+  alternates: { canonical: "https://www.moulin-de-balme.fr/recettes" },
+  openGraph: {
+    title: "Recettes & Histoires de pain — Le Moulin de Balme®",
+    description:
+      "Recettes artisanales : pains au levain, viennoiseries, pâtisseries. Du canelé bordelais à la baguette d'auteur.",
+    url: "https://www.moulin-de-balme.fr/recettes",
+  },
+};
+
 import type { Recipe } from "@/types";
 import RecettesFilters from "@/components/recettes/RecettesFilters";
 

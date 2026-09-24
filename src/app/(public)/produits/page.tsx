@@ -1,4 +1,19 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata: Metadata = {
+  title: "Nos Produits — Pains, Viennoiseries & Pâtisseries",
+  description:
+    "Découvrez toute la gamme artisanale du Moulin de Balme : pains au levain, croissants, brioches, pâtisseries, confitures et farines. Commande Click & Collect disponible.",
+  alternates: { canonical: "https://www.moulin-de-balme.fr/produits" },
+  openGraph: {
+    title: "Nos Produits — Le Moulin de Balme®",
+    description:
+      "Pains au levain, viennoiseries, pâtisseries artisanales à Brive-la-Gaillarde. Click & Collect disponible.",
+    url: "https://www.moulin-de-balme.fr/produits",
+  },
+};
+
 import Link from "next/link";
 import Image from "next/image";
 import ProductCard from "@/components/ProductCard";

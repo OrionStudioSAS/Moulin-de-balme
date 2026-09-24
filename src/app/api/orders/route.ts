@@ -64,6 +64,7 @@ export async function POST(req: NextRequest) {
                     <h2 style="font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:0.2em;color:#3D2B1F;margin:0 0 12px;">Client</h2>
                     <p style="margin:4px 0;font-size:14px;color:#3D2B1F;"><strong>${customer_name}</strong></p>
                     <p style="margin:4px 0;font-size:13px;color:#6B5744;"><a href="mailto:${customer_email}" style="color:#C9A96E;">${customer_email}</a></p>
+
                   </div>
                   <div style="background:#fff;border:1px solid #e5ddd0;padding:20px 24px;margin-bottom:20px;">
                     <h2 style="font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:0.2em;color:#3D2B1F;margin:0 0 12px;">Retrait</h2>
@@ -139,7 +140,7 @@ export async function POST(req: NextRequest) {
               <p style="font-size:13px;color:#6B5744;line-height:1.6;margin-bottom:24px;">
                 Le paiement s&apos;effectue directement en boutique lors du retrait.<br />
                 Pour toute question, contactez-nous à
-                <a href="mailto:commandes@moulin-de-balme.fr" style="color:#C9A96E;">commandes@moulin-de-balme.fr</a>.
+                <a href="mailto:moulindebalme@gmail.com" style="color:#C9A96E;">moulindebalme@gmail.com</a>.
               </p>
 
               <p style="font-size:11px;color:#9B8A7A;text-align:center;border-top:1px solid #e5ddd0;padding-top:20px;margin:0;">

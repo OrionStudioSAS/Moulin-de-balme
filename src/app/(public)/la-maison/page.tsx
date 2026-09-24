@@ -1,5 +1,20 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import HistoireCards from "@/components/home/HistoireCards";
+
+export const metadata: Metadata = {
+  title: "La Maison — Notre histoire",
+  description:
+    "L'histoire du Moulin de Balme, anciennement le Fournil de Lisa. Une boulangerie artisanale au 7 avenue Alsace-Lorraine à Brive-la-Gaillarde, reprise par Stéphane Reinat.",
+  alternates: { canonical: "https://www.moulin-de-balme.fr/la-maison" },
+  openGraph: {
+    title: "La Maison — Le Moulin de Balme®",
+    description:
+      "Découvrez l'histoire du Moulin de Balme, anciennement le Fournil de Lisa, à Brive-la-Gaillarde.",
+    url: "https://www.moulin-de-balme.fr/la-maison",
+  },
+};
+
 
 const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none";
 

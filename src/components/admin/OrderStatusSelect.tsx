@@ -6,7 +6,6 @@ const STATUSES = [
   { value: "pending", label: "En attente" },
   { value: "confirmed", label: "Confirmé" },
   { value: "ready", label: "Prêt" },
-  { value: "completed", label: "Complété" },
   { value: "cancelled", label: "Annulé" },
 ];
 

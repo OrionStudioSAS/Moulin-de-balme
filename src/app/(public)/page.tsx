@@ -1,4 +1,19 @@
+import type { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
+
+export const metadata: Metadata = {
+  title: "Le Moulin de Balme® — Boulangerie Artisanale à Brive-la-Gaillarde",
+  description:
+    "Boulangerie artisanale au cœur de Brive-la-Gaillarde. Pains au levain, viennoiseries, pâtisseries façonnés à la main par Stéphane Reinat. Click & Collect disponible.",
+  alternates: { canonical: "https://www.moulin-de-balme.fr" },
+  openGraph: {
+    title: "Le Moulin de Balme® — Boulangerie Artisanale à Brive-la-Gaillarde",
+    description:
+      "Pains au levain, viennoiseries et pâtisseries artisanales à Brive-la-Gaillarde (Corrèze). Click & Collect disponible.",
+    url: "https://www.moulin-de-balme.fr",
+  },
+};
+
 import SortieDuFour from "@/components/home/SortieDuFour";
 import HistoireSection from "@/components/home/HistoireSection";
 import NosProduits from "@/components/home/NosProduits";

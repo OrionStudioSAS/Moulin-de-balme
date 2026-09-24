@@ -1,6 +1,21 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import StoryCardsSlider from "@/components/StoryCardsSlider";
+
+export const metadata: Metadata = {
+  title: "Stéphane Reinat — Maître Boulanger",
+  description:
+    "Stéphane Reinat, Maître Boulanger et fondateur du Moulin de Balme à Brive-la-Gaillarde. Son parcours, sa vision de la boulangerie artisanale et sa passion pour le pain au levain.",
+  alternates: { canonical: "https://www.moulin-de-balme.fr/stephane-reinat" },
+  openGraph: {
+    title: "Stéphane Reinat — Maître Boulanger — Le Moulin de Balme®",
+    description:
+      "Découvrez le parcours de Stéphane Reinat, Maître Boulanger fondateur du Moulin de Balme à Brive-la-Gaillarde.",
+    url: "https://www.moulin-de-balme.fr/stephane-reinat",
+  },
+};
+
 import type { StoryCard } from "@/components/StoryCardsSlider";
 
 const TIMELINE_CARDS: StoryCard[] = [
