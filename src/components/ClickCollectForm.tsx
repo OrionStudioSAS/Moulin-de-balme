@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/client";
 import { useCart } from "@/lib/cart-context";
 import type { Product, OrderItem } from "@/types";
 
@@ -27,7 +26,6 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
     if (items.length === 0) return;
     setSubmitting(true);
 
-    const supabase = createClient();
     const orderItems: OrderItem[] = items.map((i) => ({
       product_id: i.product.id,
       product_name: i.product.name,
@@ -35,15 +33,14 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
       unit_price: i.unitPrice,
     }));
 
-    const { error } = await supabase.from("orders").insert({
-      ...form,
-      items: orderItems,
-      total_amount: total,
-      status: "pending",
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...form, items: orderItems, total_amount: total }),
     });
 
     setSubmitting(false);
-    if (!error) {
+    if (res.ok) {
       clear();
       setSuccess(true);
     }
