@@ -46,7 +46,7 @@ export async function POST(req: NextRequest) {
         .join("");
 
       await resend.emails.send({
-        from: "Le Moulin de Balme <commandes@moulin-de-balme.fr>",
+        from: process.env.RESEND_FROM_EMAIL ?? "Le Moulin de Balme <onboarding@resend.dev>",
         to: notifEmail,
         subject: `🥖 Nouvelle commande — ${customer_name} — retrait le ${pickup_date} à ${pickup_time}`,
         html: `
