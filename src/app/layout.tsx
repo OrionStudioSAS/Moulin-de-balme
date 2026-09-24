@@ -78,7 +78,7 @@ const schemaOrg = {
     latitude: 45.1584,
     longitude: 1.5315,
   },
-  priceRange: "€€",
+  priceRange: "€",
   servesCuisine: "Boulangerie artisanale française",
   hasMenu: `${SITE_URL}/produits`,
   sameAs: [],
