@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 
 const STATUSES = [
   { value: "pending", label: "En attente" },
@@ -23,8 +22,11 @@ export default function OrderStatusSelect({
 
   const handleChange = async (newStatus: string) => {
     setLoading(true);
-    const supabase = createClient();
-    await supabase.from("orders").update({ status: newStatus }).eq("id", orderId);
+    await fetch("/api/orders/status", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderId, newStatus }),
+    });
     setStatus(newStatus);
     setLoading(false);
   };

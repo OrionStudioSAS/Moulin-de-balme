@@ -15,7 +15,6 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
   const [form, setForm] = useState({
     customer_name: "",
     customer_email: "",
-    customer_phone: "",
     pickup_date: "",
     pickup_time: "08:00",
     notes: "",
@@ -187,10 +186,6 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
               <input required type="email" placeholder="Email"
                 value={form.customer_email}
                 onChange={(e) => setForm({ ...form, customer_email: e.target.value })}
-                className={inputClass} />
-              <input required type="tel" placeholder="Téléphone"
-                value={form.customer_phone}
-                onChange={(e) => setForm({ ...form, customer_phone: e.target.value })}
                 className={inputClass} />
 
               <p className="text-[11px] tracking-widest uppercase text-gold pt-1">

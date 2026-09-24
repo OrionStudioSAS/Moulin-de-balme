@@ -71,7 +71,7 @@ export default async function CommandesPage({
         <table className="w-full min-w-[700px]">
           <thead className="bg-cream-dark border-b border-brown/10">
             <tr>
-              {["Client", "Email", "Téléphone", "Retrait", "Heure", "Total", "Statut", "Actions"].map((h) => (
+              {["Client", "Email", "Retrait", "Heure", "Total", "Statut", "Actions"].map((h) => (
                 <th key={h} className="text-left text-xs tracking-widests uppercase px-4 py-3 text-warm-gray">
                   {h}
                 </th>
@@ -91,7 +91,6 @@ export default async function CommandesPage({
                       </p>
                     </td>
                     <td className="px-4 py-3 text-xs text-warm-gray">{order.customer_email}</td>
-                    <td className="px-4 py-3 text-xs text-warm-gray">{order.customer_phone}</td>
                     <td className="px-4 py-3 text-xs text-warm-gray">{order.pickup_date}</td>
                     <td className="px-4 py-3 text-xs text-warm-gray">{order.pickup_time}</td>
                     <td className="px-4 py-3 text-xs font-bold text-brown">
@@ -107,7 +106,7 @@ export default async function CommandesPage({
                     </td>
                   </tr>
                   <tr key={`${order.id}-details`} className="border-b border-brown/10 bg-cream/40">
-                    <td colSpan={8} className="px-4 py-4">
+                    <td colSpan={7} className="px-4 py-4">
                       <details className="group">
                         <summary className="cursor-pointer list-none text-[11px] font-bold uppercase tracking-widest text-brown hover:opacity-70">
                           <span className="inline-block transition-transform group-open:rotate-90">›</span>{" "}
