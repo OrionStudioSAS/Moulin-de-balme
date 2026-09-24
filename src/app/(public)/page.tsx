@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import HeroSection from "@/components/home/HeroSection";
 
 export const metadata: Metadata = {
-  title: "Le Moulin de Balme® — Boulangerie Artisanale à Brive-la-Gaillarde",
+  title: { absolute: "Le Moulin de Balme® — Boulangerie Artisanale à Brive-la-Gaillarde" },
   description:
     "Boulangerie artisanale au cœur de Brive-la-Gaillarde. Pains au levain, viennoiseries, pâtisseries façonnés à la main par Stéphane Reinat. Click & Collect disponible.",
   alternates: { canonical: "https://www.moulin-de-balme.fr" },
