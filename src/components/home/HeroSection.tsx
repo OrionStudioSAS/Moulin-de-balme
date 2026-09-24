@@ -26,7 +26,7 @@ export default function HeroSection() {
         <div className="max-w-[1400px] w-full mx-auto px-6 md:px-12 flex items-end justify-between gap-8">
           <FadeInOnLoad className="flex-1 min-w-0" delay={0.15}>
             <h1 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold text-white tracking-wide uppercase leading-tight mb-4">
-              Le Moulin <span className="md:inline hidden">de Balme®</span><span className="md:hidden block">de Balme®</span>
+              Le Moulin de Balme®
             </h1>
             <p className="text-sm text-white tracking-[0.15em] uppercase font-medium mb-3">
               Le pain de Brive, réinventé par un voyageur.

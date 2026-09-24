@@ -1,6 +1,6 @@
 import { FadeIn } from "@/components/animations/FadeIn";
 
-const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none";
+const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none whitespace-pre-line";
 
 const ROWS = [
   { label: "Téléphone", value: "+33 5 55 00 00 00", href: "tel:+33555000000" },
@@ -19,8 +19,7 @@ export default function ContactSection() {
           {/* ─── Gauche : titre + contact rows ─── */}
           <FadeIn>
             <h2 className={`${H2} text-white mb-14`}>
-              <span className="block">Nous</span>
-              <span className="block">Contacter</span>
+              {"Nous\nContacter"}
             </h2>
 
             <div className="divide-y divide-white/10">

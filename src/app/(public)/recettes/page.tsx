@@ -66,9 +66,8 @@ export default async function RecettesPage({
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
         </div>
         <div className="relative z-10 h-full flex flex-col justify-end max-w-[1400px] mx-auto px-6 md:px-12 pb-16 pt-40">
-          <h1 className="text-[clamp(2.2rem,5vw,5.5rem)] font-bold text-white uppercase tracking-tight leading-none mb-4">
-            <span className="block">Recettes &amp;</span>
-            <span className="block">histoires de pain.</span>
+          <h1 className="text-[clamp(2.2rem,5vw,5.5rem)] font-bold text-white uppercase tracking-tight leading-none mb-4 whitespace-pre-line">
+            {"Recettes &\nhistoires de pain."}
           </h1>
           <p className="text-sm font-medium tracking-[0.15em] uppercase text-white/60 mb-3">
             Le Moulin de Balme anciennement Le Fournil de Lisa
