@@ -22,7 +22,7 @@ function buildItemsHtml(items: OrderItem[]) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { customer_name, customer_email, customer_phone, pickup_date, pickup_time, notes, items, total_amount } = body;
+    const { customer_name, customer_email, pickup_date, pickup_time, notes, items, total_amount } = body;
 
     const supabase = await createClient();
     const { data: order, error } = await supabase
@@ -30,7 +30,6 @@ export async function POST(req: NextRequest) {
       .insert({
         customer_name,
         customer_email,
-        customer_phone,
         pickup_date,
         pickup_time,
         notes,
@@ -65,7 +64,6 @@ export async function POST(req: NextRequest) {
                     <h2 style="font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:0.2em;color:#3D2B1F;margin:0 0 12px;">Client</h2>
                     <p style="margin:4px 0;font-size:14px;color:#3D2B1F;"><strong>${customer_name}</strong></p>
                     <p style="margin:4px 0;font-size:13px;color:#6B5744;"><a href="mailto:${customer_email}" style="color:#C9A96E;">${customer_email}</a></p>
-                    <p style="margin:4px 0;font-size:13px;color:#6B5744;">${customer_phone}</p>
                   </div>
                   <div style="background:#fff;border:1px solid #e5ddd0;padding:20px 24px;margin-bottom:20px;">
                     <h2 style="font-size:11px;font-weight:bold;text-transform:uppercase;letter-spacing:0.2em;color:#3D2B1F;margin:0 0 12px;">Retrait</h2>
