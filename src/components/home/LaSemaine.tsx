@@ -34,7 +34,8 @@ export default async function LaSemaine() {
           {/* Titre */}
           <div>
             <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold text-white uppercase tracking-tight leading-none mb-3">
-              Cette<br />semaine
+              <span className="block">Cette</span>
+              <span className="block">semaine</span>
             </h2>
             <p className="text-[clamp(1rem,2vw,1.5rem)] font-light text-white/80 tracking-wide mb-5">
               au Moulin de Balme

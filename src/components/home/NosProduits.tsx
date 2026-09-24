@@ -19,7 +19,8 @@ export default async function NosProduits() {
 
           <FadeIn className="md:sticky md:top-24">
             <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-brown mb-6">
-              Nos<br />produits
+              <span className="block">Nos</span>
+              <span className="block">produits</span>
             </h2>
             <p className="text-sm font-medium tracking-[0.15em] uppercase text-brown mb-8">
               Poilâne® nourrit le corps et<br />L&apos;esprit de son art Boulanger

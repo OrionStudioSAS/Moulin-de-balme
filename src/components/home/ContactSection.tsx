@@ -19,7 +19,8 @@ export default function ContactSection() {
           {/* ─── Gauche : titre + contact rows ─── */}
           <FadeIn>
             <h2 className={`${H2} text-white mb-14`}>
-              Nous<br />Contacter
+              <span className="block">Nous</span>
+              <span className="block">Contacter</span>
             </h2>
 
             <div className="divide-y divide-white/10">

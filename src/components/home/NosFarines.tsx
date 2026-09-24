@@ -30,7 +30,8 @@ export default async function NosFarines() {
 
           <FadeIn className="md:sticky md:top-24">
             <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-brown mb-8">
-              Nos<br />farines
+              <span className="block">Nos</span>
+              <span className="block">farines</span>
             </h2>
             <Link
               href="/produits?categorie=farines"

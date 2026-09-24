@@ -73,7 +73,8 @@ export default async function StephaneReinatPage() {
             Stéphane Reinat un parcours qui sent bon le pain chaud
           </p>
           <h1 className={`${H2} text-white mb-4`}>
-            Le<br />Boulanger
+            <span className="block">Le</span>
+            <span className="block">Boulanger</span>
           </h1>
           <p className="text-sm text-white/70 leading-relaxed max-w-xl">
             De Tokyo à Brive, en passant par Hong Kong et Shanghai. Quinze années à enseigner
@@ -95,7 +96,8 @@ export default async function StephaneReinatPage() {
         </div>
         <div className="flex flex-col justify-center px-10 md:px-16 py-16 order-1 md:order-2">
           <h2 className={`${H2} text-black mb-4`}>
-            Stéphane<br />Reinat
+            <span className="block">Stéphane</span>
+            <span className="block">Reinat</span>
           </h2>
           <p className="text-sm font-medium tracking-[0.15em] uppercase text-black mb-8 leading-relaxed">
             DE TOKYO À BRIVE ... Le retour aux sources d&apos;un globe-trotter
@@ -135,7 +137,7 @@ export default async function StephaneReinatPage() {
       {/* ─── 4. TOMOKO REINAT ─── */}
       <section className="bg-cream grid grid-cols-1 md:grid-cols-2">
         <div className="px-10 md:px-14 py-16 flex flex-col gap-8">
-          <h2 className={`${H2} text-black`}>Tomoko<br />Reinat</h2>
+          <h2 className={`${H2} text-black`}><span className="block">Tomoko</span><span className="block">Reinat</span></h2>
           <p className="text-sm font-medium tracking-[0.15em] uppercase text-black leading-relaxed">
             DE TOKYO À BRIVE ... Le retour aux sources d&apos;un globe-trotter
           </p>
@@ -180,7 +182,8 @@ export default async function StephaneReinatPage() {
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
             <h2 className={`${H2} text-black`}>
-              L&apos;art boulanger<br />à votre table.
+              <span className="block">L&apos;art boulanger</span>
+              <span className="block">à votre table.</span>
             </h2>
             <Link
               href="/produits"
@@ -205,7 +208,8 @@ export default async function StephaneReinatPage() {
               VU SUR M6
             </p>
             <h2 className={`${H2} text-white mb-6`}>
-              Les Toqués<br />du Japon
+              <span className="block">Les Toqués</span>
+              <span className="block">du Japon</span>
             </h2>
             <p className="text-xs text-white/60 leading-relaxed max-w-sm mb-10">
               M6 lui a consacré un portrait dans ce documentaire culinaire tourné au cœur du
@@ -245,7 +249,8 @@ export default async function StephaneReinatPage() {
             Le beurre sec
           </p>
           <h2 className={`${H2} text-white mb-10`}>
-            Le secret du<br />croissant parfait
+            <span className="block">Le secret du</span>
+            <span className="block">croissant parfait</span>
           </h2>
           <blockquote className="text-[clamp(1.2rem,2vw,1.8rem)] font-light text-white leading-relaxed italic mb-12 border-l border-white/20 pl-8">
             « La qualité des ingrédients prime sur tout.<br />

@@ -129,8 +129,8 @@ export default async function RecetteDetailPage({
           La recette pas à pas
         </p>
         <h2 className="text-[clamp(1.4rem,2.5vw,2rem)] font-bold text-black mb-10">
-          {recipe.title}<br />
-          <span className="font-normal text-brown/60">par Stéphane Reinat</span>
+          <span className="block">{recipe.title}</span>
+          <span className="block font-normal text-brown/60">par Stéphane Reinat</span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] gap-12">
@@ -200,7 +200,8 @@ export default async function RecetteDetailPage({
           <div className="max-w-[1400px] mx-auto px-6 md:px-12">
             <div className="flex items-end justify-between mb-8">
               <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-black">
-                Autres<br />recettes
+                <span className="block">Autres</span>
+                <span className="block">recettes</span>
               </h2>
               <Link
                 href="/recettes"
