@@ -197,47 +197,6 @@ export default async function StephaneReinatPage() {
         </div>
       </section>
 
-      {/* ─── 6. LES TOQUÉS DU JAPON ─── */}
-      <section className="grid grid-cols-1 md:grid-cols-2">
-        <div className="bg-[#2A1F1A] px-10 md:px-14 py-16 flex flex-col justify-between min-h-[480px]">
-          <div>
-            <p className="text-[10px] font-bold tracking-[0.25em] uppercase text-white/40 mb-6">
-              VU SUR M6
-            </p>
-            <h2 className={`${H2} text-white mb-6`}>
-              {"Les Toqués\ndu Japon"}
-            </h2>
-            <p className="text-xs text-white/60 leading-relaxed max-w-sm mb-10">
-              M6 lui a consacré un portrait dans ce documentaire culinaire tourné au cœur du
-              Japon — un voyage entre deux cultures boulangères, entre tradition française et
-              précision nippone. Une rencontre rare, à voir absolument.
-            </p>
-          </div>
-          <a
-            href="#"
-            className="inline-flex items-center gap-3 border border-white/30 text-white text-[10px] font-bold tracking-widest uppercase px-5 py-3 hover:bg-white/10 transition-colors w-fit"
-          >
-            ▶&nbsp;&nbsp;Regarder sur M6
-          </a>
-        </div>
-        <div className="relative min-h-[480px] bg-brown/20 overflow-hidden group cursor-pointer">
-          <Image
-            src="/images/toques-du-japon.jpg"
-            alt="Les Toqués du Japon — M6"
-            fill
-            className="object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors" />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" className="ml-1">
-                <path d="M5 3L17 10L5 17V3Z" fill="#4B3A33" />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─── 7. LE SECRET DU CROISSANT PARFAIT ─── */}
       <section className="bg-[#1A1410] py-20 px-6">
         <div className="max-w-[1000px] mx-auto">
