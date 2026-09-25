@@ -39,7 +39,7 @@ export default async function SortieDuFour() {
 
         <StaggerChildren className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {items.map((product: Product) => (
-            <StaggerItem key={product.id}>
+            <StaggerItem key={product.id} className="h-full">
               <SortieDuFourCard product={product} />
             </StaggerItem>
           ))}

@@ -24,7 +24,7 @@ export default function SortieDuFourCard({ product }: { product: Product }) {
   };
 
   return (
-    <div className="bg-brown flex flex-col">
+    <div className="bg-brown flex h-full flex-col">
       {/* Image */}
       <Link href={`/produits/${product.slug}`} className="relative block aspect-[4/3] overflow-hidden shrink-0">
         {product.image_url ? (
@@ -45,7 +45,7 @@ export default function SortieDuFourCard({ product }: { product: Product }) {
       </Link>
 
       {/* Info */}
-      <div className="p-4 flex flex-col gap-3 flex-1">
+      <div className="flex min-h-[170px] flex-1 flex-col gap-3 p-4 md:min-h-[150px]">
         <div>
           <Link href={`/produits/${product.slug}`}>
             <p className="text-cream text-[11px] font-bold tracking-widest uppercase leading-snug hover:opacity-80 transition-opacity">
