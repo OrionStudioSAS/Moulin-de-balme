@@ -27,7 +27,7 @@ export default async function AdminDashboard() {
   ];
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <h1 className="text-xl font-bold tracking-widests uppercase text-brown mb-8">
         Tableau de bord
       </h1>
@@ -53,8 +53,8 @@ export default async function AdminDashboard() {
           </Link>
         </div>
 
-        <div className="bg-white border border-brown/10 overflow-hidden">
-          <table className="w-full">
+        <div className="bg-white border border-brown/10 overflow-x-auto">
+          <table className="w-full min-w-[500px]">
             <thead className="bg-cream-dark border-b border-brown/10">
               <tr>
                 {["Client", "Date retrait", "Heure", "Total", "Statut"].map((h) => (

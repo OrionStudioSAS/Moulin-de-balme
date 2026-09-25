@@ -20,7 +20,7 @@ export default async function CategoriesAdminPage() {
   };
 
   return (
-    <div className="p-8 max-w-3xl">
+    <div className="p-4 md:p-8 max-w-3xl">
       <h1 className="text-2xl font-bold text-brown tracking-tight mb-1">Catégories</h1>
       <p className="text-sm text-warm-gray mb-8">
         Gérez les images, bannières et sous-catégories de chaque catégorie.

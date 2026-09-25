@@ -15,7 +15,7 @@ export default async function EditRecettePage({
   if (!data) notFound();
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <h1 className="text-2xl font-bold text-brown uppercase tracking-tight mb-2">
         Modifier la recette
       </h1>

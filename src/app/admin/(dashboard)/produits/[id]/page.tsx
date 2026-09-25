@@ -19,7 +19,7 @@ export default async function EditProduitPage({
   if (!product) notFound();
 
   return (
-    <div className="p-8 max-w-2xl">
+    <div className="p-4 md:p-8 max-w-2xl">
       <h1 className="text-xl font-bold tracking-widests uppercase text-brown mb-8">
         Modifier — {product.name}
       </h1>

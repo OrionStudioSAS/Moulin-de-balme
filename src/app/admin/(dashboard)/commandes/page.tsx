@@ -42,7 +42,7 @@ export default async function CommandesPage({
   const { data: orders } = await query;
 
   return (
-    <div className="p-8">
+    <div className="p-4 md:p-8">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-xl font-bold tracking-widests uppercase text-brown">
           Commandes Click &amp; Collect

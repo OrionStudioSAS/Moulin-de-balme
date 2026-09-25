@@ -9,7 +9,7 @@ export default async function NouveauProduitPage() {
   ]);
 
   return (
-    <div className="p-8 max-w-2xl">
+    <div className="p-4 md:p-8 max-w-2xl">
       <h1 className="text-xl font-bold tracking-widests uppercase text-brown mb-8">
         Nouveau produit
       </h1>

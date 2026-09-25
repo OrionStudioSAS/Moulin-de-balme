@@ -22,7 +22,7 @@ export default async function AdminLaSemainePage() {
   const allProducts     = (allRaw ?? []) as Product[];
 
   return (
-    <div className="p-8 max-w-6xl">
+    <div className="p-4 md:p-8 max-w-6xl">
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-brown uppercase tracking-tight">La Semaine</h1>
         <p className="text-sm text-warm-gray mt-1">
