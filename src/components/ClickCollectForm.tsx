@@ -134,7 +134,7 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
       {items.length > 0 && (
         <form onSubmit={handleSubmit} className="space-y-2.5 mt-2">
           <p className="text-[11px] tracking-widest uppercase text-gold mb-3">
-            2. Vos coordonnées
+            1. Vos coordonnées
           </p>
           <input required type="text" placeholder="Nom complet"
             value={form.customer_name}
@@ -145,8 +145,8 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
             onChange={(e) => setForm({ ...form, customer_email: e.target.value })}
             className={inputClass} />
 
-          <p className="text-[11px] tracking-widest uppercase text-gold pt-1">
-            3. Retrait
+          <p className="text-[11px] tracking-widets uppercase text-gold pt-1">
+            2. Retrait
           </p>
           <input required type="date"
             value={form.pickup_date}
@@ -177,9 +177,14 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Produits */}
         <div className="lg:col-span-2 pb-24 lg:pb-0">
-          <h2 className="text-xs font-bold tracking-widest uppercase text-brown mb-6">
-            1. Choisir vos produits
-          </h2>
+          <div className="mb-6">
+            <h2 className="text-xs font-bold tracking-widest uppercase text-brown mb-1">
+              Vous aimerez aussi
+            </h2>
+            <p className="text-xs text-warm-gray tracking-wide">
+              Complétez votre commande avec d&apos;autres articles de la boulangerie.
+            </p>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {products.map((product) => {
               const cartItem = items.find((i) => i.product.id === product.id);
