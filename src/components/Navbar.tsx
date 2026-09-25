@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { useCart } from "@/lib/cart-context";
 import SearchOverlay from "@/components/SearchOverlay";
 
@@ -32,6 +33,8 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const pathname = usePathname();
+  const forceScrolled = pathname === "/click-and-collect";
 
   useEffect(() => {
     // Se déclenche quand la barre d'annonce a disparu (~36px)
@@ -41,9 +44,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Quand le menu mobile est ouvert, forcer le style sombre même sans scroll
+  // Quand le menu mobile est ouvert ou page force scroll, forcer le style sombre
   const forceDark = mobileOpen;
-  const textColor = scrolled || forceDark
+  const isScrolled = scrolled || forceDark || forceScrolled;
+  const textColor = isScrolled
     ? "text-black hover:text-black/70"
     : "text-white hover:text-white/80";
 
@@ -66,7 +70,7 @@ export default function Navbar() {
       {/* Header — sticky : transparent en position naturelle, blanc quand collé en haut */}
       <header
         className={`sticky top-0 z-40 transition-all duration-300 ${
-          scrolled || mobileOpen
+          isScrolled
             ? "bg-white shadow-sm border-b border-black/10"
             : "bg-transparent"
         }`}
@@ -106,12 +110,12 @@ export default function Navbar() {
             >
               Recherche
             </button>
-            <CartButton scrolled={scrolled} />
+            <CartButton scrolled={isScrolled} />
           </div>
 
           {/* Mobile: cart + burger */}
           <div className="lg:hidden flex items-center gap-3 ml-auto">
-            <CartButton scrolled={scrolled} />
+            <CartButton scrolled={isScrolled} />
             <button
               className="p-2 w-9 h-9 flex items-center justify-center"
               onClick={() => setMobileOpen(!mobileOpen)}
@@ -121,9 +125,9 @@ export default function Navbar() {
                 <span className="text-black text-xl leading-none">✕</span>
               ) : (
                 <div className="flex flex-col gap-1.5">
-                  <div className={`w-5 h-px transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
-                  <div className={`w-5 h-px transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
-                  <div className={`w-5 h-px transition-colors ${scrolled ? "bg-black" : "bg-white"}`} />
+                  <div className={`w-5 h-px transition-colors ${isScrolled ? "bg-black" : "bg-white"}`} />
+                  <div className={`w-5 h-px transition-colors ${isScrolled ? "bg-black" : "bg-white"}`} />
+                  <div className={`w-5 h-px transition-colors ${isScrolled ? "bg-black" : "bg-white"}`} />
                 </div>
               )}
             </button>
