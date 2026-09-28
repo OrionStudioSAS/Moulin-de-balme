@@ -45,7 +45,7 @@ export default function SortieDuFourCard({ product }: { product: Product }) {
       </Link>
 
       {/* Info */}
-      <div className="flex min-h-[170px] flex-1 flex-col gap-3 p-4 md:min-h-[150px]">
+      <div className="flex flex-1 flex-col gap-3 p-4">
         <div>
           <Link href={`/produits/${product.slug}`}>
             <p className="text-cream text-[11px] font-bold tracking-widest uppercase leading-snug hover:opacity-80 transition-opacity">
