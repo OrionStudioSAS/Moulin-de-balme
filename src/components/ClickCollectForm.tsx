@@ -151,7 +151,13 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
           <input required type="date"
             value={form.pickup_date}
             onChange={(e) => setForm({ ...form, pickup_date: e.target.value })}
-            min={new Date(Date.now() + 86400000).toISOString().split("T")[0]}
+            min={(() => {
+              const now = new Date();
+              const days = now.getHours() >= 17 ? 2 : 1;
+              const d = new Date(now);
+              d.setDate(d.getDate() + days);
+              return d.toISOString().split("T")[0];
+            })()}
             className={inputClass} />
           <select value={form.pickup_time}
             onChange={(e) => setForm({ ...form, pickup_time: e.target.value })}

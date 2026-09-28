@@ -18,7 +18,7 @@ export default function ProductCard({
   return (
     <div className="group">
       <Link href={`/produits/${product.slug}`} className="block">
-        <div className="aspect-square bg-cream-dark overflow-hidden mb-3 relative">
+        <div className="aspect-[3/4] bg-cream-dark overflow-hidden mb-3 relative">
           {product.image_url ? (
             <Image
               src={product.image_url}
@@ -35,7 +35,7 @@ export default function ProductCard({
             </div>
           )}
         </div>
-        <p className="text-xs font-medium tracking-wider text-brown mb-1 uppercase">
+        <p className="text-xs font-bold tracking-wider text-brown mb-1 uppercase leading-snug">
           {product.name}
         </p>
         <p className="text-xs text-warm-gray tracking-wider mb-2">
