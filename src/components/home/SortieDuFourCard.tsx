@@ -26,7 +26,7 @@ export default function SortieDuFourCard({ product }: { product: Product }) {
   return (
     <div className="bg-brown flex h-full flex-col">
       {/* Image */}
-      <Link href={`/produits/${product.slug}`} className="relative block aspect-[4/3] overflow-hidden shrink-0">
+      <Link href={`/produits/${product.slug}`} className="relative block aspect-square overflow-hidden shrink-0">
         {product.image_url ? (
           <Image
             src={product.image_url}
