@@ -30,7 +30,7 @@ export default function LoginForm() {
   };
 
   const inputClass =
-    "w-full bg-cream/10 border border-cream/20 px-4 py-3 text-sm text-cream placeholder-cream/40 focus:outline-none focus:border-gold";
+    "w-full bg-cream/10 border border-cream/20 px-4 py-3 text-base md:text-sm text-cream placeholder-cream/40 focus:outline-none focus:border-gold";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -54,7 +54,7 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-gold text-brown py-3 text-xs tracking-widests uppercase font-bold hover:bg-gold/90 transition-colors disabled:opacity-50"
+        className="w-full bg-gold text-brown py-3 text-xs tracking-widest uppercase font-bold hover:bg-gold/90 transition-colors disabled:opacity-50"
       >
         {loading ? "Connexion..." : "Se connecter"}
       </button>

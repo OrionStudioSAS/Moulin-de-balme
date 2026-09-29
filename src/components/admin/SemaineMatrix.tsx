@@ -106,7 +106,7 @@ export default function SemaineMatrix({
   return (
     <div className="space-y-8">
       {/* Recherche */}
-      <div className="bg-white border border-brown/20 p-5">
+      <div className="bg-white border border-brown/20 p-4 md:p-5">
         <p className="text-xs font-bold tracking-widest uppercase text-brown mb-3">
           Ajouter un produit à la semaine
         </p>
@@ -115,7 +115,7 @@ export default function SemaineMatrix({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Rechercher un produit…"
-          className="w-full border border-brown/20 px-3 py-2 text-sm text-brown bg-cream focus:outline-none focus:border-brown"
+          className="w-full border border-brown/20 px-3 py-2.5 md:py-2 text-base md:text-sm text-brown bg-cream focus:outline-none focus:border-brown"
         />
         {search.length >= 1 && (
           <div className="border border-brown/20 border-t-0 max-h-48 overflow-y-auto">
@@ -137,13 +137,13 @@ export default function SemaineMatrix({
       </div>
 
       {/* Navigateur de semaine */}
-      <div className="flex items-center gap-4">
-        <button onClick={prevWeek} className="border border-brown/30 px-3 py-1 text-xs text-brown hover:bg-brown hover:text-cream transition-colors">
-          ← Semaine précédente
+      <div className="flex flex-wrap items-center justify-between gap-3 md:justify-start md:gap-4">
+        <button onClick={prevWeek} aria-label="Semaine précédente" className="border border-brown/30 px-3 py-2 md:py-1 text-xs text-brown hover:bg-brown hover:text-cream transition-colors">
+          ←<span className="hidden md:inline"> Semaine précédente</span>
         </button>
-        <span className="text-sm font-bold tracking-wider text-brown capitalize">{weekLabel()}</span>
-        <button onClick={nextWeek} className="border border-brown/30 px-3 py-1 text-xs text-brown hover:bg-brown hover:text-cream transition-colors">
-          Semaine suivante →
+        <span className="order-first w-full text-center md:order-none md:w-auto text-sm font-bold tracking-wider text-brown capitalize">{weekLabel()}</span>
+        <button onClick={nextWeek} aria-label="Semaine suivante" className="border border-brown/30 px-3 py-2 md:py-1 text-xs text-brown hover:bg-brown hover:text-cream transition-colors">
+          <span className="hidden md:inline">Semaine suivante </span>→
         </button>
       </div>
 
@@ -151,11 +151,11 @@ export default function SemaineMatrix({
       {items.length === 0 ? (
         <p className="text-sm text-warm-gray text-center py-12">Aucun produit — utilisez la recherche ci-dessus.</p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="w-full text-sm border-collapse">
+        <div className="overflow-x-auto -mx-4 md:mx-0">
+          <table className="w-full min-w-[640px] text-sm border-collapse">
             <thead>
               <tr className="border-b border-brown/20">
-                <th className="text-left px-3 py-2 text-xs font-bold tracking-widest uppercase text-warm-gray w-[240px]">
+                <th className="sticky left-0 z-10 bg-cream-dark text-left px-3 py-2 text-xs font-bold tracking-widest uppercase text-warm-gray w-[150px] md:w-[240px]">
                   Produit
                 </th>
                 {weekDates.map((date, i) => (
@@ -170,8 +170,8 @@ export default function SemaineMatrix({
             <tbody className="divide-y divide-brown/10">
               {items.map((product) => (
                 <tr key={product.id} className="hover:bg-cream/50">
-                  <td className="px-3 py-3">
-                    <Link href={`/admin/produits/${product.id}/edit`} className="text-brown font-medium hover:underline">
+                  <td className="sticky left-0 z-10 bg-cream-dark px-3 py-3">
+                    <Link href={`/admin/produits/${product.id}`} className="text-brown font-medium hover:underline">
                       {product.name}
                     </Link>
                     {product.category && <p className="text-[10px] text-warm-gray">{product.category.name}</p>}
@@ -219,7 +219,7 @@ export default function SemaineMatrix({
       )}
 
       {/* Résumé par jour */}
-      <div className="grid grid-cols-6 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
         {weekDates.map((date, i) => {
           const iso = toISO(date);
           const dayProds = items.filter((p) =>

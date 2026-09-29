@@ -54,7 +54,7 @@ export default function DefaultBannerForm({ defaultBanner }: { defaultBanner: Ba
     setSaving(false);
   };
 
-  const inputClass = "w-full border border-brown/30 px-3 py-2 text-sm text-brown bg-white focus:outline-none focus:border-brown";
+  const inputClass = "w-full border border-brown/30 px-3 py-2.5 md:py-2 text-base md:text-sm text-brown bg-white focus:outline-none focus:border-brown";
   const labelClass = "block text-xs tracking-widest uppercase text-warm-gray mb-1";
 
   return (

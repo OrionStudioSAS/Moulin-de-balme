@@ -134,7 +134,7 @@ export default function ProductForm({
     router.refresh();
   };
 
-  const inputClass = "w-full border border-brown/30 px-3 py-2 text-sm text-brown bg-white focus:outline-none focus:border-brown";
+  const inputClass = "w-full border border-brown/30 px-3 py-2.5 md:py-2 text-base md:text-sm text-brown bg-white focus:outline-none focus:border-brown";
   const labelClass = "block text-xs tracking-widest uppercase text-warm-gray mb-1";
   const textareaClass = `${inputClass} resize-none`;
 
@@ -191,7 +191,7 @@ export default function ProductForm({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Nom *</label>
           <input required value={form.name}
@@ -230,7 +230,7 @@ export default function ProductForm({
           className={textareaClass} />
       </div>
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div>
           <label className={labelClass}>Prix (€) *</label>
           <input required type="number" step="0.01" min="0" value={form.price}
@@ -290,7 +290,7 @@ export default function ProductForm({
                 updated[i] = { ...updated[i], price: parseFloat(e.target.value) || 0 };
                 setForm((p) => ({ ...p, weight_prices: updated }));
               }}
-              className={`${inputClass} w-28`}
+              className={`${inputClass} w-24 sm:w-28 shrink-0`}
             />
             <button
               type="button"
@@ -303,7 +303,7 @@ export default function ProductForm({
         ))}
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Ordre</label>
           <input type="number" value={form.sort_order}
@@ -312,7 +312,7 @@ export default function ProductForm({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Catégorie</label>
           <select value={form.category_id}
@@ -421,7 +421,7 @@ export default function ProductForm({
 
       {error && <p className="text-xs text-red-600 bg-red-50 p-3">{error}</p>}
 
-      <div className="flex gap-4 pt-2">
+      <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4 pt-2">
         <button type="submit" disabled={loading || uploading}
           className="btn-primary disabled:opacity-50">
           {loading ? "Enregistrement..." : product ? "Mettre à jour" : "Créer le produit"}

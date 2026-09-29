@@ -44,18 +44,18 @@ export default async function CommandesPage({
   return (
     <div className="p-4 md:p-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-xl font-bold tracking-widests uppercase text-brown">
+        <h1 className="text-xl font-bold tracking-widest uppercase text-brown">
           Commandes Click &amp; Collect
         </h1>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-3 mb-6">
+      <div className="flex gap-2 md:gap-3 mb-6 overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0 md:flex-wrap">
         {[undefined, "pending", "confirmed", "ready", "completed", "cancelled"].map((s) => (
           <a
             key={s ?? "all"}
             href={s ? `/admin/commandes?status=${s}` : "/admin/commandes"}
-            className={`text-xs tracking-widests uppercase px-4 py-2 border transition-colors ${
+            className={`shrink-0 whitespace-nowrap text-xs tracking-widest uppercase px-4 py-2 border transition-colors ${
               status === s || (!status && !s)
                 ? "border-brown bg-brown text-cream"
                 : "border-brown/30 text-brown/60 hover:border-brown hover:text-brown"
@@ -66,13 +66,81 @@ export default async function CommandesPage({
         ))}
       </div>
 
-      {/* Table */}
-      <div className="bg-white border border-brown/10 overflow-x-auto">
+      {/* Cartes — mobile */}
+      <div className="md:hidden space-y-3">
+        {(orders ?? []).map((order: Order) => {
+          const items = orderItems(order);
+          return (
+            <div key={order.id} className="bg-white border border-brown/10 p-4">
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <div className="min-w-0">
+                  <p className="text-sm font-bold text-brown truncate">{order.customer_name}</p>
+                  <a href={`mailto:${order.customer_email}`} className="text-xs text-warm-gray underline break-all">
+                    {order.customer_email}
+                  </a>
+                </div>
+                <span className={`shrink-0 text-[10px] tracking-wider px-2 py-1 ${STATUS_COLORS[order.status]}`}>
+                  {STATUS_LABELS[order.status]}
+                </span>
+              </div>
+
+              <div className="grid grid-cols-3 gap-2 border-y border-brown/10 py-3 mb-3">
+                <div>
+                  <p className="text-[9px] uppercase tracking-widest text-warm-gray mb-0.5">Retrait</p>
+                  <p className="text-xs font-medium text-brown">{order.pickup_date}</p>
+                </div>
+                <div>
+                  <p className="text-[9px] uppercase tracking-widest text-warm-gray mb-0.5">Heure</p>
+                  <p className="text-xs font-medium text-brown">{order.pickup_time}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-[9px] uppercase tracking-widest text-warm-gray mb-0.5">Total</p>
+                  <p className="text-xs font-bold text-brown">{formatPrice(Number(order.total_amount))} €</p>
+                </div>
+              </div>
+
+              <details className="group mb-3">
+                <summary className="cursor-pointer list-none text-[11px] font-bold uppercase tracking-widest text-brown">
+                  <span className="inline-block transition-transform group-open:rotate-90">›</span>{" "}
+                  {items.length} article{items.length > 1 ? "s" : ""}
+                </summary>
+                <ul className="mt-3 space-y-1.5">
+                  {items.map((item, index) => (
+                    <li key={`${order.id}-m-${index}`} className="flex justify-between gap-3 text-xs">
+                      <span className="text-brown">
+                        {item.quantity} × {item.product_name}
+                      </span>
+                      <span className="text-warm-gray shrink-0">
+                        {formatPrice(item.unit_price * item.quantity)} €
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+                {order.notes?.trim() && (
+                  <p className="mt-3 text-xs text-brown/70 bg-cream p-2">
+                    <span className="font-bold">Note : </span>{order.notes}
+                  </p>
+                )}
+              </details>
+
+              <OrderStatusSelect orderId={order.id} currentStatus={order.status} />
+            </div>
+          );
+        })}
+        {(!orders || orders.length === 0) && (
+          <p className="text-xs text-warm-gray text-center py-10 tracking-wider bg-white border border-brown/10">
+            Aucune commande trouvée.
+          </p>
+        )}
+      </div>
+
+      {/* Table — desktop */}
+      <div className="hidden md:block bg-white border border-brown/10 overflow-x-auto">
         <table className="w-full min-w-[700px]">
           <thead className="bg-cream-dark border-b border-brown/10">
             <tr>
               {["Client", "Email", "Retrait", "Heure", "Total", "Statut", "Actions"].map((h) => (
-                <th key={h} className="text-left text-xs tracking-widests uppercase px-4 py-3 text-warm-gray">
+                <th key={h} className="text-left text-xs tracking-widest uppercase px-4 py-3 text-warm-gray">
                   {h}
                 </th>
               ))}

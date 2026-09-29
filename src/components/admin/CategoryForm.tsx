@@ -106,11 +106,11 @@ export default function CategoryForm({
     else setError(err.message);
   };
 
-  const inputClass = "w-full border border-brown/30 px-3 py-2 text-sm text-brown bg-white focus:outline-none focus:border-brown";
+  const inputClass = "w-full border border-brown/30 px-3 py-2.5 md:py-2 text-base md:text-sm text-brown bg-white focus:outline-none focus:border-brown";
   const labelClass = "block text-xs tracking-widest uppercase text-warm-gray mb-1";
 
   return (
-    <div className="bg-white border border-brown/10 p-6 space-y-6">
+    <div className="bg-white border border-brown/10 p-4 md:p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center gap-3 border-b border-brown/10 pb-4">
         <div className="w-2 h-8 bg-brown" />
@@ -121,7 +121,7 @@ export default function CategoryForm({
       </div>
 
       {/* Images */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-3 md:gap-6">
         {/* Image grille homepage */}
         <div>
           <p className={labelClass}>Image grille (Nos produits)</p>

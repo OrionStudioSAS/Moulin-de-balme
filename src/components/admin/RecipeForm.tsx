@@ -48,7 +48,7 @@ export default function RecipeForm({ recipe }: { recipe?: Recipe }) {
   const [steps,       setSteps]       = useState<RecipeStep[]>(recipe?.steps   ?? [{ ...EMPTY_STEP }]);
   const [tags,        setTags]        = useState<string>(recipe?.tags?.join(", ") ?? "");
 
-  const inputClass    = "w-full border border-brown/30 px-3 py-2 text-sm text-brown bg-white focus:outline-none focus:border-brown";
+  const inputClass    = "w-full border border-brown/30 px-3 py-2.5 md:py-2 text-base md:text-sm text-brown bg-white focus:outline-none focus:border-brown";
   const labelClass    = "block text-xs tracking-widest uppercase text-warm-gray mb-1";
   const textareaClass = `${inputClass} resize-none`;
 
@@ -132,7 +132,7 @@ export default function RecipeForm({ recipe }: { recipe?: Recipe }) {
       </div>
 
       {/* Titre + slug */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Titre *</label>
           <input required value={form.title}
@@ -164,7 +164,7 @@ export default function RecipeForm({ recipe }: { recipe?: Recipe }) {
       </div>
 
       {/* Catégorie + difficulté + temps + portions */}
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
           <label className={labelClass}>Catégorie</label>
           <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className={inputClass}>
@@ -188,7 +188,7 @@ export default function RecipeForm({ recipe }: { recipe?: Recipe }) {
       </div>
 
       {/* Tags + badge */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className={labelClass}>Tags (séparés par virgule)</label>
           <input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="Article récent, Pâtisserie régionale" className={inputClass} />
@@ -252,8 +252,8 @@ export default function RecipeForm({ recipe }: { recipe?: Recipe }) {
                   </button>
                 )}
               </div>
-              <div className="grid grid-cols-3 gap-3">
-                <div className="col-span-2">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="sm:col-span-2">
                   <label className={labelClass}>Titre de l&apos;étape</label>
                   <input value={step.title} onChange={(e) => setStepField(i, "title", e.target.value)}
                     placeholder="Préparer la base lait" className={inputClass} />
@@ -266,7 +266,7 @@ export default function RecipeForm({ recipe }: { recipe?: Recipe }) {
               </div>
               <div>
                 <label className={labelClass}>Couleur chip</label>
-                <div className="flex gap-2 mt-1">
+                <div className="flex flex-wrap gap-2 mt-1">
                   {CHIP_COLORS.map((c) => (
                     <button key={c} type="button"
                       onClick={() => setStepField(i, "chip_color", c)}
@@ -311,7 +311,7 @@ export default function RecipeForm({ recipe }: { recipe?: Recipe }) {
 
       {error && <p className="text-xs text-red-600 bg-red-50 p-3">{error}</p>}
 
-      <div className="flex gap-4">
+      <div className="flex flex-col-reverse sm:flex-row gap-3 sm:gap-4">
         <button type="submit" disabled={loading || uploading} className="btn-primary disabled:opacity-50">
           {loading ? "Enregistrement…" : recipe ? "Mettre à jour" : "Créer la recette"}
         </button>

@@ -35,7 +35,7 @@ export default function OrderStatusSelect({
       value={status}
       onChange={(e) => handleChange(e.target.value)}
       disabled={loading}
-      className="text-xs border border-brown/30 px-2 py-1 bg-white text-brown focus:outline-none focus:border-brown disabled:opacity-50"
+      className="w-full md:w-auto text-base md:text-xs border border-brown/30 px-3 py-2.5 md:px-2 md:py-1 bg-white text-brown focus:outline-none focus:border-brown disabled:opacity-50"
     >
       {STATUSES.map((s) => (
         <option key={s.value} value={s.value}>{s.label}</option>

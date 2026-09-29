@@ -10,7 +10,7 @@ export default function ProductBadge({ badge }: { badge: "nouveau" | "bestseller
     exclusif: "Exclusif",
   };
   return (
-    <span className={`text-[10px] tracking-widests uppercase px-2.5 py-1 font-bold ${styles[badge]}`}>
+    <span className={`text-[10px] tracking-widest uppercase px-2.5 py-1 font-bold ${styles[badge]}`}>
       {labels[badge]}
     </span>
   );

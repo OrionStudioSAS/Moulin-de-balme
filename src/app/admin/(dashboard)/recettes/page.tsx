@@ -19,17 +19,48 @@ export default async function AdminRecettesPage() {
 
   return (
     <div className="p-4 md:p-8">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between gap-4 mb-6 md:mb-8">
         <div>
           <h1 className="text-2xl font-bold text-brown uppercase tracking-tight">Recettes</h1>
           <p className="text-sm text-warm-gray mt-1">{recipes.length} recette{recipes.length > 1 ? "s" : ""}</p>
         </div>
-        <Link href="/admin/recettes/new" className="btn-primary text-sm">
-          + Nouvelle recette
+        <Link href="/admin/recettes/new" className="btn-primary text-sm whitespace-nowrap">
+          + <span className="hidden sm:inline">Nouvelle </span>recette
         </Link>
       </div>
 
-      <div className="bg-white border border-brown/20 overflow-hidden">
+      {/* Cartes — mobile */}
+      <div className="md:hidden bg-white border border-brown/20 divide-y divide-brown/10">
+        {recipes.map((r) => (
+          <div key={r.id} className="p-4">
+            <div className="flex items-start justify-between gap-3 mb-1">
+              <p className="font-medium text-brown text-sm">{r.title}</p>
+              <span className={`shrink-0 text-[9px] font-bold tracking-widest uppercase px-2 py-1 ${
+                r.is_published ? "bg-green-100 text-green-700" : "bg-amber-100 text-amber-700"
+              }`}>
+                {r.is_published ? "Publié" : "Brouillon"}
+              </span>
+            </div>
+            <p className="text-xs text-warm-gray mb-3">
+              {CATEGORY_LABELS[r.category] ?? r.category} · {r.difficulty} · {r.total_time ?? "—"}
+            </p>
+            <div className="flex items-center gap-4">
+              <Link href={`/admin/recettes/${r.id}/edit`} className="text-xs text-brown underline">
+                Modifier
+              </Link>
+              <Link href={`/recettes/${r.slug}`} target="_blank" className="text-xs text-brown/50">
+                Voir ↗
+              </Link>
+            </div>
+          </div>
+        ))}
+        {recipes.length === 0 && (
+          <p className="px-4 py-12 text-center text-sm text-warm-gray">Aucune recette — créez votre première recette.</p>
+        )}
+      </div>
+
+      {/* Table — desktop */}
+      <div className="hidden md:block bg-white border border-brown/20 overflow-x-auto">
         <table className="w-full text-sm">
           <thead className="border-b border-brown/20 bg-cream-dark">
             <tr>

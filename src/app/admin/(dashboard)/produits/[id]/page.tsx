@@ -20,7 +20,7 @@ export default async function EditProduitPage({
 
   return (
     <div className="p-4 md:p-8 max-w-2xl">
-      <h1 className="text-xl font-bold tracking-widests uppercase text-brown mb-8">
+      <h1 className="text-xl font-bold tracking-widest uppercase text-brown mb-8">
         Modifier — {product.name}
       </h1>
       <ProductForm categories={categories ?? []} subcategories={subcategories ?? []} product={product} />

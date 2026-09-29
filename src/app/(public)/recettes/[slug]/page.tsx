@@ -203,7 +203,7 @@ export default async function RecetteDetailPage({
               </h2>
               <Link
                 href="/recettes"
-                className="text-[10px] font-bold tracking-widests uppercase text-black border-b border-black pb-0.5 hover:opacity-50 transition-opacity"
+                className="text-[10px] font-bold tracking-widest uppercase text-black border-b border-black pb-0.5 hover:opacity-50 transition-opacity"
               >
                 Voir tout
               </Link>
