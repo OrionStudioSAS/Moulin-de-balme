@@ -1,9 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import type { Product } from "@/types";
+import ProductCard from "@/components/ProductCard";
 
 const MONTHS_FR = [
   "Janvier","Février","Mars","Avril","Mai","Juin",
@@ -283,45 +282,7 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {products.map((product) => (
-                <Link
-                  key={product.id}
-                  href={`/produits/${product.slug}`}
-                  className="group flex flex-col bg-white overflow-hidden border border-brown/10 hover:border-brown/30 transition-colors"
-                >
-                  {/* Image */}
-                  <div className="relative aspect-[4/3] overflow-hidden bg-brown/10">
-                    {product.image_url ? (
-                      <Image
-                        src={product.image_url}
-                        alt={product.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-[#C4A882] to-[#6B4A35]" />
-                    )}
-                    {product.badge && (
-                      <span className="absolute top-2 left-2 bg-cream text-brown text-[8px] font-bold tracking-widest uppercase px-2 py-0.5">
-                        {product.badge === "nouveau" ? "Nouveau"
-                          : product.badge === "bestseller" ? "Bestseller"
-                          : "Exclusif"}
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Infos */}
-                  <div className="p-4 flex flex-col gap-2 flex-1">
-                    <p className="text-[10px] font-bold tracking-widest uppercase text-brown leading-snug">
-                      {product.name}
-                    </p>
-                    <p className="text-[9px] tracking-widest uppercase text-brown/50 mt-auto">
-                      À partir de · {product.price.toFixed(2).replace(".", ",")}€
-                    </p>
-                    <button className="w-full border border-brown text-brown text-[9px] font-bold tracking-widest uppercase py-2 hover:bg-brown hover:text-cream transition-colors mt-1">
-                      Ajouter au panier
-                    </button>
-                  </div>
-                </Link>
+                <ProductCard key={product.id} product={product} showAddButton />
               ))}
             </div>
           </div>
