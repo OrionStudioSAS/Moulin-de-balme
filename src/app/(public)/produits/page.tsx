@@ -187,15 +187,15 @@ export default async function ProduitsPage({
               <>
                 <ProductCard key={product.id} product={product} showAddButton />
                 {i === 5 && (
-                  <div key="recette" className="col-span-2 bg-brown text-cream flex flex-col justify-end p-8 min-h-[300px] relative overflow-hidden">
+                  <div key="recette" className="col-span-2 bg-brown text-cream flex flex-col justify-end p-6 md:p-8 min-h-[220px] md:min-h-[300px] relative overflow-hidden">
                     <div className="absolute inset-0 bg-gradient-to-t from-brown via-brown/80 to-brown/20" />
                     <div className="relative z-10">
                       <p className="label-tag text-cream/50 mb-2">En ce moment</p>
-                      <h3 className="text-3xl font-bold tracking-widest uppercase mb-4">
+                      <h3 className="text-2xl md:text-3xl font-bold tracking-wider md:tracking-widest uppercase mb-4">
                         Recette du moment
                       </h3>
                       <Link
-                        href="/produits"
+                        href="/recettes"
                         className="inline-block border border-cream/40 text-cream text-[11px] tracking-widest uppercase px-5 py-2 hover:border-gold hover:text-gold transition-colors"
                       >
                         Découvrir

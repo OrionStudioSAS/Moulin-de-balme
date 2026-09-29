@@ -54,16 +54,18 @@ export default function Navbar() {
   return (
     <>
       {/* Announcement bar — statique, scrolle avec la page */}
-      <div className="bg-brown text-white py-2 px-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-[11px] tracking-wider text-center">
-        <span className="bg-white/20 text-white px-2 py-0.5 text-[10px] tracking-widest uppercase font-bold shrink-0">
+      <div className="bg-brown text-white py-2 px-4 flex items-center justify-center gap-x-3 text-[10px] sm:text-[11px] tracking-wider text-center whitespace-nowrap">
+        <span className="hidden sm:inline bg-white/20 text-white px-2 py-0.5 text-[10px] tracking-widest uppercase font-bold shrink-0">
           Nouveau
         </span>
-        <span className="text-white">Commandez avant 17h — Retrait dès le lendemain 7h</span>
+        <span className="text-white sm:hidden">Commandez avant 17h, retrait dès 7h</span>
+        <span className="text-white hidden sm:inline">Commandez avant 17h — Retrait dès le lendemain 7h</span>
         <Link
           href="/click-and-collect"
           className="font-bold text-white underline underline-offset-2 hover:opacity-80 transition-opacity shrink-0"
         >
-          En savoir plus &rsaquo;
+          <span className="sm:hidden">Commander &rsaquo;</span>
+          <span className="hidden sm:inline">En savoir plus &rsaquo;</span>
         </Link>
       </div>
 
@@ -147,6 +149,12 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
+            <button
+              onClick={() => { setMobileOpen(false); setSearchOpen(true); }}
+              className="text-left text-xs tracking-widest uppercase text-black font-bold py-1"
+            >
+              Recherche
+            </button>
             <Link
               href="/click-and-collect"
               className="bg-brown text-white px-5 py-3 text-xs tracking-widest uppercase text-center mt-3 font-bold"

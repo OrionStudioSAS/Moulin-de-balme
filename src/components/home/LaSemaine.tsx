@@ -30,7 +30,7 @@ export default async function LaSemaine() {
       <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto bg-[#4B3A33]">
 
         {/* Gauche — titre + horaires */}
-        <div className="px-8 md:px-14 py-14 flex flex-col gap-8">
+        <div className="px-6 md:px-14 py-10 md:py-14 flex flex-col gap-8">
           {/* Titre */}
           <div>
             <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold text-white uppercase tracking-tight leading-none mb-3 whitespace-pre-line">
@@ -72,7 +72,7 @@ export default async function LaSemaine() {
         </div>
 
         {/* Droite — produits slider */}
-        <div className="relative bg-cream overflow-hidden h-full">
+        <div className="relative bg-cream overflow-hidden h-[520px] md:h-full">
           {items.length === 0 ? (
             <div className="h-full flex items-center justify-center">
               <p className="text-sm text-brown/30 tracking-wider italic">

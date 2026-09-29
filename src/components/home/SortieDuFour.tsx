@@ -20,12 +20,12 @@ export default async function SortieDuFour() {
   return (
     <section className="bg-cream px-6 md:px-12 py-6 md:py-12">
       <div className="max-w-[1400px] mx-auto">
-        <FadeIn className="flex items-start justify-between gap-8 mb-10">
+        <FadeIn className="flex flex-col gap-5 mb-8 md:flex-row md:items-start md:justify-between md:gap-8 md:mb-10">
           <h2 className="text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none text-brown shrink-0 whitespace-pre-line">
             {"Sortie\ndu four"}
           </h2>
-          <div className="flex flex-col items-end justify-between gap-4 pt-1 flex-1 min-w-0">
-            <p className="text-[11px] tracking-[0.15em] uppercase text-brown font-medium leading-relaxed text-right max-w-xs">
+          <div className="flex flex-col items-start gap-4 md:items-end md:justify-between md:pt-1 flex-1 min-w-0">
+            <p className="text-[11px] tracking-[0.15em] uppercase text-brown font-medium leading-relaxed md:text-right max-w-xs">
               Chaque pièce est façonnée à la main, levée plusieurs heures, cuite sur sole. Rien de plus. La farine, l&apos;eau, le sel, le levain et le temps.
             </p>
             <Link

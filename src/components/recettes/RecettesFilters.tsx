@@ -3,7 +3,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 
 const CATEGORY_LABELS: Record<string, string> = {
-  pains:        "Tous les pains",
+  pains:        "Pains",
   viennoiseries:"Viennoiseries",
   patisseries:  "Pâtisseries",
   confitures:   "Confitures",
@@ -34,7 +34,7 @@ export default function RecettesFilters({
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center gap-0 overflow-x-auto scrollbar-none">
         {all.map((cat) => {
           const isActive = cat === active;
-          const label = cat === "tous" ? "Tous les pains" : (CATEGORY_LABELS[cat] ?? cat);
+          const label = cat === "tous" ? "Toutes les recettes" : (CATEGORY_LABELS[cat] ?? cat);
           return (
             <button
               key={cat}

@@ -89,11 +89,11 @@ export default function ProductDetail({ product, similar }: { product: Product; 
 
           {/* LEFT — Info */}
           <div className="lg:pr-16 py-6 order-2 lg:order-1">
-            <div className="flex items-start justify-between gap-4 mb-2">
-              <h1 className="text-5xl md:text-6xl font-bold tracking-widest uppercase text-brown leading-none">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4 mb-2">
+              <h1 className="text-[clamp(2rem,9vw,3rem)] md:text-6xl font-bold tracking-wider md:tracking-widest uppercase text-brown leading-none break-words min-w-0">
                 {product.name}
               </h1>
-              <span className="text-3xl font-bold text-brown shrink-0 mt-2">
+              <span className="text-2xl md:text-3xl font-bold text-brown shrink-0 sm:mt-2">
                 {currentPrice.toFixed(2).replace(".", ",")}€
               </span>
             </div>

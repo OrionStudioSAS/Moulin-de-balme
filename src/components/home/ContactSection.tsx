@@ -13,18 +13,18 @@ const MAP_Q = encodeURIComponent("7 avenue Alsace-Lorraine, Brive-la-Gaillarde, 
 export default function ContactSection() {
   return (
     <section id="contact" className="bg-cream px-6 md:px-12 py-6 md:py-12">
-      <div className="bg-brown max-w-[1400px] mx-auto px-6 md:px-12 py-16 md:py-20">
+      <div className="bg-brown max-w-[1400px] mx-auto px-6 md:px-12 py-12 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-start">
 
           {/* ─── Gauche : titre + contact rows ─── */}
           <FadeIn>
-            <h2 className={`${H2} text-white mb-14`}>
+            <h2 className={`${H2} text-white mb-8 md:mb-14`}>
               {"Nous\nContacter"}
             </h2>
 
             <div className="divide-y divide-white/10">
               {ROWS.map(({ label, value, href }) => (
-                <div key={label} className="grid grid-cols-[140px_1fr] gap-4 py-6">
+                <div key={label} className="grid grid-cols-1 gap-1.5 py-5 sm:grid-cols-[140px_1fr] sm:gap-4 sm:py-6">
                   <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/40 pt-0.5">
                     {label}
                   </span>

@@ -65,8 +65,8 @@ export default function SideCart({ products }: { products: Product[] | null }) {
       {/* Panel */}
       <div
         ref={panelRef}
-        className={`fixed top-0 right-0 h-full w-full max-w-[420px] bg-cream z-50 flex flex-col shadow-2xl transition-transform duration-300 ease-in-out ${
-          open ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 right-0 h-full w-full max-w-[420px] bg-cream z-50 flex flex-col transition-[transform,box-shadow] duration-300 ease-in-out ${
+          open ? "translate-x-0 shadow-2xl" : "translate-x-full shadow-none"
         }`}
         role="dialog"
         aria-modal="true"

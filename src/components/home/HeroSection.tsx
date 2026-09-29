@@ -7,7 +7,7 @@ import { FadeInOnLoad } from "@/components/animations/FadeIn";
 
 export default function HeroSection() {
   return (
-    <section className="relative h-[calc(100vh-37px)] overflow-hidden bg-brown mt-[-64px]">
+    <section className="relative h-[calc(100svh-33px)] md:h-[calc(100vh-37px)] overflow-hidden bg-brown mt-[-64px]">
       {/* Background image */}
       <div className="absolute inset-0">
         <Image

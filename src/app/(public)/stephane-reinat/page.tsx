@@ -206,11 +206,9 @@ export default async function StephaneReinatPage() {
           <h2 className={`${H2} text-white mb-10`}>
             {"Le secret du\ncroissant parfait"}
           </h2>
-          <blockquote className="text-[clamp(1.2rem,2vw,1.8rem)] font-light text-white leading-relaxed italic mb-12 border-l border-white/20 pl-8">
-            « La qualité des ingrédients prime sur tout.<br />
-            Un beurre de tourage sec, à point de fusion<br />
-            élevé, c&apos;est 80% du résultat. La technique<br />
-            vient ensuite — mais sans le bon beurre,<br />
+          <blockquote className="text-[clamp(1.1rem,2vw,1.8rem)] font-light text-white leading-relaxed italic mb-12 border-l border-white/20 pl-5 md:pl-8 max-w-[720px]">
+            « La qualité des ingrédients prime sur tout. Un beurre de tourage sec, à point de fusion
+            élevé, c&apos;est 80% du résultat. La technique vient ensuite — mais sans le bon beurre,
             aucune technique ne suffit. »
           </blockquote>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 border-t border-white/10 pt-10">

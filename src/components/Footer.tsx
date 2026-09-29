@@ -40,11 +40,11 @@ export default function Footer() {
     <footer className="bg-cream text-brown">
       <FadeIn y={16}>
       <div className="px-6 md:px-12 pt-14 pb-8">
-        <div className="mx-auto grid max-w-[1400px] grid-cols-1 gap-10 md:grid-cols-[1.2fr_1fr_1fr_1fr] md:gap-16">
+        <div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-[1.2fr_1fr_1fr_1fr] md:gap-16">
 
           {/* Logo */}
-          <div className="flex flex-col justify-start">
-            <Link href="/" className="block w-[180px] max-w-full">
+          <div className="col-span-2 md:col-span-1 flex flex-col justify-start">
+            <Link href="/" className="block w-[140px] md:w-[180px] max-w-full">
               <Image
                 src="/images/logo.png"
                 alt="Moulin de Balme"
