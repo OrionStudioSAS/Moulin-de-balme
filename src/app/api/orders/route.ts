@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { Resend } from "resend";
+import { isValidPickup } from "@/lib/pickup";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -23,6 +24,13 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { customer_name, customer_email, pickup_date, pickup_time, notes, items, total_amount } = body;
+
+    if (!isValidPickup(pickup_date, pickup_time)) {
+      return NextResponse.json(
+        { error: "Ce créneau de retrait n'est plus disponible. Merci d'en choisir un autre." },
+        { status: 400 }
+      );
+    }
 
     const supabase = await createClient();
     const { data: order, error } = await supabase
