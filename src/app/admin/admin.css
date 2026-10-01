@@ -1,0 +1,100 @@
+/* Back-office v3 — variables « MDB » du fichier Figma (handoff 30/09/2026) */
+.bo {
+  --color-bg-app: #f8f5f0;
+  --color-bg-surface: #ffffff;
+  --color-bg-subtle: #fbf9f6;
+  --color-bg-muted: #f1ece5;
+  --color-bg-sidebar: #241a14;
+  --color-bg-sidebar-active: #3a2d24;
+  --color-bg-primary: #3b2a20;
+  --color-bg-primary-hover: #4a382d;
+  --color-bg-overlay: #241a14;
+  --color-bg-toast: #241a14;
+
+  --color-border-default: #ece6dd;
+  --color-border-strong: #dcd4c8;
+  --color-border-focus: #b08a4a;
+  --color-border-danger: #b8412f;
+  --color-border-sidebar: #3a2e26;
+
+  --color-text-primary: #2a201a;
+  --color-text-secondary: #5e5249;
+  --color-text-tertiary: #776b60;
+  --color-text-disabled: #b9ad9f;
+  --color-text-inverse: #ffffff;
+  --color-text-sidebar: #efe6da;
+  --color-text-sidebar-muted: #a89886;
+  --color-text-accent: #7f5e24;
+  --color-text-danger: #9a3324;
+
+  --color-icon-default: #776b60;
+  --color-accent-default: #b08a4a;
+  --color-accent-subtle: #f6eedf;
+
+  --color-status-success-bg: #e5f1e7;
+  --color-status-success-fg: #2a6337;
+  --color-status-info-bg: #e8eef7;
+  --color-status-info-fg: #2b4a75;
+  --color-status-warning-bg: #fbf0da;
+  --color-status-warning-fg: #7a4f0e;
+  --color-status-danger-bg: #fbe8e4;
+  --color-status-danger-fg: #9a3324;
+  --color-status-neutral-bg: #f1ece5;
+  --color-status-neutral-fg: #5e5249;
+
+  --color-chip-green-bg: #e5f1e7;
+  --color-chip-green-fg: #2a6337;
+  --color-chip-blue-bg: #e8eef7;
+  --color-chip-blue-fg: #2b4a75;
+  --color-chip-brown-bg: #eee2d5;
+  --color-chip-brown-fg: #5e3f24;
+  --color-chip-red-bg: #fbe8e4;
+  --color-chip-red-fg: #9a3324;
+  --color-chip-cream-bg: #fbf6ec;
+  --color-chip-cream-fg: #7a6446;
+  --color-chip-cream-border: #e6d9c2;
+
+  background-color: var(--color-bg-app);
+  color: var(--color-text-primary);
+  font-family: var(--font-bo-sans), var(--font-bo-sans-jp, ui-sans-serif), system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.005em;
+}
+
+.bo:lang(ja) {
+  --bo-serif-scale: 0.85;
+  letter-spacing: 0;
+}
+
+/* Annule les styles du site public (Helvetica, titres espacés) */
+.bo :where(h1, h2, h3, h4, h5, h6) {
+  letter-spacing: inherit;
+}
+
+.bo :where(h1, h2, h3, h4, h5, h6):not(.font-bo-serif) {
+  font-family: inherit;
+}
+
+.bo :focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(176, 138, 74, 0.35);
+}
+
+.bo input[type="number"]::-webkit-inner-spin-button,
+.bo input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@keyframes bo-shimmer {
+  0% { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.bo-skeleton {
+  background: linear-gradient(90deg, var(--color-bg-muted) 25%, var(--color-bg-subtle) 50%, var(--color-bg-muted) 75%);
+  background-size: 800px 100%;
+  animation: bo-shimmer 1.4s linear infinite;
+  border-radius: 6px;
+}

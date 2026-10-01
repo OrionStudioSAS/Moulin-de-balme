@@ -133,7 +133,17 @@ export async function POST(req: NextRequest) {
   try {
     const { orderId, newStatus } = await req.json();
 
+    if (!["pending", "confirmed", "ready", "completed", "cancelled"].includes(newStatus) || typeof orderId !== "string") {
+      return NextResponse.json({ error: "Requête invalide" }, { status: 400 });
+    }
+
     const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
+    }
 
     // Update status
     const { error: updateError } = await supabase
