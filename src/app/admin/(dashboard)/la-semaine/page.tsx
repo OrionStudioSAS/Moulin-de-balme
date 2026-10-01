@@ -1,37 +1,19 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
-import type { Product } from "@/types";
-import SemaineMatrix from "@/components/admin/SemaineMatrix";
+import { parisToday, weekStart } from "@/lib/bo/dates";
+import WeekView, { type WeekProduct } from "@/components/bo/week/WeekView";
 
-export default async function AdminLaSemainePage() {
+export const metadata: Metadata = { title: "La semaine" };
+
+export default async function AdminLaSemainePage({ searchParams }: { searchParams: { semaine?: string } }) {
   const supabase = await createClient();
+  const today = parisToday();
+  const requested = searchParams.semaine && /^\d{4}-\d{2}-\d{2}$/.test(searchParams.semaine) ? searchParams.semaine : today;
 
-  const [{ data: semaineRaw }, { data: allRaw }] = await Promise.all([
-    supabase
-      .from("products")
-      .select("*, category:categories(*)")
-      .eq("is_semaine", true)
-      .order("sort_order"),
-    supabase
-      .from("products")
-      .select("*, category:categories(*)")
-      .eq("is_available", true)
-      .order("name"),
-  ]);
+  const { data } = await supabase
+    .from("products")
+    .select("id, name, image_url, available_days, is_semaine, category:categories(name)")
+    .order("name");
 
-  const semaineProducts = (semaineRaw ?? []) as Product[];
-  const allProducts     = (allRaw ?? []) as Product[];
-
-  return (
-    <div className="p-4 md:p-8 max-w-6xl">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-brown uppercase tracking-tight">La Semaine</h1>
-        <p className="text-sm text-warm-gray mt-1">
-          Gérez les produits disponibles chaque jour de la semaine. Cochez les jours
-          de disponibilité pour chaque produit.
-        </p>
-      </div>
-
-      <SemaineMatrix products={semaineProducts} allProducts={allProducts} />
-    </div>
-  );
+  return <WeekView products={(data ?? []) as unknown as WeekProduct[]} today={today} monday={weekStart(requested)} />;
 }

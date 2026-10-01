@@ -84,6 +84,13 @@ export function createFormatters(locale: Locale) {
       if (locale === "ja") return `${new Intl.DateTimeFormat(loc, { day: "numeric", ...opts }).format(d)}(${new Intl.DateTimeFormat(loc, { weekday: "short", ...opts }).format(d)})`;
       return capitalize(new Intl.DateTimeFormat(loc, { weekday: "short", day: "numeric", ...opts }).format(d));
     },
+    /** « samedi 3 oct. » / « 10月3日(土) » */
+    dateWeekday: (value: string | Date) =>
+      locale === "ja"
+        ? jaWithWeekday(value, { month: "long", day: "numeric" })
+        : new Intl.DateTimeFormat(loc, { weekday: "long", day: "numeric", month: "short", timeZone: tz(value) }).format(parseDay(value)),
+    /** « Lun. » / « 月 » */
+    weekdayShort: (value: string | Date) => capitalize(new Intl.DateTimeFormat(loc, { weekday: "short", timeZone: tz(value) }).format(parseDay(value))),
     /** « 30 sept. 2026 » */
     dateMedium: (value: string | Date) =>
       new Intl.DateTimeFormat(loc, { day: "numeric", month: "short", year: "numeric", timeZone: tz(value) }).format(parseDay(value)),
