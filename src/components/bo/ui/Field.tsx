@@ -9,7 +9,7 @@ const boxBase =
   "w-full rounded-bo-md border bg-bo-surface text-[16px] leading-5 lg:text-bo-body text-bo-ink placeholder:text-bo-ink-3 shadow-bo-xs transition-[border-color,box-shadow] outline-none focus-within:border-bo-focus focus-within:shadow-bo-focus";
 const boxState = (invalid?: boolean, disabled?: boolean) =>
   cn(
-    invalid ? "border-bo-line-danger focus-within:shadow-bo-focus-danger" : "border-bo-line-strong",
+    invalid ? "border-bo-line-danger focus-within:border-bo-line-danger focus-within:shadow-bo-focus-danger" : "border-bo-line-strong",
     disabled && "bg-bo-muted text-bo-ink-disabled shadow-none"
   );
 

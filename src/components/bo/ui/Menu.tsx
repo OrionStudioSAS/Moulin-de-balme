@@ -83,7 +83,7 @@ export function Menu({
   };
 
   return (
-    <div ref={root} className={cn("relative", className)} onClick={(e) => e.stopPropagation()}>
+    <div ref={root} className={cn("relative", className)} onClick={(e) => e.stopPropagation()} onKeyDown={(e) => e.stopPropagation()}>
       {trigger({ open, toggle: () => setOpen((o) => !o), id })}
       {open && (
         <div

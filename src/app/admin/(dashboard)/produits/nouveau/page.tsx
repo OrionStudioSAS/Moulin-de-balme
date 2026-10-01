@@ -1,5 +1,10 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
-import ProductForm from "@/components/admin/ProductForm";
+import { parisToday } from "@/lib/bo/dates";
+import type { Category, Subcategory } from "@/types";
+import ProductEditor from "@/components/bo/products/ProductEditor";
+
+export const metadata: Metadata = { title: "Nouveau produit" };
 
 export default async function NouveauProduitPage() {
   const supabase = await createClient();
@@ -7,13 +12,5 @@ export default async function NouveauProduitPage() {
     supabase.from("categories").select("*").order("sort_order"),
     supabase.from("subcategories").select("*").order("sort_order"),
   ]);
-
-  return (
-    <div className="p-4 md:p-8 max-w-2xl">
-      <h1 className="text-xl font-bold tracking-widest uppercase text-brown mb-8">
-        Nouveau produit
-      </h1>
-      <ProductForm categories={categories ?? []} subcategories={subcategories ?? []} />
-    </div>
-  );
+  return <ProductEditor categories={(categories ?? []) as Category[]} subcategories={(subcategories ?? []) as Subcategory[]} today={parisToday()} />;
 }
