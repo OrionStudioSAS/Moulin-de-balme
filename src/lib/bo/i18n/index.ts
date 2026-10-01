@@ -91,6 +91,9 @@ export function createFormatters(locale: Locale) {
         : new Intl.DateTimeFormat(loc, { weekday: "long", day: "numeric", month: "short", timeZone: tz(value) }).format(parseDay(value)),
     /** « Lun. » / « 月 » */
     weekdayShort: (value: string | Date) => capitalize(new Intl.DateTimeFormat(loc, { weekday: "short", timeZone: tz(value) }).format(parseDay(value))),
+    /** « 18 septembre 2026 » / « 2026年9月18日 » */
+    dateDMY: (value: string | Date) =>
+      new Intl.DateTimeFormat(loc, { day: "numeric", month: "long", year: "numeric", timeZone: tz(value) }).format(parseDay(value)),
     /** « 30 sept. 2026 » */
     dateMedium: (value: string | Date) =>
       new Intl.DateTimeFormat(loc, { day: "numeric", month: "short", year: "numeric", timeZone: tz(value) }).format(parseDay(value)),
