@@ -187,7 +187,7 @@ export default function SideCart({ products }: { products: Product[] | null }) {
               </span>
             </div>
             <p className="text-[11px] text-warm-gray tracking-wider">
-              Commandez avant 17h — retrait le lendemain dès 7h
+              Commandez avant 14h — retrait le lendemain dès 7h
             </p>
             <Link
               href="/click-and-collect"

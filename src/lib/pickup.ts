@@ -1,12 +1,29 @@
 const TZ = "Europe/Paris";
-const CUTOFF_HOUR = 17;
+/** Heure limite pour commander et retirer dès le lendemain */
+export const CUTOFF_HOUR = 14;
 const CLOSED_WEEKDAYS = [0]; // dimanche
+const SATURDAY = 6;
 
-export const PICKUP_TIMES = [
-  "07:00", "07:30", "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00",
-  "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-  "15:00", "15:30", "16:00", "16:30", "17:00",
-];
+const slots = (from: string, to: string) => {
+  const out: string[] = [];
+  for (let m = toMinutes(from); m <= toMinutes(to); m += 30) {
+    out.push(`${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`);
+  }
+  return out;
+};
+function toMinutes(hhmm: string) {
+  const [h, m] = hhmm.split(":").map(Number);
+  return h * 60 + m;
+}
+
+/** Boutique : fermeture 17h30 en semaine, 12h30 le samedi → dernier créneau une demi-heure avant */
+export const PICKUP_TIMES = slots("07:00", "17:00");
+const SATURDAY_PICKUP_TIMES = slots("07:00", "12:00");
+
+export function pickupTimesFor(date: string): string[] {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return PICKUP_TIMES;
+  return new Date(`${date}T00:00:00Z`).getUTCDay() === SATURDAY ? SATURDAY_PICKUP_TIMES : PICKUP_TIMES;
+}
 
 export type PickupDate = { value: string; label: string };
 
@@ -49,5 +66,13 @@ export function getPickupDates(now = new Date(), count = 14): PickupDate[] {
 }
 
 export function isValidPickup(date: string, time: string, now = new Date()) {
-  return PICKUP_TIMES.includes(time) && getPickupDates(now, 60).some((d) => d.value === date);
+  return pickupTimesFor(date).includes(time) && getPickupDates(now, 60).some((d) => d.value === date);
+}
+
+/** Secondes avant la prochaine heure limite (heure locale du navigateur, en France) */
+export function secondsUntilCutoff(now = new Date()) {
+  const target = new Date(now);
+  target.setHours(CUTOFF_HOUR, 0, 0, 0);
+  if (now >= target) target.setDate(target.getDate() + 1);
+  return Math.floor((target.getTime() - now.getTime()) / 1000);
 }

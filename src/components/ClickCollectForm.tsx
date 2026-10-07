@@ -3,7 +3,7 @@
 import { useState, useEffect, useMemo } from "react";
 import Image from "next/image";
 import { useCart } from "@/lib/cart-context";
-import { getPickupDates, PICKUP_TIMES } from "@/lib/pickup";
+import { getPickupDates, pickupTimesFor } from "@/lib/pickup";
 import type { Product, OrderItem } from "@/types";
 
 const formatPrice = (n: number) => n.toFixed(2).replace(".", ",");
@@ -156,7 +156,10 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
             <label htmlFor={`${idPrefix}-pickup_date`} className={fieldLabel}>Jour de retrait</label>
             <select id={`${idPrefix}-pickup_date`} required
               value={form.pickup_date}
-              onChange={(e) => setForm({ ...form, pickup_date: e.target.value })}
+              onChange={(e) => {
+                const times = pickupTimesFor(e.target.value);
+                setForm({ ...form, pickup_date: e.target.value, pickup_time: times.includes(form.pickup_time) ? form.pickup_time : times[times.length - 1] });
+              }}
               className={`${inputClass} ${form.pickup_date ? "" : "text-cream/50"}`}>
               <option value="" disabled>Choisissez un jour</option>
               {pickupDates.map((d) => (
@@ -170,11 +173,11 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
               value={form.pickup_time}
               onChange={(e) => setForm({ ...form, pickup_time: e.target.value })}
               className={inputClass}>
-              {PICKUP_TIMES.map((t) => <option key={t} value={t}>{t.replace(":", "h")}</option>)}
+              {pickupTimesFor(form.pickup_date).map((t) => <option key={t} value={t}>{t.replace(":", "h")}</option>)}
             </select>
           </div>
           <p className="text-[10px] text-cream/40 leading-relaxed">
-            Commande avant 17h pour un retrait dès le lendemain. Fermé le dimanche.
+            Commande avant 14h pour un retrait dès le lendemain. Samedi jusqu’à 12h, fermé le dimanche.
           </p>
           <textarea placeholder="Notes (optionnel)"
             value={form.notes}

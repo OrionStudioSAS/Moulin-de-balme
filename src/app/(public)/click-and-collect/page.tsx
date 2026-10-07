@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Click & Collect — Le Moulin de Balme®",
     description:
-      "Commandez avant 17h, retirez votre commande le lendemain dès 7h au Moulin de Balme à Brive-la-Gaillarde.",
+      "Commandez avant 14h, retirez votre commande le lendemain dès 7h au Moulin de Balme à Brive-la-Gaillarde.",
     url: "https://www.moulin-de-balme.fr/click-and-collect",
   },
 };
@@ -33,7 +33,7 @@ export default async function ClickCollectPage() {
         <p className="label-tag text-cream/60 mb-3">Commander</p>
         <h1 className="section-title text-cream">Click &amp; Collect</h1>
         <p className="text-xs text-cream/60 mt-3 tracking-wider max-w-md mx-auto">
-          Commandez avant 17h, retirez votre commande le lendemain dès 7h en boutique.
+          Commandez avant 14h, retirez votre commande le lendemain dès 7h en boutique.
         </p>
       </div>
 

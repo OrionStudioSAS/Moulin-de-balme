@@ -133,7 +133,7 @@ export default function SemaineCalendar({ products }: { products: Product[] }) {
             </button>
           </div>
           <p className="text-[10px] text-cream/40 tracking-wider">
-            Lundi → Samedi &nbsp;·&nbsp; 7h30 → 18h
+            Lun. → Ven. 7h30 → 17h30 &nbsp;·&nbsp; Sam. 7h30 → 12h30
           </p>
           {/* Légende */}
           <div className="flex flex-wrap gap-3 justify-end">

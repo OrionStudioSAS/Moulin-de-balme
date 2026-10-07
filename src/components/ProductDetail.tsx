@@ -1,5 +1,6 @@
 "use client";
 
+import { secondsUntilCutoff } from "@/lib/pickup";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -20,11 +21,7 @@ function Countdown() {
 
   useEffect(() => {
     const tick = () => {
-      const now = new Date();
-      const cutoff = new Date();
-      cutoff.setHours(17, 0, 0, 0);
-      if (now >= cutoff) cutoff.setDate(cutoff.getDate() + 1);
-      const diff = cutoff.getTime() - now.getTime();
+      const diff = secondsUntilCutoff() * 1000;
       const h = Math.floor(diff / 3600000).toString().padStart(2, "0");
       const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, "0");
       const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, "0");
@@ -90,7 +87,7 @@ export default function ProductDetail({ product, similar }: { product: Product; 
           {/* LEFT — Info */}
           <div className="lg:pr-16 py-6 order-2 lg:order-1">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between sm:gap-4 mb-2">
-              <h1 className="text-[clamp(2rem,9vw,3rem)] md:text-6xl font-bold tracking-wider md:tracking-widest uppercase text-brown leading-none break-words min-w-0">
+              <h1 className="text-[clamp(1.5rem,6.5vw,2rem)] md:text-6xl font-bold tracking-wide md:tracking-widest uppercase text-brown leading-none break-words min-w-0">
                 {product.name}
               </h1>
               <span className="text-2xl md:text-3xl font-bold text-brown shrink-0 sm:mt-2">
@@ -204,7 +201,7 @@ export default function ProductDetail({ product, similar }: { product: Product; 
                   Click &amp; Collect — Commandez
                 </p>
                 <p className="text-xs text-cream/60 tracking-wider leading-relaxed">
-                  Passez commande avant 17h pour un retrait dès le lendemain 7h en boutique.
+                  Passez commande avant 14h pour un retrait dès le lendemain 7h en boutique.
                 </p>
               </div>
               <div className="text-right shrink-0">

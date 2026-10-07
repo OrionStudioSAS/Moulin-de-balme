@@ -33,7 +33,7 @@ export default function HeroSection() {
             </p>
             <p className="text-sm text-white leading-relaxed max-w-sm">
               Pains au levain, farines anciennes, croissants venus d&apos;ailleurs. La boulangerie
-              de Stéphane et Tomoko Reinat, ouverte de 7h à 18h au 7 avenue Alsace-Lorraine.
+              de Stéphane et Tomoko Reinat, ouverte de 7h à 17h30 (12h30 le samedi) au 7 avenue Alsace-Lorraine.
             </p>
           </FadeInOnLoad>
 

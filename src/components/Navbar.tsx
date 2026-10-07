@@ -34,7 +34,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const pathname = usePathname();
-  const forceScrolled = pathname === "/click-and-collect";
+  const forceScrolled = pathname === "/click-and-collect" || pathname.startsWith("/produits/");
 
   useEffect(() => {
     // Se déclenche quand la barre d'annonce a disparu (~36px)
@@ -58,8 +58,8 @@ export default function Navbar() {
         <span className="hidden sm:inline bg-white/20 text-white px-2 py-0.5 text-[10px] tracking-widest uppercase font-bold shrink-0">
           Nouveau
         </span>
-        <span className="text-white sm:hidden">Commandez avant 17h, retrait dès 7h</span>
-        <span className="text-white hidden sm:inline">Commandez avant 17h — Retrait dès le lendemain 7h</span>
+        <span className="text-white sm:hidden">Commandez avant 14h, retrait dès 7h</span>
+        <span className="text-white hidden sm:inline">Commandez avant 14h — Retrait dès le lendemain 7h</span>
         <Link
           href="/click-and-collect"
           className="font-bold text-white underline underline-offset-2 hover:opacity-80 transition-opacity shrink-0"

@@ -2,14 +2,7 @@
 
 import Link from "next/link";
 import { useState, useEffect } from "react";
-
-function getSecondsUntil17() {
-  const now = new Date();
-  const target = new Date(now);
-  target.setHours(17, 0, 0, 0);
-  if (now >= target) target.setDate(target.getDate() + 1);
-  return Math.floor((target.getTime() - now.getTime()) / 1000);
-}
+import { secondsUntilCutoff } from "@/lib/pickup";
 
 function fmt(s: number) {
   const h = Math.floor(s / 3600);
@@ -22,8 +15,8 @@ export default function HeroCountdownBar() {
   const [secs, setSecs] = useState<number | null>(null);
 
   useEffect(() => {
-    setSecs(getSecondsUntil17());
-    const id = setInterval(() => setSecs(getSecondsUntil17()), 1000);
+    setSecs(secondsUntilCutoff());
+    const id = setInterval(() => setSecs(secondsUntilCutoff()), 1000);
     return () => clearInterval(id);
   }, []);
 
@@ -66,7 +59,7 @@ export default function HeroCountdownBar() {
               Click &amp; Collect — Commandez la veille, retirez frais
             </p>
             <p className="text-white text-[11px] tracking-wider mt-0.5">
-              Passez commande avant 17h pour un retrait dès le lendemain 7h en boutique.
+              Passez commande avant 14h pour un retrait dès le lendemain 7h en boutique.
             </p>
           </div>
         </div>

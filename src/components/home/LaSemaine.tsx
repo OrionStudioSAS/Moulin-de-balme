@@ -3,12 +3,12 @@ import type { Product } from "@/types";
 import SemaineProducts from "./SemaineProducts";
 
 const DAYS = [
-  { label: "Lundi",    hours: "de 7h30 à 18h", open: true  },
-  { label: "Mardi",   hours: "de 7h30 à 18h", open: true  },
-  { label: "Mercredi",hours: "de 7h30 à 18h", open: true  },
-  { label: "Jeudi",   hours: "de 7h30 à 18h", open: true  },
-  { label: "Vendredi",hours: "de 7h30 à 18h", open: true  },
-  { label: "Samedi",  hours: "de 7h30 à 18h", open: true  },
+  { label: "Lundi",    hours: "de 7h30 à 17h30", open: true  },
+  { label: "Mardi",   hours: "de 7h30 à 17h30", open: true  },
+  { label: "Mercredi",hours: "de 7h30 à 17h30", open: true  },
+  { label: "Jeudi",   hours: "de 7h30 à 17h30", open: true  },
+  { label: "Vendredi",hours: "de 7h30 à 17h30", open: true  },
+  { label: "Samedi",  hours: "de 7h30 à 12h30", open: true  },
   { label: "Dimanche",hours: "Fermé",          open: false },
 ];
 
