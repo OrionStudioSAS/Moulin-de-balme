@@ -21,14 +21,14 @@ import type { StoryCard } from "@/components/StoryCardsSlider";
 const TIMELINE_CARDS: StoryCard[] = [
   {
     label: "Le Commencement",
-    image: "/images/histoire-photo.png",
+    image: "/images/histoire-photo.jpg",
     imageAlt: "Stéphane Reinat — ses débuts",
     title: "L'Apprentissage",
     text: "Stéphane Reinat n'a pas grandi dans un fournil. Il y est entré par choix, à seize ans, au CFA de Versailles, parce qu'il aimait l'idée d'un métier qui se lève avec la nuit et qui finit avec l'odeur. Le pain n'était pas une tradition familiale ; il l'a fait sienne.\n\nTrès vite, il comprend que la boulangerie n'est pas qu'une affaire de technique : c'est une affaire de patience, d'écoute du levain, de respect du grain. Pendant ses premières années, il fait ses gammes dans les fournils parisiens — apprend la baguette de tradition, la pâte feuilletée, la cuisson au bois.",
   },
   {
     label: "Le Grand Départ",
-    image: "/images/histoire-photo.png",
+    image: "/images/histoire-photo.jpg",
     imageAlt: "Tokyo — Le Cordon Bleu",
     title: "Tokyo, Premier Exil",
     text: "En 2009, une opportunité change tout. Le Cordon Bleu Tokyo cherche un formateur français pour transmettre le savoir-faire de la boulangerie traditionnelle à des élèves japonais. Stéphane n'hésite pas : il embarque pour le Japon avec quelques outils, un livre de recettes, et l'envie d'apprendre autant qu'il enseignera.\n\nAu Japon, il découvre une autre forme d'exigence. Les élèves japonais cherchent la perfection du geste, la propreté absolue, la mesure au gramme près. Lui leur apporte la patience française, la fermentation longue, la confiance dans l'imperfection. Cette rencontre, il ne l'oubliera jamais. C'est aussi à Tokyo qu'il rencontre Tomoko, qui deviendra son épouse, sa partenaire, et la pâtissière du futur Fournil de Balme.",
@@ -59,7 +59,7 @@ export default async function StephaneReinatPage() {
       <section className="relative overflow-hidden bg-brown mt-[-64px] h-[465px]">
         <div className="absolute inset-0">
           <Image
-            src="/images/hero-banner.png"
+            src="/images/hero-banner.jpg"
             alt="Stéphane Reinat — Le Boulanger"
             fill
             className="object-cover object-center"
@@ -87,7 +87,7 @@ export default async function StephaneReinatPage() {
       <section className="grid grid-cols-1 md:grid-cols-2 bg-cream mb-6 md:mb-12">
         <div className="relative min-h-[500px] md:min-h-[680px] order-2 md:order-1">
           <Image
-            src="/images/histoire-photo.png"
+            src="/images/histoire-photo.jpg"
             alt="Stéphane et Tomoko Reinat"
             fill
             className="object-cover object-center"
@@ -167,7 +167,7 @@ export default async function StephaneReinatPage() {
         </div>
         <div className="relative min-h-[500px]">
           <Image
-            src="/images/histoire-photo.png"
+            src="/images/histoire-photo.jpg"
             alt="Tomoko Reinat"
             fill
             className="object-cover object-top"

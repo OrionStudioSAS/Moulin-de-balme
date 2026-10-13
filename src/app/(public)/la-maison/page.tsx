@@ -26,7 +26,7 @@ export default function LaMaisonPage() {
       <section className="relative overflow-hidden mt-[-64px] h-[465px]">
         <div className="absolute inset-0">
           <Image
-            src="/images/hero-banner.png"
+            src="/images/hero-banner.jpg"
             alt="Le Moulin de Balme"
             fill
             className="object-cover object-center"
@@ -55,7 +55,7 @@ export default function LaMaisonPage() {
         {/* Photo gauche */}
         <div className="relative min-h-[400px] md:min-h-[600px] bg-brown/20">
           <Image
-            src="/images/histoire-before-photo.png"
+            src="/images/histoire-before-photo.jpg"
             alt="Le 7, avenue Alsace-Lorraine — archives"
             fill
             className="object-cover object-center grayscale"

@@ -11,6 +11,29 @@ import { FieldError } from "@/components/bo/ui/Field";
 
 const TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
 const MAX = 5 * 1024 * 1024;
+const MAX_SOURCE = 25 * 1024 * 1024;
+const MAX_SIDE = 1600;
+
+/**
+ * Réduit l'image avant l'envoi : sans l'optimisation d'images Vercel, le site sert les fichiers tels quels.
+ * WebP si le navigateur sait l'encoder (garde la transparence), sinon JPEG sur fond blanc (Safari).
+ */
+async function compress(file: File): Promise<Blob> {
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, MAX_SIDE / Math.max(bitmap.width, bitmap.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.round(bitmap.width * scale);
+  canvas.height = Math.round(bitmap.height * scale);
+  const ctx = canvas.getContext("2d")!;
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  const encode = (type: string, quality: number) => new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, type, quality));
+  const webp = await encode("image/webp", 0.82);
+  if (webp && webp.type === "image/webp") return webp;
+  ctx.globalCompositeOperation = "destination-over";
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  return (await encode("image/jpeg", 0.85)) ?? file;
+}
 
 /** Envoi d'une image dans le stockage « products » ; renvoie l'URL publique */
 export function useImageUpload(onUploaded: (url: string) => void) {
@@ -21,12 +44,19 @@ export function useImageUpload(onUploaded: (url: string) => void) {
   const upload = async (file: File) => {
     setError(null);
     if (!TYPES.includes(file.type)) return setError(t("form.imageType"));
-    if (file.size > MAX) return setError(t("form.imageTooBig"));
+    if (file.size > MAX_SOURCE) return setError(t("form.imageTooBig"));
     setUploading(true);
+    const blob = await compress(file).catch(() => file);
+    if (blob.size > MAX) {
+      setUploading(false);
+      return setError(t("form.imageTooBig"));
+    }
     const supabase = createClient();
-    const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
+    const ext = blob.type === "image/webp" ? "webp" : blob.type === "image/jpeg" ? "jpg" : file.name.split(".").pop()?.toLowerCase() ?? "jpg";
     const name = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const { data, error: err } = await supabase.storage.from("products").upload(name, file, { upsert: false });
+    const { data, error: err } = await supabase.storage
+      .from("products")
+      .upload(name, blob, { upsert: false, contentType: blob.type || file.type, cacheControl: "31536000" });
     setUploading(false);
     if (err || !data) return setError(t("common.errorGeneric"));
     onUploaded(supabase.storage.from("products").getPublicUrl(data.path).data.publicUrl);

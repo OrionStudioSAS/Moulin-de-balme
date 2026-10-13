@@ -38,7 +38,7 @@ export const metadata: Metadata = {
       "Boulangerie artisanale à Brive-la-Gaillarde. Pains au levain, viennoiseries et pâtisseries façonnés à la main. Click & Collect disponible.",
     images: [
       {
-        url: "/images/hero-banner.png",
+        url: "/images/hero-banner.jpg",
         width: 1200,
         height: 630,
         alt: "Le Moulin de Balme — Boulangerie artisanale à Brive-la-Gaillarde",
@@ -65,7 +65,7 @@ const schemaOrg = {
   description:
     "Boulangerie artisanale à Brive-la-Gaillarde. Pains au levain, viennoiseries et pâtisseries façonnés à la main.",
   url: SITE_URL,
-  image: `${SITE_URL}/images/hero-banner.png`,
+  image: `${SITE_URL}/images/hero-banner.jpg`,
   logo: `${SITE_URL}/images/logo.png`,
   email: "moulindebalme@gmail.com",
   address: {

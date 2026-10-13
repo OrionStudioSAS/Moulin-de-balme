@@ -8,7 +8,7 @@ export default function HistoireSection() {
       <div className="grid grid-cols-1 md:grid-cols-2 max-w-[1400px] mx-auto overflow-hidden bg-white">
         <FadeIn y={0} className="relative min-h-[500px] md:min-h-[700px] bg-brown/10 overflow-hidden">
           <Image
-            src="/images/histoire-photo.png"
+            src="/images/histoire-photo.jpg"
             alt="Stéphane et Tomoko Reinat — Le Moulin de Balme"
             fill
             className="object-cover object-center"

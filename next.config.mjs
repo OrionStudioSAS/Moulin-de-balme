@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
+    // Le quota gratuit d'optimisation d'images Vercel est épuisé (erreur 402) : images servies telles quelles
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",

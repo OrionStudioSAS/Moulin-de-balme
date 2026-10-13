@@ -56,7 +56,7 @@ export default async function RecettesPage({
       <section className="relative overflow-hidden mt-[-64px] h-[465px]">
         <div className="absolute inset-0">
           <Image
-            src="/images/nos-recettes.png"
+            src="/images/nos-recettes.jpg"
             alt="Recettes & Histoires de pain"
             fill
             className="object-cover object-center"
