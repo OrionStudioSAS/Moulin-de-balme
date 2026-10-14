@@ -6,7 +6,8 @@ import { getUtilisateur } from "@/lib/bo/session";
 import type { Order } from "@/types";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Créé à la demande : sans clé (build, préversions), le constructeur lève une erreur.
+const resend = () => new Resend(process.env.RESEND_API_KEY);
 
 type OrderItem = { product_name: string; quantity: number; unit_price: number };
 
@@ -164,7 +165,7 @@ export async function POST(req: NextRequest) {
     // Send email if status triggers one
     const emailDef = STATUS_EMAILS[newStatus];
     if (emailDef && process.env.RESEND_API_KEY && saved.customer_email) {
-      await resend.emails.send({
+      await resend().emails.send({
         from: process.env.RESEND_FROM_EMAIL ?? "Le Moulin de Balme <onboarding@resend.dev>",
         to: saved.customer_email,
         subject: emailDef.subject(saved.customer_name),

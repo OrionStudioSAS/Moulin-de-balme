@@ -6,7 +6,8 @@ import type { Order } from "@/types";
 import { Resend } from "resend";
 import { isValidPickup } from "@/lib/pickup";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Créé à la demande : sans clé (build, préversions), le constructeur lève une erreur.
+const resend = () => new Resend(process.env.RESEND_API_KEY);
 
 type OrderItem = { product_name: string; quantity: number; unit_price: number };
 
@@ -72,7 +73,7 @@ export async function POST(req: NextRequest) {
       await Promise.all([
         // ── 1. Notification interne ──
         process.env.NOTIFICATION_EMAIL
-          ? resend.emails.send({
+          ? resend().emails.send({
               from,
               to: process.env.NOTIFICATION_EMAIL,
               subject: `🥖 Nouvelle commande — ${customer_name} — retrait le ${pickup_date} à ${pickup_time}`,
@@ -120,7 +121,7 @@ export async function POST(req: NextRequest) {
           : Promise.resolve(),
 
         // ── 2. Confirmation client ──
-        resend.emails.send({
+        resend().emails.send({
           from,
           to: customer_email,
           subject: `Votre commande Click & Collect est confirmée — Le Moulin de Balme`,
