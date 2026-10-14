@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AlertCircle, Lock, Mail } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+import { seConnecter } from "@/lib/bo/actions";
 import { useBoI18n } from "@/lib/bo/i18n/client";
 import { BrandMark } from "@/components/bo/shell/Sidebar";
 import { Button } from "@/components/bo/ui/Button";
@@ -23,11 +23,11 @@ export default function LoginForm() {
     setLoading(true);
     setError(null);
 
-    const { error: err } = await createClient().auth.signInWithPassword({ email, password });
+    const res = await seConnecter(email, password).catch(() => ({ ok: false as const, erreur: "serveur" }));
 
-    if (err) {
+    if (!res.ok) {
       // Message générique : on ne dit jamais lequel des deux champs est faux
-      setError(err.status === 429 ? t("login.tooMany") : t("login.error"));
+      setError(res.erreur === "identifiants" ? t("login.error") : t("common.errorGeneric"));
       setPassword("");
       setLoading(false);
       passwordRef.current?.focus();

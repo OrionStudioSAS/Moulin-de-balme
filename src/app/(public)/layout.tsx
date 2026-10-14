@@ -2,21 +2,18 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SideCart from "@/components/SideCart";
 import { CartProvider } from "@/lib/cart-context";
-import { createClient } from "@/lib/supabase/server";
+import { getProduits } from "@/lib/contenu/donnees";
 import type { Product } from "@/types";
+
+// Le contenu est lu depuis GitHub (mis en cache et invalidé par l'admin) et les dates « du jour » ne doivent pas être figées au build.
+export const dynamic = "force-dynamic";
 
 export default async function PublicLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("products")
-    .select("*, category:categories(*), subcategory:subcategories(*)")
-    .eq("is_available", true)
-    .order("sort_order");
-  const recommendationProducts = error ? null : (data as Product[]);
+  const recommendationProducts: Product[] | null = await getProduits({ disponibles: true }).catch(() => null);
 
   return (
     <CartProvider>

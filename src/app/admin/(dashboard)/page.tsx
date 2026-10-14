@@ -1,23 +1,17 @@
-import { createClient } from "@/lib/supabase/server";
 import { parisToday } from "@/lib/bo/dates";
-import type { Order, Product } from "@/types";
+import { exigerUtilisateur } from "@/lib/bo/session";
+import { depuisCompte } from "@/lib/bo/user";
+import { getCommandes, getProduits } from "@/lib/contenu/donnees";
 import DashboardView from "@/components/bo/dashboard/DashboardView";
 
 export default async function AdminDashboard() {
-  const supabase = await createClient();
-  const [{ data: { user } }, { data: orders }, { count: productsCount }, { data: semaine }] = await Promise.all([
-    supabase.auth.getUser(),
-    supabase.from("orders").select("*"),
-    supabase.from("products").select("id", { count: "exact", head: true }),
-    supabase.from("products").select("id, available_days").eq("is_semaine", true),
-  ]);
-
+  const [compte, orders, produits] = await Promise.all([exigerUtilisateur(), getCommandes().catch(() => []), getProduits()]);
   return (
     <DashboardView
-      user={user}
-      orders={(orders ?? []) as Order[]}
-      productsCount={productsCount ?? 0}
-      semaine={(semaine ?? []) as Pick<Product, "id" | "available_days">[]}
+      user={depuisCompte(compte)}
+      orders={orders}
+      productsCount={produits.length}
+      semaine={produits.filter((p) => p.is_semaine).map((p) => ({ id: p.id, available_days: p.available_days }))}
       today={parisToday()}
     />
   );

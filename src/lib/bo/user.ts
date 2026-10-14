@@ -12,3 +12,8 @@ export function firstName(user: UserLike): string | null {
   const full = (meta.full_name as string) || (meta.name as string);
   return full ? full.split(" ")[0] : null;
 }
+
+/** Compte de l'admin (ADMIN_COMPTES) → forme attendue par displayName / firstName */
+export function depuisCompte(compte: { email: string; nom: string | null }): UserLike {
+  return { email: compte.email, user_metadata: compte.nom ? { full_name: compte.nom } : {} };
+}

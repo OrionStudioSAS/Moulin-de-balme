@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useRouter } from "next/navigation";
 import { Info, X } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+import { creerCategorie } from "@/lib/bo/actions";
 import { useBoI18n } from "@/lib/bo/i18n/client";
 import { portalRoot, useMounted } from "@/lib/bo/portal";
 import type { Category } from "@/types";
@@ -52,13 +52,12 @@ export default function NewCategoryModal({ open, onClose, categories }: { open: 
     if (!name.trim()) return nameRef.current?.focus();
     if (clash) return;
     setSaving(true);
-    const sortOrder = Math.max(0, ...categories.map((c) => c.sort_order)) + 1;
-    const { error } = await createClient().from("categories").insert({ name: name.trim(), slug: finalSlug, sort_order: sortOrder });
+    const res = await creerCategorie(name.trim(), finalSlug).catch(() => ({ ok: false as const, erreur: "serveur", detail: undefined }));
     setSaving(false);
-    if (error) return setServerError(t("common.errorGeneric"));
+    if (!res.ok) return setServerError(res.erreur === "slug" && res.detail ? t("categories.slugTaken", { name: res.detail }) : t("common.errorGeneric"));
     onClose();
     toast({ tone: "success", message: t("categories.created") });
-    router.push(`/admin/categories/${finalSlug}`);
+    router.push(`/admin/categories/${res.slug}`);
     router.refresh();
   };
 

@@ -6,14 +6,15 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "*.supabase.co",
-        pathname: "/storage/v1/object/public/**",
-      },
-      {
-        protocol: "https",
         hostname: "images.unsplash.com",
       },
     ],
+  },
+  experimental: {
+    // Les images du contenu sont lues depuis le disque par /fichiers/[...chemin]
+    outputFileTracingIncludes: {
+      "/fichiers/[...chemin]": ["./contenu/fichiers/**/*"],
+    },
   },
 };
 

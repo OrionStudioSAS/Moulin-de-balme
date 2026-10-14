@@ -1,27 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/server";
+import { getProduits } from "@/lib/contenu/donnees";
 import type { Product } from "@/types";
 import { FadeIn, StaggerChildren, StaggerItem } from "@/components/animations/FadeIn";
 
 export default async function NosFarines() {
-  const supabase = await createClient();
-
-  const { data: cat } = await supabase
-    .from("categories")
-    .select("id")
-    .eq("slug", "farines")
-    .single();
-
-  const { data: farines } = cat
-    ? await supabase
-        .from("products")
-        .select("*, category:categories(*)")
-        .eq("is_available", true)
-        .eq("category_id", cat.id)
-        .order("sort_order")
-        .limit(6)
-    : { data: [] };
+  const farines = (await getProduits({ disponibles: true })).filter((p) => p.category?.slug === "farines").slice(0, 6);
 
   return (
     <section id="nos-farines" className="bg-cream px-6 md:px-12 py-6 md:py-12">

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronRight, ExternalLink, LayoutGrid, Plus, Trash2, X } from "lucide-react";
 import { cn } from "@/lib/bo/cn";
-import { createClient } from "@/lib/supabase/client";
+import { enregistrerBanniereProduits, enregistrerCategorie, supprimerCategorie } from "@/lib/bo/actions";
 import { useBoI18n } from "@/lib/bo/i18n/client";
 import type { Category, Subcategory } from "@/types";
 import { Button, ButtonLink } from "@/components/bo/ui/Button";
@@ -75,7 +75,7 @@ export default function CategoriesView({
 
   const detail = category ? (
     <CategoryEditor
-      key={category.id}
+      key={`${category.id}:${subcategories.filter((s) => s.category_id === category.id).map((s) => s.id).join(",")}`}
       category={category}
       subcategories={subcategories.filter((s) => s.category_id === category.id).sort((a, b) => a.sort_order - b.sort_order)}
       productCount={productCounts[category.id] ?? 0}
@@ -163,38 +163,20 @@ function CategoryEditor({ category, subcategories, productCount }: { category: C
 
   const save = async () => {
     setSaving(true);
-    const supabase = createClient();
-    const slugify = (s: string) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9\s-]/g, "").trim().replace(/[\s-]+/g, "-");
-    const removed = initial.subs.filter((s) => !form.subs.some((x) => x.id === s.id)).map((s) => s.id);
-    const added = form.subs.filter((s) => s.isNew);
-
-    const results = await Promise.all([
-      supabase
-        .from("categories")
-        .update({
-          image_url: form.image_url,
-          banner_image_url: form.banner_image_url,
-          banner_title: form.banner_title.trim() || null,
-          banner_subtitle: form.banner_subtitle.trim() || null,
-          banner_description: form.banner_description.trim() || null,
-        })
-        .eq("id", category.id),
-      removed.length
-        ? supabase
-            .from("products")
-            .update({ subcategory_id: null })
-            .in("subcategory_id", removed)
-            .then(() => supabase.from("subcategories").delete().in("id", removed))
-        : Promise.resolve({ error: null }),
-      added.length
-        ? supabase
-            .from("subcategories")
-            .insert(added.map((s, i) => ({ category_id: category.id, name: s.name, slug: slugify(s.name), sort_order: form.subs.length - added.length + i })))
-        : Promise.resolve({ error: null }),
-    ]);
+    const res = await enregistrerCategorie(
+      category.id,
+      {
+        image_url: form.image_url,
+        banner_image_url: form.banner_image_url,
+        banner_title: form.banner_title.trim() || null,
+        banner_subtitle: form.banner_subtitle.trim() || null,
+        banner_description: form.banner_description.trim() || null,
+      },
+      form.subs
+    ).catch(() => ({ ok: false }));
     setSaving(false);
 
-    if (results.some((r) => r.error)) {
+    if (!res.ok) {
       toast({ tone: "error", message: t("categories.saveError"), actionLabel: t("common.retry"), onAction: save, persistent: true });
       router.refresh();
       return;
@@ -207,12 +189,9 @@ function CategoryEditor({ category, subcategories, productCount }: { category: C
   const remove = async () => {
     setDeleting(true);
     setDeleteError(null);
-    const supabase = createClient();
-    const { error: e1 } = await supabase.from("products").update({ category_id: null, subcategory_id: null }).eq("category_id", category.id);
-    const { error: e2 } = e1 ? { error: e1 } : await supabase.from("subcategories").delete().eq("category_id", category.id);
-    const { error: e3 } = e2 ? { error: e2 } : await supabase.from("categories").delete().eq("id", category.id);
+    const res = await supprimerCategorie(category.id).catch(() => ({ ok: false }));
     setDeleting(false);
-    if (e3) return setDeleteError(t("common.errorGeneric"));
+    if (!res.ok) return setDeleteError(t("common.errorGeneric"));
     setInitial(form);
     toast({ tone: "success", message: t("categories.deleted") });
     router.push("/admin/categories");
@@ -392,14 +371,14 @@ function DefaultBannerEditor({ banner }: { banner: DefaultBanner }) {
 
   const save = async () => {
     setSaving(true);
-    const { error } = await createClient()
-      .from("site_settings")
-      .upsert({
-        key: "products_banner",
-        value: { title: form.banner_title.trim(), subtitle: form.banner_subtitle.trim(), description: form.banner_description.trim(), banner_image_url: form.banner_image_url },
-      });
+    const res = await enregistrerBanniereProduits({
+      title: form.banner_title.trim(),
+      subtitle: form.banner_subtitle.trim(),
+      description: form.banner_description.trim(),
+      banner_image_url: form.banner_image_url,
+    }).catch(() => ({ ok: false }));
     setSaving(false);
-    if (error) {
+    if (!res.ok) {
       toast({ tone: "error", message: t("categories.saveError"), actionLabel: t("common.retry"), onAction: save, persistent: true });
       return;
     }

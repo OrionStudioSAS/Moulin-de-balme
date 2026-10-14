@@ -1,22 +1,17 @@
-import { createClient } from "@/lib/supabase/server";
+import { getRecettes } from "@/lib/contenu/donnees";
 
 const SITE_URL = "https://www.moulin-de-balme.fr";
 
 export async function GET() {
-  const supabase = await createClient();
-  const { data: recipes } = await supabase
-    .from("recipes")
-    .select("title, slug, excerpt, image_url, published_at, tags")
-    .eq("is_published", true)
-    .order("published_at", { ascending: false })
-    .limit(20);
+  const recipes = (await getRecettes()).slice(0, 20);
 
   const items = (recipes ?? [])
     .map((r) => {
       const url = `${SITE_URL}/recettes/${r.slug}`;
       const date = r.published_at ? new Date(r.published_at).toUTCString() : new Date().toUTCString();
       const desc = r.excerpt ?? `Recette artisanale du Moulin de Balme, boulangerie à Brive-la-Gaillarde.`;
-      const image = r.image_url ? `<enclosure url="${r.image_url}" type="image/jpeg" length="0" />` : "";
+      const imageUrl = r.image_url?.startsWith("/") ? `${SITE_URL}${r.image_url}` : r.image_url;
+      const image = imageUrl ? `<enclosure url="${imageUrl}" type="${imageUrl.endsWith(".webp") ? "image/webp" : "image/jpeg"}" length="0" />` : "";
       return `
     <item>
       <title><![CDATA[${r.title}]]></title>

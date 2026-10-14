@@ -1,0 +1,74 @@
+[
+  {
+    "id": "3d15db89-7382-45d2-9eba-d556d3207992",
+    "category_id": "0f56c0b9-ef93-43f7-9618-b523aa5d97e7",
+    "name": "Miche balme ®",
+    "slug": "miche-balme",
+    "sort_order": 0,
+    "created_at": "2026-07-28T09:26:23.221931+00:00"
+  },
+  {
+    "id": "8083074a-1b86-48c1-b285-7762c1116ac2",
+    "category_id": "877f5353-4f3a-4cd1-ad77-fa7fd6d62bad",
+    "name": "pate levée",
+    "slug": "pate-levee",
+    "sort_order": 0,
+    "created_at": "2026-09-30T12:53:59.492167+00:00"
+  },
+  {
+    "id": "35b4471f-f19d-4cac-a2b7-1d3b7eeb5f2c",
+    "category_id": "0f56c0b9-ef93-43f7-9618-b523aa5d97e7",
+    "name": "Pain de seigle",
+    "slug": "pain-de-seigle",
+    "sort_order": 1,
+    "created_at": "2026-07-28T09:26:30.775722+00:00"
+  },
+  {
+    "id": "d278869b-34a6-4565-8a38-3a3b5e2f784b",
+    "category_id": "0f56c0b9-ef93-43f7-9618-b523aa5d97e7",
+    "name": "Pavé de seigle aux raisins",
+    "slug": "pave-de-seigle-aux-raisins",
+    "sort_order": 2,
+    "created_at": "2026-07-28T09:26:37.895865+00:00"
+  },
+  {
+    "id": "7a10fe33-91ba-420d-815c-bca233bb0214",
+    "category_id": "0f56c0b9-ef93-43f7-9618-b523aa5d97e7",
+    "name": "Pain aux noix",
+    "slug": "pain-aux-noix",
+    "sort_order": 3,
+    "created_at": "2026-07-28T09:26:44.998981+00:00"
+  },
+  {
+    "id": "93fa0dbe-4636-4ac6-83f7-401c71dcce46",
+    "category_id": "0f56c0b9-ef93-43f7-9618-b523aa5d97e7",
+    "name": "Pain de mie",
+    "slug": "pain-de-mie",
+    "sort_order": 4,
+    "created_at": "2026-07-28T09:26:51.06395+00:00"
+  },
+  {
+    "id": "7b3c84b6-62e8-4373-a6f5-209785ba61cf",
+    "category_id": "0f56c0b9-ef93-43f7-9618-b523aa5d97e7",
+    "name": "Pain de maïs",
+    "slug": "pain-de-mais",
+    "sort_order": 5,
+    "created_at": "2026-07-28T09:26:57.248953+00:00"
+  },
+  {
+    "id": "001f2b5f-a5a0-4f38-bdff-60fa633bb73b",
+    "category_id": "0f56c0b9-ef93-43f7-9618-b523aa5d97e7",
+    "name": "Pain poivré",
+    "slug": "pain-poivre",
+    "sort_order": 6,
+    "created_at": "2026-07-28T09:27:03.849447+00:00"
+  },
+  {
+    "id": "f507f627-2103-4194-b24f-509b2d3cd78c",
+    "category_id": "0f56c0b9-ef93-43f7-9618-b523aa5d97e7",
+    "name": "Buns",
+    "slug": "buns",
+    "sort_order": 7,
+    "created_at": "2026-07-28T09:27:07.727823+00:00"
+  }
+]

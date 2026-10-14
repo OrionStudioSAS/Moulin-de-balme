@@ -1,19 +1,11 @@
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { getProduits } from "@/lib/contenu/donnees";
 import type { Product } from "@/types";
 import SortieDuFourCard from "./SortieDuFourCard";
 import { FadeIn, StaggerChildren, StaggerItem } from "@/components/animations/FadeIn";
 
 export default async function SortieDuFour() {
-  const supabase = await createClient();
-
-  const { data: products } = await supabase
-    .from("products")
-    .select("*, category:categories(*)")
-    .eq("is_available", true)
-    .eq("is_featured", true)
-    .order("sort_order")
-    .limit(4);
+  const products = (await getProduits({ disponibles: true })).filter((p) => p.is_featured).slice(0, 4);
 
   const items = products ?? [];
 

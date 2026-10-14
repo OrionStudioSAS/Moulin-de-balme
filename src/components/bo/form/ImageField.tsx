@@ -4,13 +4,12 @@ import { useRef, useState } from "react";
 import Image from "next/image";
 import { ImagePlus, Loader2, Trash2, Upload } from "lucide-react";
 import { cn } from "@/lib/bo/cn";
-import { createClient } from "@/lib/supabase/client";
 import { useBoI18n } from "@/lib/bo/i18n/client";
 import { Button } from "@/components/bo/ui/Button";
 import { FieldError } from "@/components/bo/ui/Field";
 
 const TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
-const MAX = 5 * 1024 * 1024;
+const MAX = 4 * 1024 * 1024;
 const MAX_SOURCE = 25 * 1024 * 1024;
 const MAX_SIDE = 1600;
 
@@ -51,15 +50,13 @@ export function useImageUpload(onUploaded: (url: string) => void) {
       setUploading(false);
       return setError(t("form.imageTooBig"));
     }
-    const supabase = createClient();
-    const ext = blob.type === "image/webp" ? "webp" : blob.type === "image/jpeg" ? "jpg" : file.name.split(".").pop()?.toLowerCase() ?? "jpg";
-    const name = `${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
-    const { data, error: err } = await supabase.storage
-      .from("products")
-      .upload(name, blob, { upsert: false, contentType: blob.type || file.type, cacheControl: "31536000" });
+    const form = new FormData();
+    form.append("fichier", new File([blob], `image.${blob.type === "image/webp" ? "webp" : "jpg"}`, { type: blob.type || file.type }));
+    const res = await fetch("/api/admin/fichiers", { method: "POST", body: form }).catch(() => null);
     setUploading(false);
-    if (err || !data) return setError(t("common.errorGeneric"));
-    onUploaded(supabase.storage.from("products").getPublicUrl(data.path).data.publicUrl);
+    const data = res ? await res.json().catch(() => null) : null;
+    if (!res?.ok || !data?.url) return setError(t("common.errorGeneric"));
+    onUploaded(data.url);
   };
 
   return { upload, uploading, error, accept: TYPES.join(",") };

@@ -1,16 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/server";
+import { getCategories } from "@/lib/contenu/donnees";
 import type { Category } from "@/types";
 import { FadeIn, StaggerChildren, StaggerItem } from "@/components/animations/FadeIn";
 
 export default async function NosProduits() {
-  const supabase = await createClient();
-  const { data: categories } = await supabase
-    .from("categories")
-    .select("*")
-    .order("sort_order")
-    .limit(6);
+  const categories = (await getCategories()).slice(0, 6);
 
   return (
     <section className="bg-cream px-6 md:px-12 py-6 md:py-12">

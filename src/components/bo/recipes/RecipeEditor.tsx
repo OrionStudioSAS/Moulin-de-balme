@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AlertCircle, ArrowLeft, Check, ChevronDown, Clock, ExternalLink, Plus, Trash2, X } from "lucide-react";
 import { cn } from "@/lib/bo/cn";
-import { createClient } from "@/lib/supabase/client";
+import { enregistrerRecette, supprimerRecette, type ChampsRecette } from "@/lib/bo/actions";
 import { useBoI18n } from "@/lib/bo/i18n/client";
 import { CHIP_COLORS, DIFFICULTIES, RECIPE_CATEGORIES } from "@/lib/bo/recipes";
 import type { Recipe, RecipeStep } from "@/types";
@@ -92,15 +92,9 @@ export default function RecipeEditor({ recipe }: { recipe?: Recipe }) {
       return;
     }
     setSaving(true);
-    const supabase = createClient();
     const slug = slugify(form.slug || form.title);
-    const { data: clash } = await supabase.from("recipes").select("id").eq("slug", slug).neq("id", recipe?.id ?? "00000000-0000-0000-0000-000000000000").maybeSingle();
-    if (clash) {
-      setSaving(false);
-      return setServerError(t("recipes.slugTaken"));
-    }
 
-    const payload = {
+    const payload: ChampsRecette = {
       title: form.title.trim(),
       slug,
       subtitle: form.subtitle.trim() || null,
@@ -120,20 +114,19 @@ export default function RecipeEditor({ recipe }: { recipe?: Recipe }) {
       steps: filledSteps.map(({ title, chip, chip_color, description }) => ({ title: title.trim(), chip: chip.trim(), chip_color, description: description.trim() })),
     };
 
+    const res = await enregistrerRecette(isNew ? null : recipe.id, payload).catch(() => ({ ok: false as const, erreur: "serveur" }));
+    setSaving(false);
+    if (!res.ok) {
+      if (res.erreur === "slug") return setServerError(t("recipes.slugTaken"));
+      return toast({ tone: "error", message: t("common.errorGeneric"), actionLabel: t("common.retry"), onAction: save });
+    }
     if (isNew) {
-      const { data, error } = await supabase.from("recipes").insert(payload).select("id").single();
-      setSaving(false);
-      if (error || !data) return toast({ tone: "error", message: t("common.errorGeneric"), actionLabel: t("common.retry"), onAction: save });
       setInitial(form);
       toast({ tone: "success", message: t("recipes.created") });
-      router.replace(`/admin/recettes/${data.id}/edit`);
+      router.replace(`/admin/recettes/${res.id}/edit`);
       router.refresh();
       return;
     }
-
-    const { error } = await supabase.from("recipes").update(payload).eq("id", recipe.id);
-    setSaving(false);
-    if (error) return toast({ tone: "error", message: t("common.errorGeneric"), actionLabel: t("common.retry"), onAction: save });
     const saved = { ...form, slug };
     setForm(saved);
     setInitial(saved);
@@ -146,9 +139,9 @@ export default function RecipeEditor({ recipe }: { recipe?: Recipe }) {
     if (!recipe) return;
     setDeleting(true);
     setDeleteError(null);
-    const { error } = await createClient().from("recipes").delete().eq("id", recipe.id);
+    const res = await supprimerRecette(recipe.id).catch(() => ({ ok: false }));
     setDeleting(false);
-    if (error) return setDeleteError(t("common.errorGeneric"));
+    if (!res.ok) return setDeleteError(t("common.errorGeneric"));
     setInitial(form);
     toast({ tone: "success", message: t("recipes.deleted") });
     router.push("/admin/recettes");

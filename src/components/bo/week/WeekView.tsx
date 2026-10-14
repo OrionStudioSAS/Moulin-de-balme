@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { Calendar, ChevronLeft, ChevronRight, Lock, Plus, X } from "lucide-react";
 import { cn } from "@/lib/bo/cn";
-import { createClient } from "@/lib/supabase/client";
+import { majJoursVente } from "@/lib/bo/actions";
 import { useBoI18n } from "@/lib/bo/i18n/client";
 import { addDays, openDaysOfWeek } from "@/lib/bo/dates";
 import { Button } from "@/components/bo/ui/Button";
@@ -53,11 +53,8 @@ export default function WeekView({ products: initial, today, monday }: { product
 
   const persist = async (product: WeekProduct, next: Partial<WeekProduct>, previous: WeekProduct) => {
     setProducts((list) => list.map((p) => (p.id === product.id ? { ...p, ...next } : p)));
-    const { error } = await createClient()
-      .from("products")
-      .update({ available_days: next.available_days, is_semaine: next.is_semaine })
-      .eq("id", product.id);
-    if (error) {
+    const res = await majJoursVente(product.id, next.available_days ?? product.available_days, next.is_semaine ?? product.is_semaine).catch(() => ({ ok: false }));
+    if (!res.ok) {
       setProducts((list) => list.map((p) => (p.id === product.id ? previous : p)));
       toast({ tone: "error", message: t("common.errorGeneric"), actionLabel: t("common.retry"), onAction: () => persist(product, next, previous) });
       return false;

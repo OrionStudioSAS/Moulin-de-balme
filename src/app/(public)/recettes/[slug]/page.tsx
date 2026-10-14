@@ -2,13 +2,12 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { createClient } from "@/lib/supabase/server";
+import { getRecette, getRecettes } from "@/lib/contenu/donnees";
 import type { Recipe } from "@/types";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
-  const supabase = await createClient();
-  const { data } = await supabase.from("recipes").select("title,excerpt,image_url").eq("slug", slug).single();
+  const data = await getRecette(slug);
   if (!data) return { title: "Recette" };
   return {
     title: data.title,
@@ -40,27 +39,11 @@ export default async function RecetteDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const supabase  = await createClient();
-
-  const { data } = await supabase
-    .from("recipes")
-    .select("*")
-    .eq("slug", slug)
-    .eq("is_published", true)
-    .single();
-
-  if (!data) notFound();
-  const recipe = data as Recipe;
+  const recipe = await getRecette(slug);
+  if (!recipe) notFound();
 
   // 4 dernières recettes (hors celle-ci)
-  const { data: othersRaw } = await supabase
-    .from("recipes")
-    .select("*")
-    .eq("is_published", true)
-    .neq("id", recipe.id)
-    .order("published_at", { ascending: false })
-    .limit(4);
-  const others = (othersRaw ?? []) as Recipe[];
+  const others: Recipe[] = (await getRecettes()).filter((r) => r.id !== recipe.id).slice(0, 4);
 
   return (
     <div className="bg-cream">

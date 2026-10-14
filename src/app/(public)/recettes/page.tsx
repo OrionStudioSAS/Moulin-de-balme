@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase/server";
+import { getRecettes } from "@/lib/contenu/donnees";
 
 export const metadata: Metadata = {
   title: "Recettes & Histoires de pain",
@@ -25,27 +25,10 @@ export default async function RecettesPage({
   searchParams: Promise<{ category?: string }>;
 }) {
   const { category } = await searchParams;
-  const supabase = await createClient();
+  const published = await getRecettes();
+  const recipes: Recipe[] = category && category !== "tous" ? published.filter((r) => r.category === category) : published;
 
-  let query = supabase
-    .from("recipes")
-    .select("*")
-    .eq("is_published", true)
-    .order("published_at", { ascending: false });
-
-  if (category && category !== "tous") {
-    query = query.eq("category", category);
-  }
-
-  const { data } = await query;
-  const recipes = (data ?? []) as Recipe[];
-
-  // Toutes catégories pour le filtre
-  const { data: allRaw } = await supabase
-    .from("recipes")
-    .select("category")
-    .eq("is_published", true);
-  const allCategories = Array.from(new Set((allRaw ?? []).map((r) => r.category as string))).sort();
+  const allCategories = Array.from(new Set(published.map((r) => r.category))).sort();
 
   const featured  = recipes[0] ?? null;
   const rest      = recipes.slice(1);

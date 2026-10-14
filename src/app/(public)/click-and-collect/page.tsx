@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { createClient } from "@/lib/supabase/server";
+import { getProduits } from "@/lib/contenu/donnees";
 import ClickCollectForm from "@/components/ClickCollectForm";
 
 export const metadata: Metadata = {
@@ -18,13 +18,7 @@ export const metadata: Metadata = {
 import type { Product } from "@/types";
 
 export default async function ClickCollectPage() {
-  const supabase = await createClient();
-
-  const { data: products } = await supabase
-    .from("products")
-    .select("*, category:categories(*)")
-    .eq("is_available", true)
-    .order("sort_order");
+  const products = await getProduits({ disponibles: true });
 
   return (
     <div className="min-h-screen bg-cream">

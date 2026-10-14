@@ -1,0 +1,160 @@
+[
+  {
+    "id": "dfa7bd84-0c08-4e17-9aad-9b3c8abd98bf",
+    "title": "Pain de campagne levain dur pointage retardé",
+    "slug": "pain-de-campagne-levain-dur-pointage-retarde",
+    "subtitle": "Pointage retardé · Farine de tradition et seigle T130",
+    "excerpt": "Un pain de campagne au levain dur, à la mie aromatique et à la croûte bien développée, travaillé avec un pointage retardé au froid.",
+    "description": "La recette professionnelle de Stéphane Reinat, adaptée sur la base de 2 172 g de pâte. Le pointage retardé développe les arômes du levain et donne au pain une belle conservation.",
+    "image_url": "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=1200&q=80",
+    "category": "pains",
+    "difficulty": "Avancé",
+    "total_time": "4 h + repos au froid",
+    "portions": "3 pains de 650 g",
+    "ingredients": [
+      "850 g de farine de tradition",
+      "150 g de farine de seigle T130",
+      "22 g de sel",
+      "700 g d’eau",
+      "350 g de levain dur",
+      "100 g d’eau de bassinage"
+    ],
+    "materiel": [
+      "Pétrin",
+      "Balance",
+      "Lame de boulanger",
+      "Grille de refroidissement"
+    ],
+    "steps": [
+      {
+        "chip": "75–76 °C",
+        "title": "Température de base",
+        "chip_color": "blue",
+        "description": "Calculer une température de base de 75 à 76 °C, levain inclus."
+      },
+      {
+        "chip": "8 + 3–4 min",
+        "title": "Pétrissage",
+        "chip_color": "brown",
+        "description": "Pétrir 8 minutes en première vitesse, puis 3 à 4 minutes en deuxième vitesse. La pâte doit être bâtarde à douce, avec une température finale comprise entre 23 et 25 °C."
+      },
+      {
+        "chip": "1 h + froid",
+        "title": "Pointage",
+        "chip_color": "green",
+        "description": "Laisser pointer environ 1 heure à température ambiante, puis placer la pâte au froid positif."
+      },
+      {
+        "chip": "650 g · 1 h",
+        "title": "Pesage et détente",
+        "chip_color": "cream",
+        "description": "Peser des pâtons de 650 g. Bouler ou enrouler légèrement selon la tenue de la pâte, puis laisser détendre 1 heure à température ambiante."
+      },
+      {
+        "chip": "1 h",
+        "title": "Façonnage et apprêt",
+        "chip_color": "red",
+        "description": "Façonner en bâtards. La fiche d’origine prévoit des pains nature et une déclinaison noix-noisettes. Laisser apprêter 1 heure."
+      },
+      {
+        "chip": "45–60 min",
+        "title": "Cuisson et ressuage",
+        "chip_color": "brown",
+        "description": "Lamer, puis enfourner avec vapeur sur une sole à 290–300 °C pendant environ 45 minutes à 1 heure. Laisser ressuer sur grille."
+      }
+    ],
+    "badge": "Recette de Stéphane",
+    "tags": [
+      "Pain au levain",
+      "Pain de campagne",
+      "Pointage retardé"
+    ],
+    "is_published": true,
+    "published_at": "2026-09-25T09:08:10.640762+00:00",
+    "sort_order": 1,
+    "created_at": "2026-09-25T09:08:10.640762+00:00"
+  },
+  {
+    "id": "ae800c44-4ad6-44fa-bc75-9cff532e2e3e",
+    "title": "Pain Bio type 80 en pointage bac",
+    "slug": "pain-bio-t80-pointage-bac",
+    "subtitle": "Levain dur bio · Farine de blé T80",
+    "excerpt": "Un pain bio à la farine T80 et au levain dur, façonné en banneton après un pointage en bac.",
+    "description": "La méthode professionnelle de Stéphane Reinat pour un pain bio T80 à la pâte douce, au goût franc de céréales et à la croûte généreuse.",
+    "image_url": "https://images.unsplash.com/photo-1586444248902-2f64eddc13df?w=1200&q=80",
+    "category": "pains",
+    "difficulty": "Avancé",
+    "total_time": "4 h 15 environ",
+    "portions": "2 pains de 1 kg",
+    "ingredients": [
+      "1 000 g de farine de blé bio T80",
+      "22 g de sel",
+      "2 g de levure (facultative)",
+      "300 g de levain dur bio",
+      "700 g d’eau",
+      "50 g d’eau de bassinage"
+    ],
+    "materiel": [
+      "Pétrin spiral ou batteur",
+      "Balance",
+      "Bacs de pointage",
+      "Bannetons",
+      "Grille de refroidissement"
+    ],
+    "steps": [
+      {
+        "chip": "76 °C",
+        "title": "Température de base",
+        "chip_color": "blue",
+        "description": "Prévoir une température de base de 76 °C."
+      },
+      {
+        "chip": "8 + 3 min",
+        "title": "Pétrissage",
+        "chip_color": "brown",
+        "description": "Au pétrin spiral ou au batteur, pétrir 8 minutes en première vitesse puis 3 minutes en deuxième vitesse. La pâte est bâtarde au début et douce en fin de pétrissage."
+      },
+      {
+        "chip": "24–26 °C",
+        "title": "Bassinage",
+        "chip_color": "blue",
+        "description": "Verser progressivement les 50 g d’eau de bassinage afin d’obtenir une pâte douce. La température finale de la pâte doit être comprise entre 24 et 26 °C."
+      },
+      {
+        "chip": "1 h",
+        "title": "Pointage",
+        "chip_color": "green",
+        "description": "Laisser pointer 1 heure à température ambiante, en bac."
+      },
+      {
+        "chip": "1 kg · 1 h",
+        "title": "Pesage et détente",
+        "chip_color": "cream",
+        "description": "Peser et bouler des pâtons de 1 000 g, puis laisser détendre pendant 1 heure."
+      },
+      {
+        "chip": "45–60 min",
+        "title": "Façonnage et apprêt",
+        "chip_color": "red",
+        "description": "Façonner, déposer en bannetons et laisser apprêter 45 minutes à 1 heure à température ambiante."
+      },
+      {
+        "chip": "Environ 1 h",
+        "title": "Cuisson",
+        "chip_color": "brown",
+        "description": "Cuire pendant environ 1 heure."
+      }
+    ],
+    "badge": "Recette de Stéphane",
+    "tags": [
+      "Pain bio",
+      "Farine T80",
+      "Levain dur",
+      "Pointage en bac"
+    ],
+    "is_published": true,
+    "published_at": "2026-09-25T09:08:10.640762+00:00",
+    "sort_order": 2,
+    "created_at": "2026-09-25T09:08:10.640762+00:00"
+  }
+]

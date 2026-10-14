@@ -1,12 +1,10 @@
-import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
-import type { Product } from "@/types";
+import { getProduit, getProduits } from "@/lib/contenu/donnees";
 import ProductDetail from "@/components/ProductDetail";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const supabase = await createClient();
-  const { data } = await supabase.from("products").select("name,description,image_url").eq("slug", slug).single();
+  const data = await getProduit(slug);
   if (!data) return { title: "Produit" };
   return {
     title: data.name,
@@ -25,24 +23,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const supabase = await createClient();
-
-  const { data: product } = await supabase
-    .from("products")
-    .select("*, category:categories(*)")
-    .eq("slug", slug)
-    .single();
-
+  const product = await getProduit(slug);
   if (!product) notFound();
 
-  const { data: similar } = await supabase
-    .from("products")
-    .select("*, category:categories(*)")
-    .eq("is_available", true)
-    .eq("category_id", product.category_id)
-    .neq("slug", slug)
-    .order("sort_order")
-    .limit(4);
+  const similar = (await getProduits({ disponibles: true }))
+    .filter((p) => p.category_id === product.category_id && p.slug !== slug)
+    .slice(0, 4);
 
-  return <ProductDetail product={product as Product} similar={(similar ?? []) as Product[]} />;
+  return <ProductDetail product={product} similar={similar} />;
 }

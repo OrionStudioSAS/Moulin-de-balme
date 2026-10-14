@@ -34,21 +34,14 @@ const TIMELINE_CARDS: StoryCard[] = [
     text: "En 2009, une opportunité change tout. Le Cordon Bleu Tokyo cherche un formateur français pour transmettre le savoir-faire de la boulangerie traditionnelle à des élèves japonais. Stéphane n'hésite pas : il embarque pour le Japon avec quelques outils, un livre de recettes, et l'envie d'apprendre autant qu'il enseignera.\n\nAu Japon, il découvre une autre forme d'exigence. Les élèves japonais cherchent la perfection du geste, la propreté absolue, la mesure au gramme près. Lui leur apporte la patience française, la fermentation longue, la confiance dans l'imperfection. Cette rencontre, il ne l'oubliera jamais. C'est aussi à Tokyo qu'il rencontre Tomoko, qui deviendra son épouse, sa partenaire, et la pâtissière du futur Fournil de Balme.",
   },
 ];
-import { createClient } from "@/lib/supabase/server";
+import { getProduits } from "@/lib/contenu/donnees";
 import type { Product } from "@/types";
 import SortieDuFourCard from "@/components/home/SortieDuFourCard";
 
 const H2 = "text-[clamp(2.2rem,4vw,4.5rem)] font-bold uppercase tracking-tight leading-none whitespace-pre-line";
 
 export default async function StephaneReinatPage() {
-  const supabase = await createClient();
-  const { data: products } = await supabase
-    .from("products")
-    .select("*, category:categories(*)")
-    .eq("is_available", true)
-    .eq("is_featured", true)
-    .order("sort_order")
-    .limit(4);
+  const products = (await getProduits({ disponibles: true })).filter((p) => p.is_featured).slice(0, 4);
 
   const items = (products ?? []) as Product[];
 

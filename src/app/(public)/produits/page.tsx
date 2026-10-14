@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { createClient } from "@/lib/supabase/server";
+import { getCategories, getProduits, getReglages, getSousCategories } from "@/lib/contenu/donnees";
 
 export const metadata: Metadata = {
   title: "Nos Produits — Pains, Viennoiseries & Pâtisseries",
@@ -25,32 +25,13 @@ export default async function ProduitsPage({
   searchParams: Promise<{ categorie?: string; sous?: string }>;
 }) {
   const { categorie, sous } = await searchParams;
-  const supabase = await createClient();
-
-  const [
-    { data: categories },
-    { data: subcategories },
-    { data: products },
-    { data: settings },
-  ] = await Promise.all([
-    supabase.from("categories").select("*").order("sort_order"),
-    categorie
-      ? supabase
-          .from("subcategories")
-          .select("*")
-          .order("sort_order")
-          .then(async ({ data }) => {
-            // filter client-side after we have the category id
-            return { data };
-          })
-      : Promise.resolve({ data: [] }),
-    supabase
-      .from("products")
-      .select("*, category:categories(*), subcategory:subcategories(*)")
-      .eq("is_available", true)
-      .order("sort_order"),
-    supabase.from("site_settings").select("value").eq("key", "products_banner").single(),
+  const [categories, subcategories, products, reglages] = await Promise.all([
+    getCategories(),
+    categorie ? getSousCategories() : Promise.resolve([]),
+    getProduits({ disponibles: true }),
+    getReglages(),
   ]);
+  const settings = { value: reglages.banniereProduits };
 
   const currentCat = categorie
     ? (categories ?? []).find((c: Category) => c.slug === categorie)

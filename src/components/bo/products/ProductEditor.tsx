@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { AlertCircle, ArrowLeft, ExternalLink, Plus, Trash2 } from "lucide-react";
-import { createClient } from "@/lib/supabase/client";
+import { enregistrerProduit, supprimerProduit, type ChampsProduit } from "@/lib/bo/actions";
 import { useBoI18n } from "@/lib/bo/i18n/client";
 import type { Category, Product, Subcategory, WeightPrice } from "@/types";
 import { Badge } from "@/components/bo/ui/Badge";
@@ -135,17 +135,9 @@ export default function ProductEditor({
       return;
     }
     setSaving(true);
-    const supabase = createClient();
     const slug = slugify(form.slug || form.name);
 
-    const { data: clash } = await supabase.from("products").select("id").eq("slug", slug).neq("id", product?.id ?? "00000000-0000-0000-0000-000000000000").maybeSingle();
-    if (clash) {
-      setSaving(false);
-      setServerError(t("products.slugTaken"));
-      return;
-    }
-
-    const payload = {
+    const payload: ChampsProduit = {
       name: form.name.trim(),
       slug,
       subtitle: form.subtitle.trim() || null,
@@ -167,28 +159,22 @@ export default function ProductEditor({
       available_days: [...form.available_days].sort(),
       category_id: form.category_id || null,
       subcategory_id: form.subcategory_id || null,
-      badge: form.badge || null,
+      badge: (form.badge || null) as ChampsProduit["badge"],
       sort_order: parseInt(form.sort_order, 10) || 0,
     };
 
-    if (isNew) {
-      const { data, error } = await supabase.from("products").insert(payload).select("id").single();
-      setSaving(false);
-      if (error || !data) {
-        toast({ tone: "error", message: t("common.errorGeneric"), actionLabel: t("common.retry"), onAction: save });
-        return;
-      }
-      setInitial(form);
-      toast({ tone: "success", message: t("products.created") });
-      router.replace(`/admin/produits/${data.id}`);
-      router.refresh();
+    const res = await enregistrerProduit(isNew ? null : product.id, payload).catch(() => ({ ok: false as const, erreur: "serveur" }));
+    setSaving(false);
+    if (!res.ok) {
+      if (res.erreur === "slug") return setServerError(t("products.slugTaken"));
+      toast({ tone: "error", message: t("common.errorGeneric"), actionLabel: t("common.retry"), onAction: save });
       return;
     }
-
-    const { error } = await supabase.from("products").update(payload).eq("id", product.id);
-    setSaving(false);
-    if (error) {
-      toast({ tone: "error", message: t("common.errorGeneric"), actionLabel: t("common.retry"), onAction: save });
+    if (isNew) {
+      setInitial(form);
+      toast({ tone: "success", message: t("products.created") });
+      router.replace(`/admin/produits/${res.id}`);
+      router.refresh();
       return;
     }
     const saved = { ...form, slug };
@@ -203,9 +189,9 @@ export default function ProductEditor({
     if (!product) return;
     setDeleting(true);
     setDeleteError(null);
-    const { error } = await createClient().from("products").delete().eq("id", product.id);
+    const res = await supprimerProduit(product.id).catch(() => ({ ok: false }));
     setDeleting(false);
-    if (error) return setDeleteError(t("common.errorGeneric"));
+    if (!res.ok) return setDeleteError(t("common.errorGeneric"));
     setInitial(form);
     toast({ tone: "success", message: t("products.deleted") });
     router.push("/admin/produits");

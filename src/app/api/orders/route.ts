@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { revalidateTag } from "next/cache";
+import { commiter } from "@/lib/contenu/depot";
+import { fichiers, lireDans, tagContenu, versJson } from "@/lib/contenu/stockage";
+import type { Order } from "@/types";
 import { Resend } from "resend";
 import { isValidPickup } from "@/lib/pickup";
 
@@ -32,24 +35,34 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const supabase = await createClient();
-    const { data: order, error } = await supabase
-      .from("orders")
-      .insert({
-        customer_name,
-        customer_email,
-        pickup_date,
-        pickup_time,
-        notes,
-        items,
-        total_amount,
-        status: "pending",
-      })
-      .select()
-      .single();
+    const order: Order = {
+      id: crypto.randomUUID(),
+      customer_name: String(customer_name ?? "").trim(),
+      customer_email: String(customer_email ?? "").trim(),
+      customer_phone: "",
+      pickup_date,
+      pickup_time,
+      notes: notes ? String(notes) : null,
+      items: Array.isArray(items) ? items : [],
+      total_amount: Number(total_amount) || 0,
+      status: "pending",
+      created_at: new Date().toISOString(),
+    };
 
-    if (error) {
-      return NextResponse.json({ error: error.message }, { status: 500 });
+    if (!order.customer_name || !order.customer_email || order.items.length === 0) {
+      return NextResponse.json({ error: "Commande incomplète." }, { status: 400 });
+    }
+
+    // Enregistrement dans le dépôt privé des commandes (un commit par commande)
+    try {
+      await commiter("commandes", `Nouvelle commande — retrait le ${pickup_date}`, async (lire) => {
+        const commandes = await lireDans(lire, "commandes");
+        return [{ chemin: fichiers.commandes.chemin, contenu: versJson([...commandes, order]) }];
+      });
+      revalidateTag(tagContenu("commandes"));
+    } catch (erreur) {
+      console.error("Enregistrement de la commande impossible", erreur);
+      return NextResponse.json({ error: "Impossible d'enregistrer la commande. Merci de réessayer." }, { status: 500 });
     }
 
     const from = process.env.RESEND_FROM_EMAIL ?? "Le Moulin de Balme <onboarding@resend.dev>";

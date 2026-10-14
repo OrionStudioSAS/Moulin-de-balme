@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { createClient } from "@/lib/supabase/client";
 import type { Product } from "@/types";
 
 export default function SearchOverlay({
@@ -34,14 +33,8 @@ export default function SearchOverlay({
     }
     const timeout = setTimeout(async () => {
       setLoading(true);
-      const supabase = createClient();
-      const { data } = await supabase
-        .from("products")
-        .select("*, category:categories(*)")
-        .ilike("name", `%${query}%`)
-        .eq("is_available", true)
-        .limit(6);
-      setResults(data ?? []);
+      const res = await fetch(`/api/recherche?q=${encodeURIComponent(query.trim())}`).catch(() => null);
+      setResults(res?.ok ? await res.json() : []);
       setLoading(false);
     }, 250);
     return () => clearTimeout(timeout);

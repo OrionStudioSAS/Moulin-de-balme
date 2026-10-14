@@ -1,4 +1,4 @@
-import { createClient } from "@/lib/supabase/server";
+import { getProduits } from "@/lib/contenu/donnees";
 import type { Product } from "@/types";
 import SemaineProducts from "./SemaineProducts";
 
@@ -13,14 +13,7 @@ const DAYS = [
 ];
 
 export default async function LaSemaine() {
-  const supabase = await createClient();
-
-  const { data: products } = await supabase
-    .from("products")
-    .select("*, category:categories(*)")
-    .eq("is_available", true)
-    .eq("is_semaine", true)
-    .order("sort_order");
+  const products = (await getProduits({ disponibles: true })).filter((p) => p.is_semaine);
 
   const items = (products ?? []) as Product[];
   const total = items.length;

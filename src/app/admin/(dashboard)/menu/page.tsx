@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { BookOpen, ChevronRight, ExternalLink, Folder, Globe, LogOut, Users } from "lucide-react";
-import { createClient } from "@/lib/supabase/server";
+import { exigerUtilisateur } from "@/lib/bo/session";
 import { getBoI18n } from "@/lib/bo/i18n/server";
-import { displayName } from "@/lib/bo/user";
+import { depuisCompte, displayName } from "@/lib/bo/user";
 import { Avatar, PageHeader } from "@/components/bo/ui/Display";
 import { LanguageSwitcher } from "@/components/bo/shell/LanguageSwitcher";
 
@@ -42,11 +42,7 @@ function NavRow({ href, icon, label, external }: { href: string; icon: ReactNode
 
 export default async function MenuPage() {
   const { t } = getBoI18n();
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  const name = user ? displayName(user) : "";
+  const name = displayName(depuisCompte(await exigerUtilisateur()));
 
   return (
     <div className="flex flex-col gap-5">

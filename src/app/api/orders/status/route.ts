@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { revalidateTag } from "next/cache";
+import { commiter } from "@/lib/contenu/depot";
+import { fichiers, lireDans, tagContenu, versJson } from "@/lib/contenu/stockage";
+import { getUtilisateur } from "@/lib/bo/session";
+import type { Order } from "@/types";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -137,41 +141,35 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Requête invalide" }, { status: 400 });
     }
 
-    const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) {
+    if (!(await getUtilisateur())) {
       return NextResponse.json({ error: "Non autorisé" }, { status: 401 });
     }
 
-    // Update status
-    const { error: updateError } = await supabase
-      .from("orders")
-      .update({ status: newStatus })
-      .eq("id", orderId);
-
-    if (updateError) {
-      return NextResponse.json({ error: updateError.message }, { status: 500 });
+    let order: Order | null = null;
+    await commiter("commandes", `Commande : statut « ${newStatus} »`, async (lire) => {
+      const commandes = await lireDans(lire, "commandes");
+      const index = commandes.findIndex((o) => o.id === orderId);
+      if (index < 0) return null;
+      order = { ...commandes[index], status: newStatus };
+      const suivantes = [...commandes];
+      suivantes[index] = order;
+      return [{ chemin: fichiers.commandes.chemin, contenu: versJson(suivantes) }];
+    });
+    if (!order) {
+      return NextResponse.json({ error: "Commande introuvable" }, { status: 404 });
     }
+    revalidateTag(tagContenu("commandes"));
+    const saved: Order = order;
 
     // Send email if status triggers one
     const emailDef = STATUS_EMAILS[newStatus];
-    if (emailDef && process.env.RESEND_API_KEY) {
-      const { data: order } = await supabase
-        .from("orders")
-        .select("*")
-        .eq("id", orderId)
-        .single();
-
-      if (order?.customer_email) {
-        await resend.emails.send({
-          from: process.env.RESEND_FROM_EMAIL ?? "Le Moulin de Balme <onboarding@resend.dev>",
-          to: order.customer_email,
-          subject: emailDef.subject(order.customer_name),
-          html: emailDef.body(order),
-        });
-      }
+    if (emailDef && process.env.RESEND_API_KEY && saved.customer_email) {
+      await resend.emails.send({
+        from: process.env.RESEND_FROM_EMAIL ?? "Le Moulin de Balme <onboarding@resend.dev>",
+        to: saved.customer_email,
+        subject: emailDef.subject(saved.customer_name),
+        html: emailDef.body(saved as unknown as Record<string, unknown>),
+      });
     }
 
     return NextResponse.json({ success: true });

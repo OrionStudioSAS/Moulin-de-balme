@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ArrowUpDown, ChevronLeft, ChevronRight, ExternalLink, MoreHorizontal, Package, Pencil, Plus, Search, Trash2 } from "lucide-react";
 import { cn } from "@/lib/bo/cn";
-import { createClient } from "@/lib/supabase/client";
+import { basculerProduit, supprimerProduit } from "@/lib/bo/actions";
 import { useBoI18n } from "@/lib/bo/i18n/client";
 import type { Category, Product } from "@/types";
 import { Badge } from "@/components/bo/ui/Badge";
@@ -81,8 +81,8 @@ export default function ProductsView({ products: initial, categories }: { produc
 
   const toggle = async (product: Row, flag: Flag, value: boolean, silent = false) => {
     setProducts((list) => list.map((p) => (p.id === product.id ? { ...p, [flag]: value } : p)));
-    const { error } = await createClient().from("products").update({ [flag]: value }).eq("id", product.id);
-    if (error) {
+    const res = await basculerProduit(product.id, flag, value).catch(() => ({ ok: false }));
+    if (!res.ok) {
       setProducts((list) => list.map((p) => (p.id === product.id ? { ...p, [flag]: !value } : p)));
       toast({ tone: "error", message: t("common.errorGeneric"), actionLabel: t("common.retry"), onAction: () => toggle(product, flag, value) });
       return;
@@ -97,9 +97,9 @@ export default function ProductsView({ products: initial, categories }: { produc
     if (!toDelete) return;
     setDeleting(true);
     setDeleteError(null);
-    const { error } = await createClient().from("products").delete().eq("id", toDelete.id);
+    const res = await supprimerProduit(toDelete.id).catch(() => ({ ok: false }));
     setDeleting(false);
-    if (error) return setDeleteError(t("common.errorGeneric"));
+    if (!res.ok) return setDeleteError(t("common.errorGeneric"));
     setProducts((list) => list.filter((p) => p.id !== toDelete.id));
     setToDelete(null);
     toast({ tone: "success", message: t("products.deleted") });
