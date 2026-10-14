@@ -1,19 +1,18 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import Image from "next/image";
+import { useState, useMemo } from "react";
+import Link from "next/link";
 import { useCart } from "@/lib/cart-context";
 import { getPickupDates, pickupTimesFor } from "@/lib/pickup";
-import type { Product, OrderItem } from "@/types";
+import type { OrderItem } from "@/types";
 
 const formatPrice = (n: number) => n.toFixed(2).replace(".", ",");
 
-export default function ClickCollectForm({ products }: { products: Product[] }) {
-  const { items, count, total, addItem, updateQty, clear } = useCart();
+export default function ClickCollectForm() {
+  const { items, count, total, hydrated, updateQty, clear } = useCart();
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [drawerOpen, setDrawerOpen] = useState(false);
   const pickupDates = useMemo(() => getPickupDates(), []);
 
   const [form, setForm] = useState({
@@ -23,11 +22,6 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
     pickup_time: "08:00",
     notes: "",
   });
-
-  useEffect(() => {
-    document.body.style.overflow = drawerOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
-  }, [drawerOpen]);
 
   const pickupLabel = pickupDates.find((d) => d.value === form.pickup_date)?.label ?? form.pickup_date;
 
@@ -54,7 +48,6 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
     if (res.ok) {
       clear();
       setSuccess(true);
-      setDrawerOpen(false);
       window.scrollTo({ top: 0 });
     } else {
       const data = await res.json().catch(() => null);
@@ -198,148 +191,19 @@ export default function ClickCollectForm({ products }: { products: Product[] }) 
     </div>
   );
 
-  return (
-    <>
-      {/* Rappel mobile en haut de page */}
-      {count > 0 && (
-        <button
-          type="button"
-          onClick={() => setDrawerOpen(true)}
-          className="lg:hidden w-full mb-8 bg-brown text-cream p-5 text-left flex items-center justify-between gap-4"
-        >
-          <span>
-            <span className="block text-[10px] tracking-widest uppercase text-gold font-bold mb-1">
-              Votre panier est prêt
-            </span>
-            <span className="block text-sm font-bold">
-              {count} article{count !== 1 ? "s" : ""} · {formatPrice(total)} €
-            </span>
-            <span className="block text-xs text-cream/60 mt-1">
-              Choisissez votre créneau de retrait pour valider.
-            </span>
-          </span>
-          <span className="shrink-0 bg-gold text-brown text-[10px] font-bold tracking-widest uppercase px-4 py-3">
-            Finaliser
-          </span>
-        </button>
-      )}
+  // Panier lu depuis le navigateur : rien à afficher avant sa lecture
+  if (!hydrated) return <div className="min-h-[50vh]" aria-busy="true" />;
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Produits */}
-        <div className="lg:col-span-2 pb-40 lg:pb-0">
-          <div className="mb-6">
-            <h2 className="text-xs font-bold tracking-widest uppercase text-brown mb-1">
-              Vous aimerez aussi
-            </h2>
-            <p className="text-xs text-warm-gray tracking-wide">
-              Complétez votre commande avec d&apos;autres articles de la boulangerie.
-            </p>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {products.map((product) => {
-              const cartItem = items.find((i) => i.product.id === product.id);
-              return (
-                <div key={product.id} className="border border-brown/10 p-4 bg-cream-dark">
-                  <div className="aspect-square bg-brown/5 mb-3 relative overflow-hidden">
-                    {product.image_url ? (
-                      <Image src={product.image_url} alt={product.name} fill className="object-cover" />
-                    ) : (
-                      <div className="w-full h-full bg-gradient-to-br from-brown/5 to-gold/10" />
-                    )}
-                  </div>
-                  <p className="text-xs font-medium tracking-wider text-brown mb-0.5 uppercase truncate">
-                    {product.name}
-                  </p>
-                  <p className="text-xs text-warm-gray mb-3">
-                    {formatPrice(product.price)} €
-                  </p>
-                  <div className="flex items-center gap-1">
-                    {cartItem ? (
-                      <>
-                        <button
-                          onClick={() => updateQty(cartItem.id, cartItem.quantity - 1)}
-                          className="w-7 h-7 border border-brown/30 text-brown flex items-center justify-center hover:bg-brown hover:text-cream hover:border-brown transition-colors"
-                        >
-                          −
-                        </button>
-                        <span className="text-sm font-bold w-6 text-center text-brown">
-                          {cartItem.quantity}
-                        </span>
-                        <button
-                          onClick={() => addItem(product)}
-                          className="w-7 h-7 border border-brown/30 text-brown flex items-center justify-center hover:bg-brown hover:text-cream hover:border-brown transition-colors"
-                        >
-                          +
-                        </button>
-                      </>
-                    ) : (
-                      <button
-                        onClick={() => addItem(product)}
-                        className="btn-outline text-xs w-full py-1.5"
-                      >
-                        Ajouter
-                      </button>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Colonne droite — desktop uniquement */}
-        <div className="hidden lg:block lg:col-span-1">
-          <div className="sticky top-[112px]">{renderOrderPanel("desktop")}</div>
-        </div>
+  if (items.length === 0) {
+    return (
+      <div className="text-center py-16">
+        <p className="text-sm text-warm-gray tracking-wider mb-6">Votre panier est vide.</p>
+        <Link href="/produits" className="btn-primary inline-block">
+          Voir nos produits
+        </Link>
       </div>
+    );
+  }
 
-      {/* ── BARRE STICKY MOBILE ── */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-brown px-4 pt-3 pb-[max(12px,env(safe-area-inset-bottom))] shadow-[0_-10px_30px_rgba(0,0,0,0.25)]">
-        <p className="text-[11px] text-cream/70 text-center mb-2">
-          {count > 0
-            ? "Dernière étape : vos coordonnées et votre créneau de retrait"
-            : "Ajoutez des produits pour passer commande"}
-        </p>
-        <button
-          type="button"
-          onClick={() => setDrawerOpen(true)}
-          disabled={count === 0}
-          className="w-full flex items-center justify-between gap-3 bg-gold text-brown px-5 py-4 text-xs font-bold tracking-widest uppercase disabled:opacity-40"
-        >
-          <span>Finaliser ma commande</span>
-          <span className="flex items-center gap-2 shrink-0">
-            {formatPrice(total)} €
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
-            </svg>
-          </span>
-        </button>
-      </div>
-
-      {/* ── DRAWER MOBILE ── */}
-      {drawerOpen && (
-        <>
-          <div
-            className="lg:hidden fixed inset-0 z-50 bg-black/50"
-            onClick={() => setDrawerOpen(false)}
-          />
-          <div className="lg:hidden fixed bottom-0 left-0 right-0 z-50 max-h-[90svh] overflow-y-auto overscroll-contain rounded-t-2xl shadow-2xl">
-            <div className="bg-brown sticky top-0 z-10 flex items-center justify-between px-5 pt-5 pb-3 border-b border-cream/10">
-              <div className="w-10 h-1 bg-cream/30 rounded-full absolute left-1/2 -translate-x-1/2 top-2" />
-              <p className="text-xs font-bold tracking-widest uppercase text-gold">Finaliser ma commande</p>
-              <button
-                type="button"
-                onClick={() => setDrawerOpen(false)}
-                className="text-cream/60 hover:text-cream transition-colors text-lg leading-none p-1"
-                aria-label="Fermer"
-              >
-                ✕
-              </button>
-            </div>
-            <div className="pb-[env(safe-area-inset-bottom)] bg-brown">{renderOrderPanel("mobile")}</div>
-          </div>
-        </>
-      )}
-    </>
-  );
+  return <div className="max-w-xl mx-auto">{renderOrderPanel("commande")}</div>;
 }

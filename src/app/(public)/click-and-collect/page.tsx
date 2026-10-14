@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { getProduits } from "@/lib/contenu/donnees";
 import ClickCollectForm from "@/components/ClickCollectForm";
 
 export const metadata: Metadata = {
@@ -15,24 +14,20 @@ export const metadata: Metadata = {
   },
 };
 
-import type { Product } from "@/types";
-
-export default async function ClickCollectPage() {
-  const products = await getProduits({ disponibles: true });
-
+export default function ClickCollectPage() {
   return (
     <div className="min-h-screen bg-cream">
       {/* Hero */}
-      <div className="bg-brown py-20 px-4 md:px-8 text-center">
-        <p className="label-tag text-cream/60 mb-3">Commander</p>
+      <div className="bg-brown py-12 md:py-20 px-4 md:px-8 text-center">
+        <p className="label-tag text-cream/60 mb-3">Finaliser ma commande</p>
         <h1 className="section-title text-cream">Click &amp; Collect</h1>
         <p className="text-xs text-cream/60 mt-3 tracking-wider max-w-md mx-auto">
           Commandez avant 14h, retirez votre commande le lendemain dès 7h en boutique.
         </p>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 md:px-8 py-12">
-        <ClickCollectForm products={products ?? []} />
+      <div className="max-w-5xl mx-auto px-4 md:px-8 py-10 md:py-12">
+        <ClickCollectForm />
       </div>
     </div>
   );
