@@ -2450,5 +2450,31 @@
     "poids": null,
     "is_tranche": false,
     "weight_prices": []
+  },
+  {
+    "name": "tests",
+    "slug": "tests",
+    "subtitle": "azsaz",
+    "description": "szazas",
+    "image_url": "/fichiers/1791986465320-9af70b35.webp",
+    "price": 100,
+    "poids": null,
+    "weight_prices": [],
+    "ingredients": "sssc",
+    "conservation": "sdccsd",
+    "savoir_faire": "sdc",
+    "le_saviez_vous": "cdc",
+    "is_available": true,
+    "is_featured": false,
+    "is_semaine": false,
+    "is_tranche": false,
+    "available_days": [],
+    "category_id": "877f5353-4f3a-4cd1-ad77-fa7fd6d62bad",
+    "subcategory_id": null,
+    "badge": null,
+    "sort_order": 0,
+    "variations": [],
+    "id": "ff9098e6-8498-4b4d-8c56-85a7718eede4",
+    "created_at": "2026-10-14T14:01:21.055Z"
   }
 ]
