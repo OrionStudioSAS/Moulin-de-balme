@@ -2418,7 +2418,7 @@
     "is_semaine": false,
     "is_tranche": false,
     "available_days": [],
-    "category_id": null,
+    "category_id": "6a6d932a-9cd9-4c1b-bcb2-4cf5dab85de2",
     "subcategory_id": null,
     "badge": null,
     "sort_order": 0,
