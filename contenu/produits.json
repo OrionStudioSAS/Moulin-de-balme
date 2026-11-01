@@ -1862,7 +1862,7 @@
     "image_url": null,
     "category_id": "df2523df-a039-43f2-b38e-909f1aa6e29d",
     "available_days": [],
-    "is_available": true,
+    "is_available": false,
     "is_featured": false,
     "sort_order": 10,
     "created_at": "2026-07-29T13:37:59.002258+00:00",
