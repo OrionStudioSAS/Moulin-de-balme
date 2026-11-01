@@ -2399,5 +2399,31 @@
     "poids": null,
     "is_tranche": false,
     "weight_prices": []
+  },
+  {
+    "name": "Farine de maïs‌ bio",
+    "slug": "farine-de-mais-bio",
+    "subtitle": null,
+    "description": null,
+    "image_url": null,
+    "price": 5,
+    "poids": null,
+    "weight_prices": [],
+    "ingredients": null,
+    "conservation": null,
+    "savoir_faire": null,
+    "le_saviez_vous": null,
+    "is_available": true,
+    "is_featured": false,
+    "is_semaine": false,
+    "is_tranche": false,
+    "available_days": [],
+    "category_id": null,
+    "subcategory_id": null,
+    "badge": null,
+    "sort_order": 0,
+    "variations": [],
+    "id": "c3ba90e0-e4c7-428c-b297-4e78fb3ecf55",
+    "created_at": "2026-11-01T08:31:59.195Z"
   }
 ]
