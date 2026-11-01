@@ -401,7 +401,7 @@
     "image_url": "/fichiers/1790175778528-1l664hdna9s.webp",
     "category_id": "f6d25625-5e07-458f-9dbb-63a05595c74c",
     "available_days": [],
-    "is_available": false,
+    "is_available": true,
     "is_featured": false,
     "sort_order": 0,
     "created_at": "2026-09-23T15:03:30.90884+00:00",
