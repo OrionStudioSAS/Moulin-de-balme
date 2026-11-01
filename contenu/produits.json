@@ -617,7 +617,7 @@
       "dimanche",
       "lundi"
     ],
-    "is_available": true,
+    "is_available": false,
     "is_featured": false,
     "sort_order": 0,
     "created_at": "2026-06-24T14:03:29.762804+00:00",
